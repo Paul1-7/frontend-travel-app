@@ -9,7 +9,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 import AuthWrapper1 from './../AuthWrapper1';
 import AuthCardWrapper from './../AuthCardWrapper';
 import Logo from './../../../../ui-component/Logo';
-import FirebaseRegister from './../firebase-forms/FirebaseRegister';
+// import FirebaseRegister from './../firebase-forms/FirebaseRegister';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 
 // assets
@@ -57,7 +57,7 @@ const Register = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <FirebaseRegister />
+                                        {/* <FirebaseRegister /> */}
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />

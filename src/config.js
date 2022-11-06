@@ -5,7 +5,8 @@ const config = {
     defaultPath: '/dashboard/default',
     fontFamily: `'Roboto', sans-serif`,
     borderRadius: 12,
-    API_SERVER: 'http://localhost:5000/api/'
+    BASE_URL: 'http://localhost:4000',
+    MAPBOX_ACCESS_TOKEN: 'pk.eyJ1IjoicGF1bDEtNyIsImEiOiJja29vdGdlcngwY2l4MndtbHIwdXo3dmI0In0.2fx3l_hLv_ELsBjcxUNc9g'
 };
 
 export default config;

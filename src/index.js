@@ -14,8 +14,10 @@ import config from './config';
 
 // style + assets
 import './assets/scss/style.scss';
+import mapboxgl from 'mapbox-gl';
 
 //-----------------------|| REACT DOM RENDER  ||-----------------------//
+mapboxgl.accessToken = config.MAPBOX_ACCESS_TOKEN;
 
 ReactDOM.render(
     <Provider store={store}>

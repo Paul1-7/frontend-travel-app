@@ -47,20 +47,21 @@ export const utilities = {
             title: 'Icons',
             type: 'collapse',
             icon: icons['IconWindmill'],
+            breadcrumbs: true,
             children: [
                 {
                     id: 'tabler-icons',
                     title: 'Tabler Icons',
                     type: 'item',
                     url: '/icons/tabler-icons',
-                    breadcrumbs: false
+                    breadcrumbs: true
                 },
                 {
                     id: 'material-icons',
                     title: 'Material Icons',
                     type: 'item',
                     url: '/icons/material-icons',
-                    breadcrumbs: false
+                    breadcrumbs: true
                 }
             ]
         }

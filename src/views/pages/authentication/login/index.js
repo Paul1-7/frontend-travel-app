@@ -9,7 +9,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 import AuthWrapper1 from './../AuthWrapper1';
 import Logo from './../../../../ui-component/Logo';
 import AuthCardWrapper from './../AuthCardWrapper';
-import RestLogin from './RestLogin';
+// import RestLogin from './RestLogin';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 
 // assets
@@ -57,7 +57,7 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <RestLogin />
+                                        {/* <RestLogin /> */}
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />

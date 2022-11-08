@@ -6,7 +6,7 @@ import { FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select } from 
 import { objectByString } from '../../../utils/dataHandler';
 
 const SelectMemo = memo(
-    ({ name, label, isArray, methods, items, ...others }) => {
+    ({ name, label, isArray, methods, onChange, items, ...others }) => {
         const error = methods.formState.errors;
 
         const errorValue = isArray ? objectByString(error, name) : error[name];
@@ -23,7 +23,10 @@ const SelectMemo = memo(
                                 labelId={name}
                                 {...field}
                                 label={label}
-                                onChange={(value) => field.onChange(value)}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    onChange?.(value.target);
+                                }}
                                 value={field.value}
                                 {...others}
                             >

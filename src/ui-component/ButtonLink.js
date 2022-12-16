@@ -3,14 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ButtonLink = (props) => {
-    return (
-        <Button
-            variant="outlined"
-            sx={{ color: 'secondary.main', bgcolor: 'secondary.[200]' }}
-            LinkComponent={Link}
-            {...props}
-        />
-    );
+    return <Button variant="outlined" color="secondary" LinkComponent={Link} {...props} />;
 };
 
 export default ButtonLink;

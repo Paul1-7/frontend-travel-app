@@ -47,6 +47,7 @@ const AgregarFormRuta = () => {
         criteriaMode: 'all',
         shouldFocusError: true
     });
+    console.log('TCL: AgregarFormRuta -> methods', methods.formState.errors);
 
     const onSubmit = (data) => {
         axiosFetchPost({

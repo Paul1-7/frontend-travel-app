@@ -1,27 +1,19 @@
 import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import MainCard from '../../ui-component/cards/MainCard';
-import Table from '../../ui-component/Table';
 import ButtonLink from '../../ui-component/ButtonLink';
 import axios from '../../apis';
 import useAxios from '../../hooks/useAxios';
 import MuiTypography from '@material-ui/core/Typography';
 import { RoundaboutLeft } from '@mui/icons-material';
+import DataTable from '../../ui-component/dataTable/DataTable';
+import { COLUMNS_TABLE } from '../../constants/dataTable';
 
-const columnsData = [
-    { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'titulo', headerName: 'Titulo', flex: 1 },
-    { field: 'descripcion', headerName: 'Descripcion', flex: 1 },
-    { field: 'duracion', headerName: 'Duracion', flex: 1 },
-    { field: 'dias', headerName: 'Días', flex: 1 },
-    { field: 'precio', headerName: 'Precio', flex: 1 },
-    { field: 'estado', headerName: 'Estado', flex: 1 }
-];
-
+const buttonsActions = { edit: true, remove: true, detail: true };
 const Rutas = () => {
-    const [response, error, loading, axiosFetch] = useAxios();
+    const [resGet, errorGet, loadingGet, axiosFetchGet] = useAxios();
     useEffect(() => {
-        axiosFetch({
+        axiosFetchGet({
             axiosInstance: axios,
             method: 'GET',
             url: '/api/v1/rutas'
@@ -43,9 +35,15 @@ const Rutas = () => {
                         Nueva ruta
                     </ButtonLink>
                 </Grid>
-                <Grid item xs={12}>
-                    <Table rowsData={response} columnsData={columnsData} errors={error} loading={loading} />
-                </Grid>
+                <DataTable
+                    columns={COLUMNS_TABLE.rutas}
+                    rows={resGet}
+                    error={errorGet}
+                    loading={loadingGet}
+                    numeration
+                    btnActions={buttonsActions}
+                    orderByDefault="nombre"
+                />
             </Grid>
         </MainCard>
     );

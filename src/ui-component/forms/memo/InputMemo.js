@@ -21,6 +21,7 @@ const InputMemo = memo(
                             label={label}
                             value={field.value}
                             onChange={field.onChange}
+                            color="secondary"
                             error={!!errorValue}
                             helperText={errorValue?.message ?? ' '}
                             fullWidth

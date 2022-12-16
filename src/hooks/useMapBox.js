@@ -50,7 +50,7 @@ const getStringMarker = (data) => {
 };
 
 const useMapBox = (options) => {
-    const [resGet, , loadingGet, axiosFetchGet] = useAxios();
+    const [resGet, , , axiosFetchGet] = useAxios();
     const { initialMarker = true } = options || {};
     const center = [-64.728096, -21.521383];
     const theme = useTheme();
@@ -79,22 +79,18 @@ const useMapBox = (options) => {
             })
         );
         setLocation(center);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapRef]);
 
     useEffect(() => {
         if (!map || Array.isArray(resGet)) return;
-        console.log('emtre');
         const { coordinates } = resGet.routes[0].geometry;
-        // const bounds = new LngLatBounds(center, center);
 
         const bounds = coordinates.reduce(function (bounds, coord) {
             return bounds.extend(coord);
         }, new LngLatBounds(coordinates[0], coordinates[0]));
 
-        // for (const coord of coordinates) {
-        //     bounds.extend(coord);
-        // }
-        console.log(bounds);
         map.fitBounds(bounds, {
             padding: 50,
             easing(t) {
@@ -104,6 +100,8 @@ const useMapBox = (options) => {
 
         map.addSource(ID_SOURCE, sourceData(coordinates));
         map.addLayer(LAYER);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resGet]);
 
     useEffect(() => {
@@ -123,10 +121,10 @@ const useMapBox = (options) => {
     };
 
     const generateMarkers = (array, options = {}) => {
-        const newMarkers = array.map((marker) =>
+        const newMarkers = array.map(({ lngLat, label }) =>
             new Marker({ color: SECONDARY_MAIN, ...options })
-                .setLngLat(marker)
-                .setPopup(new Popup({ offset: 30 }).setHTML('<h4>Hello World!</h4>'))
+                .setLngLat(lngLat)
+                .setPopup(new Popup({ offset: 15 }).setHTML(`<h4>${label}</h4>`))
                 .addTo(map)
         );
 

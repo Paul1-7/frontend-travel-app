@@ -1,5 +1,5 @@
 // assets
-import { IconHelp, IconMountain, IconRoute, IconSitemap, IconUser, IconUsers } from '@tabler/icons';
+import { IconHelp, IconMountain, IconRoute, IconSitemap, IconUser, IconUsers, IconLayoutDashboard } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -8,7 +8,8 @@ const icons = {
     clientes: IconUser,
     empleados: IconUsers,
     IconHelp: IconHelp,
-    IconSitemap: IconSitemap
+    IconSitemap: IconSitemap,
+    dashboard: IconLayoutDashboard
 };
 
 //-----------------------|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||-----------------------//
@@ -18,6 +19,14 @@ export const other = {
     title: 'Modulos',
     type: 'group',
     children: [
+        {
+            id: 'dashboard',
+            title: 'Dashboard',
+            type: 'item',
+            url: '/dashboard/default',
+            icon: icons.dashboard,
+            breadcrumbs: true
+        },
         {
             id: 'rutas',
             title: 'Rutas',
@@ -68,15 +77,6 @@ export const other = {
             url: '/empleados',
             icon: icons.empleados,
             breadcrumbs: true
-        },
-        {
-            id: 'documentation',
-            title: 'Documentation',
-            type: 'item',
-            url: 'https://docs.appseed.us/products/react/node-js-berry-dashboard',
-            icon: icons['IconHelp'],
-            external: true,
-            target: true
         }
     ]
 };

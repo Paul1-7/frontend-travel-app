@@ -52,7 +52,7 @@ const Itinerario = ({ generateMarkers, deleteMarkers }) => {
 
         const lugaresUnicos = resGet.filter((item) => idLugaresUnicos.includes(item.id));
 
-        const markers = lugaresUnicos.map(({ lng, lat }) => [lng, lat]);
+        const markers = lugaresUnicos.map(({ lng, lat, nombre }) => ({ lngLat: [lng, lat], label: nombre }));
 
         deleteMarkers();
         generateMarkers(markers);

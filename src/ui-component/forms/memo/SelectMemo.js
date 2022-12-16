@@ -27,6 +27,7 @@ const SelectMemo = memo(
                                     field.onChange(value);
                                     onChange?.(value.target);
                                 }}
+                                color="secondary"
                                 value={field.value}
                                 {...others}
                             >

@@ -38,7 +38,8 @@ const MainCard = React.forwardRef(
                 {...others}
                 sx={{
                     border: border ? '1px solid' : 'none',
-                    borderColor: theme.palette.primary[200] + 75,
+                    padding: '2rem',
+                    borderColor: theme.palette.secondary.light + 75,
                     ':hover': {
                         boxShadow: boxShadow ? (shadow ? shadow : '0 2px 14px 0 rgb(32 40 45 / 8%)') : 'inherit'
                     },
@@ -48,7 +49,11 @@ const MainCard = React.forwardRef(
                 {/* card header and action */}
                 {!darkTitle && title && <CardHeader sx={headerSX} title={title} action={secondary} />}
                 {darkTitle && title && (
-                    <CardHeader sx={headerSX} title={<Typography variant="h3">{title}</Typography>} action={secondary} />
+                    <CardHeader
+                        sx={{ ...headerSX, backgroundColor: 'red' }}
+                        title={<Typography variant="h3">{title}</Typography>}
+                        action={secondary}
+                    />
                 )}
 
                 {/* content & header divider */}

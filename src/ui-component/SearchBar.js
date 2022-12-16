@@ -13,6 +13,7 @@ const SearchBar = ({ setSearchQuery }) => (
             variant="outlined"
             placeholder="Search..."
             size="small"
+            sx={{ width: '15rem' }}
         />
     </form>
 );

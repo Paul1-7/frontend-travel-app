@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import Breadcrumbs from './../../ui-component/extended/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Customization from './../Customization';
+// import Customization from './../Customization';
 import navigation from './../../menu-items';
 import { drawerWidth } from '../../store/constant';
 import { SET_MENU } from './../../store/actions';
@@ -120,6 +120,7 @@ const MainLayout = ({ children }) => {
                         [classes.contentShift]: leftDrawerOpened
                     }
                 ])}
+                style={{ backgroundColor: `rgb(244,244,244)` }}
             >
                 {/* <Main open={leftDrawerOpened}> */}
                 {/* breadcrumb */}
@@ -127,7 +128,7 @@ const MainLayout = ({ children }) => {
                 <div>{children}</div>
                 {/* </Main> */}
             </main>
-            <Customization />
+            {/* <Customization /> */}
         </div>
     );
 };

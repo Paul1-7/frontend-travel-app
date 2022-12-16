@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Radio, RadioGroup } from '@mui/material';
 import { objectByString } from '../../../utils/dataHandler';
+import { useTheme } from '@material-ui/core';
 
 const RadioGroupMemo = memo(
     ({ name, isArray, label, methods, items, ...others }) => {
         const error = methods.formState.errors;
+        const theme = useTheme();
+        const SECONDARY_COLOR = theme.palette.secondary.main;
 
         const errorValue = isArray ? objectByString(error, name) : error[name];
         return (
@@ -26,7 +29,21 @@ const RadioGroupMemo = memo(
                                 {...others}
                             >
                                 {items.map((item) => (
-                                    <FormControlLabel key={item.id} value={item.id} control={<Radio />} label={item.title} />
+                                    <FormControlLabel
+                                        key={item.id}
+                                        value={item.id}
+                                        control={
+                                            <Radio
+                                                sx={{
+                                                    color: SECONDARY_COLOR,
+                                                    '&.Mui-checked': {
+                                                        color: SECONDARY_COLOR
+                                                    }
+                                                }}
+                                            />
+                                        }
+                                        label={item.title}
+                                    />
                                 ))}
                             </RadioGroup>
                             <FormHelperText error={errorValue} color="error">

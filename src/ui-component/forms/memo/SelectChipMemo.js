@@ -1,12 +1,14 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, Grid, FormHelperText, InputLabel, Select, Box, Chip, MenuItem, OutlinedInput } from '@material-ui/core';
+import { FormControl, Grid, FormHelperText, InputLabel, Select, Box, Chip, MenuItem, OutlinedInput, useTheme } from '@material-ui/core';
 import { Controller } from 'react-hook-form';
 import { objectByString } from '../../../utils/dataHandler';
 
 const SelectChipMemo = memo(
     ({ name, label, methods, isArray, items, ...others }) => {
         const error = methods.formState.errors;
+        const theme = useTheme();
+        const SECONDARY_COLOR = theme.palette.secondary.light;
 
         const errorValue = isArray ? objectByString(error, name) : error[name];
 
@@ -30,12 +32,15 @@ const SelectChipMemo = memo(
                     control={methods.control}
                     render={({ field }) => (
                         <FormControl sx={{ width: '100%' }} size="small">
-                            <InputLabel id={name}>{label}</InputLabel>
+                            <InputLabel id={name} color="secondary">
+                                {label}
+                            </InputLabel>
                             <Select
                                 multiple
                                 labelId={name}
                                 {...field}
                                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                color="secondary"
                                 onChange={(event) => handleChange(event, field)}
                                 value={field.value}
                                 size="small"
@@ -43,13 +48,25 @@ const SelectChipMemo = memo(
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                         {selected.map((value) => (
-                                            <Chip key={value} label={itemName(value)} />
+                                            <Chip key={value} label={itemName(value)} color="secondary" size="small" />
                                         ))}
                                     </Box>
                                 )}
                             >
                                 {items.map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
+                                    <MenuItem
+                                        key={item.id}
+                                        value={item.id}
+                                        color="secondary"
+                                        sx={{
+                                            '&.Mui-selected': {
+                                                backgroundColor: SECONDARY_COLOR
+                                            },
+                                            '&.Mui-selected:hover': {
+                                                backgroundColor: SECONDARY_COLOR
+                                            }
+                                        }}
+                                    >
                                         {item.nombre}
                                     </MenuItem>
                                 ))}

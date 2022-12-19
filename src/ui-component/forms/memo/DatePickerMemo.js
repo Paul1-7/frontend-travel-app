@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Controller } from 'react-hook-form';
-import { FormHelperText, Grid, TextField } from '@mui/material';
+import { FormHelperText, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { objectByString } from '../../../utils/dataHandler';
@@ -21,28 +21,26 @@ const DatePickerMemo = memo(
         const errorValue = isArray ? objectByString(error, name) : error[name];
 
         return (
-            <Grid item xs={12} md={6}>
-                <Controller
-                    name={name}
-                    control={methods.control}
-                    render={({ field }) => (
-                        <>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker
-                                    label={label}
-                                    {...field}
-                                    {...others}
-                                    onChange={(value) => field.onChange(convertValueToEvent('fechaInicio', value))}
-                                    renderInput={(params) => <TextField fullWidth size="small" {...params} color="secondary" />}
-                                />
-                            </LocalizationProvider>
-                            <FormHelperText error={errorValue} color="error">
-                                {errorValue?.message}
-                            </FormHelperText>
-                        </>
-                    )}
-                />
-            </Grid>
+            <Controller
+                name={name}
+                control={methods.control}
+                render={({ field }) => (
+                    <>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label={label}
+                                {...field}
+                                {...others}
+                                onChange={(value) => field.onChange(convertValueToEvent('fechaInicio', value))}
+                                renderInput={(params) => <TextField fullWidth size="small" {...params} color="secondary" />}
+                            />
+                        </LocalizationProvider>
+                        <FormHelperText error={errorValue} color="error">
+                            {errorValue?.message}
+                        </FormHelperText>
+                    </>
+                )}
+            />
         );
     },
     (prevProps, nextProps) =>

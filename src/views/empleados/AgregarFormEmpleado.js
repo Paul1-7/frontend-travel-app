@@ -68,16 +68,33 @@ const AgregarFormEmpleado = () => {
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <Grid wrap="wrap" container spacing={2}>
-                        <Input label="Nombre" name="nombre" />
-                        <Input label="Apellido" name="apellido" />
-                        <Input label="Carnet de identidad" name="ci" />
-                        <Input label="Teléfono" name="telefono" />
-                        <SelectChip name="roles" label="Roles" items={ITEMS_ROL} />
-                        <Input label="Usuario" name="usuario" />
-                        <Input label="Contraseña" name="password" />
-                        <Input label="Repetir contraseña" name="repetirPassword" />
-
-                        <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        <Grid item xs={12} md={6}>
+                            <Input label="Nombre" name="nombre" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Apellido" name="apellido" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Carnet de identidad" name="ci" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Teléfono" name="telefono" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <SelectChip name="roles" label="Roles" items={ITEMS_ROL} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Usuario" name="usuario" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Contraseña" name="password" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Repetir contraseña" name="repetirPassword" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        </Grid>
                     </Grid>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <LoadingButton

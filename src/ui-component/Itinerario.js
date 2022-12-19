@@ -1,5 +1,5 @@
 import { Button, FormControl, Grid, IconButton } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SubCard from './cards/SubCard';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { gridSpacing } from '../store/constant';
@@ -102,16 +102,24 @@ const Itinerario = ({ generateMarkers, deleteMarkers }) => {
                                 <FormControl disabled={loadingGet} sx={{ width: '100%' }}>
                                     <Grid container sx={{ display: 'grid' }} spacing={gridSpacing}>
                                         <Grid item xs={12} wrap="wrap" container spacing={gridSpacing}>
-                                            <Select
-                                                name={`itinerarios.${index}.idLugar`}
-                                                label="Lugar"
-                                                isArray
-                                                items={resGet}
-                                                onChange={getIdLugares}
-                                            />
-                                            <Input label="Descripcion" name={`itinerarios.${index}.descripcion`} isArray />
-                                            <Input label="Hora de inicio" name={`itinerarios.${index}.horaInicio`} isArray />
-                                            <Input label="Hora fin" name={`itinerarios.${index}.horaFin`} isArray />
+                                            <Grid item xs={12} md={6}>
+                                                <Select
+                                                    name={`itinerarios.${index}.idLugar`}
+                                                    label="Lugar"
+                                                    isArray
+                                                    items={resGet}
+                                                    onChange={getIdLugares}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <Input label="Descripcion" name={`itinerarios.${index}.descripcion`} isArray />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <Input label="Hora de inicio" name={`itinerarios.${index}.horaInicio`} isArray />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <Input label="Hora fin" name={`itinerarios.${index}.horaFin`} isArray />
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </FormControl>

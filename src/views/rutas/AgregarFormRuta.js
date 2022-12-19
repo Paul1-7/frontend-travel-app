@@ -8,7 +8,7 @@ import useAxios from '../../hooks/useAxios';
 import axios from '../../apis';
 import SaveIcon from '@mui/icons-material/Save';
 import { LoadingButton } from '@material-ui/lab';
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import schema from '../../schemas';
 import Input from '../../ui-component/forms/container/Input';
 import { ITEMS_RADIO_GROUP } from '../../constants/inputs';
@@ -16,12 +16,11 @@ import RadioGroup from '../../ui-component/forms/container/RadioGroup';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { useHistory } from 'react-router';
 import useMapBox from '../../hooks/useMapBox';
+import HorariosRutas from './HorariosRutas';
 
 const intialFormRutas = {
     titulo: '',
     descripcion: '',
-    dias: '',
-    horarios: '',
     duracion: '',
     precio: '',
     estado: '1',
@@ -32,11 +31,30 @@ const intialFormRutas = {
             horaInicio: '',
             horaFin: ''
         }
-    ]
+    ],
+    horarios: []
 };
 
 const AgregarFormRuta = () => {
     const [resPost, errorPost, loadingPost, axiosFetchPost] = useAxios();
+    // const [resGetDias, errorGetDias, , axiosFetchGetDias] = useAxios();
+    // const [resGetHoras, errorGetHoras, , axiosFetchGetHoras] = useAxios(customTime);
+
+    // useEffect(() => {
+    //     axiosFetchGetHoras({
+    //         axiosInstance: axios,
+    //         method: 'GET',
+    //         url: '/api/v1/horas/rutas'
+    //     });
+    //     axiosFetchGetDias({
+    //         axiosInstance: axios,
+    //         method: 'GET',
+    //         url: '/api/v1/dias'
+    //     });
+
+    //     //eslint-disable-next-line
+    // }, []);
+
     const { mapRef, generateMarkers, deleteMarkers } = useMapBox({ initialMarker: false });
 
     const history = useHistory();
@@ -48,6 +66,7 @@ const AgregarFormRuta = () => {
         shouldFocusError: true
     });
     console.log('TCL: AgregarFormRuta -> methods', methods.formState.errors);
+    console.log('TCL: AgregarFormRuta -> methods watc', methods.watch());
 
     const onSubmit = (data) => {
         axiosFetchPost({
@@ -77,42 +96,69 @@ const AgregarFormRuta = () => {
                 Nueva ruta
             </MuiTypography>
             <Box sx={{ width: '100%', height: 400, marginBottom: '2rem' }} ref={mapRef}></Box>
-            <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <Grid wrap="wrap" container spacing={2}>
-                        <Input label="Titulo" name="titulo" />
-                        <Input label="Descripción" name="descripcion" />
-                        <Input label="Dias" name="dias" />
-                        <Input label="Horarios" name="horarios" />
-                        <Input label="Duracion" name="duracion" />
-                        <Input label="Precio" name="precio" />
-                        <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
-                    </Grid>
-                    <Itinerario generateMarkers={generateMarkers} deleteMarkers={deleteMarkers} />
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                        <LoadingButton
-                            type="submit"
-                            loading={loadingPost}
-                            loadingPosition="start"
-                            startIcon={<SaveIcon />}
-                            color="secondary"
-                            variant="outlined"
-                        >
-                            Guardar
-                        </LoadingButton>
-                    </div>
-                </form>
-            </FormProvider>
-            {/* {!loadingPost && !errorPost && !Array.isArray(resPost) && (
-                <Alert severity="success" sx={{ position: 'absolute', zIndex: 9999 }} variant="filled">
-                    se guardo con exito
-                </Alert>
-            )}
-            {!loadingPost && errorPost && Array.isArray(resPost) && (
-                <Alert severity="error" sx={{ position: 'absolute', zIndex: 9999 }} variant="filled">
-                    ocurrio un error
-                </Alert>
-            )} */}
+
+            <>
+                <FormProvider {...methods}>
+                    <form onSubmit={methods.handleSubmit(onSubmit)}>
+                        <Grid wrap="wrap" container spacing={2}>
+                            <Grid item lg={12}>
+                                <MuiTypography variant="h3" gutterBottom>
+                                    Datos de la ruta
+                                </MuiTypography>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Titulo" name="titulo" />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Descripción" name="descripcion" />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Duracion" name="duracion" />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Precio" name="precio" />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                            </Grid>
+                            <Grid item lg={12}>
+                                <MuiTypography variant="h3" gutterBottom>
+                                    Horarios
+                                </MuiTypography>
+                            </Grid>
+                            {/* <Grid item lg={12} container sx={{ flexWrap: 'nowrap' }}>
+                                    <Grid item>
+                                        <Checkbox name="dias" label="Dias" items={resGetDias} />
+                                    </Grid>
+                                    <Grid  >
+                                        <Grid item>
+                                            <Checkbox name="idHorarios" label="Horas" items={resGetHoras} vertical />
+                                        </Grid>
+                                        <Grid item>
+                                            <Checkbox name="idHorarios" items={resGetHoras} vertical />
+                                        </Grid>
+                                    </Grid>
+                                </Grid> */}
+                            <Grid item lg={12}>
+                                <HorariosRutas />
+                            </Grid>
+                        </Grid>
+                        <Itinerario generateMarkers={generateMarkers} deleteMarkers={deleteMarkers} />
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                            <LoadingButton
+                                type="submit"
+                                loading={loadingPost}
+                                loadingPosition="start"
+                                startIcon={<SaveIcon />}
+                                color="secondary"
+                                variant="outlined"
+                            >
+                                Guardar
+                            </LoadingButton>
+                        </div>
+                    </form>
+                </FormProvider>
+            </>
         </MainCard>
     );
 };

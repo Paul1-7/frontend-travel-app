@@ -17,4 +17,6 @@ const objectByString = (o, s) => {
 
 const getBOBCurrency = (value) => new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(value);
 
-export { objectByString, getBOBCurrency };
+const getFormattedTime = (date) => new Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(date);
+
+export { objectByString, getBOBCurrency, getFormattedTime };

@@ -37,8 +37,6 @@ const AgregarFormLugar = () => {
         criteriaMode: 'all'
     });
 
-    console.log(methods.formState.errors);
-
     const onSubmit = (data) => {
         const newData = { lugar: data, punto: getLngLatMarker(0) };
         console.log('TCL: onSubmit -> data', newData);
@@ -73,10 +71,18 @@ const AgregarFormLugar = () => {
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <Grid wrap="wrap" container spacing={2}>
-                        <Input label="Nombre" name="nombre" />
-                        <Input label="Dirección" name="direccion" />
-                        <Input label="Horarios de atención" name="horariosAtencion" />
-                        <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        <Grid item xs={12} md={6}>
+                            <Input label="Nombre" name="nombre" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Dirección" name="direccion" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Horarios de atención" name="horariosAtencion" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        </Grid>
                     </Grid>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <LoadingButton

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Controller } from 'react-hook-form';
-import { FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { objectByString } from '../../../utils/dataHandler';
 
 const SelectMemo = memo(
@@ -12,39 +12,37 @@ const SelectMemo = memo(
         const errorValue = isArray ? objectByString(error, name) : error[name];
 
         return (
-            <Grid item xs={12} md={6}>
-                <Controller
-                    name={name}
-                    control={methods.control}
-                    render={({ field }) => (
-                        <FormControl fullWidth size="small">
-                            <InputLabel id={name}>{label}</InputLabel>
-                            <Select
-                                labelId={name}
-                                {...field}
-                                label={label}
-                                onChange={(value) => {
-                                    field.onChange(value);
-                                    onChange?.(value.target);
-                                }}
-                                color="secondary"
-                                value={field.value}
-                                {...others}
-                            >
-                                <MenuItem value="0">Ninguno</MenuItem>
-                                {items.map((item, index) => (
-                                    <MenuItem key={index} value={item.id}>
-                                        {item.nombre}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                            <FormHelperText error={!errorValue} color="error">
-                                {errorValue?.message}
-                            </FormHelperText>
-                        </FormControl>
-                    )}
-                />
-            </Grid>
+            <Controller
+                name={name}
+                control={methods.control}
+                render={({ field }) => (
+                    <FormControl fullWidth size="small">
+                        <InputLabel id={name}>{label}</InputLabel>
+                        <Select
+                            labelId={name}
+                            {...field}
+                            label={label}
+                            onChange={(value) => {
+                                field.onChange(value);
+                                onChange?.(value.target);
+                            }}
+                            color="secondary"
+                            value={field.value}
+                            {...others}
+                        >
+                            <MenuItem value="0">Ninguno</MenuItem>
+                            {items.map((item, index) => (
+                                <MenuItem key={index} value={item.id}>
+                                    {item.nombre}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText error={!errorValue} color="error">
+                            {errorValue?.message}
+                        </FormHelperText>
+                    </FormControl>
+                )}
+            />
         );
     },
     (prevProps, nextProps) =>

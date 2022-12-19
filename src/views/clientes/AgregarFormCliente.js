@@ -1,4 +1,4 @@
-import { Alert, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import MainCard from '../../ui-component/cards/MainCard';
@@ -64,11 +64,21 @@ const AgregarFormClinte = () => {
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <Grid wrap="wrap" container spacing={2}>
-                        <Input label="Nombre" name="nombre" />
-                        <Input label="Apellido" name="apellido" />
-                        <Input label="Carnet de identidad" name="ci" />
-                        <Input label="Teléfono" name="telefono" />
-                        <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        <Grid item xs={12} md={6}>
+                            <Input label="Nombre" name="nombre" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Apellido" name="apellido" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Carnet de identidad" name="ci" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Input label="Teléfono" name="telefono" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />
+                        </Grid>
                     </Grid>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <LoadingButton

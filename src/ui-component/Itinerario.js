@@ -60,6 +60,7 @@ const Itinerario = ({ generateMarkers, deleteMarkers }) => {
     }, [idLugares]);
 
     useEffect(() => {
+        console.log('eneees');
         axiosFetchGet({
             axiosInstance: axios,
             method: 'GET',

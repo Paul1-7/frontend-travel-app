@@ -98,16 +98,6 @@ const AgregarFormLugar = () => {
                     </div>
                 </form>
             </FormProvider>
-            {/* {!loadingPost && !errorPost && !Array.isArray(resPost) && (
-                <Alert severity="success" sx={{ position: 'absolute', zIndex: 9999 }} variant="filled">
-                    {resPost?.message}
-                </Alert>
-            )}
-            {!loadingPost && errorPost && Array.isArray(resPost) && (
-                <Alert severity="error" sx={{ position: 'absolute', zIndex: 9999 }} variant="filled">
-                    ocurrio un error
-                </Alert>
-            )} */}
         </MainCard>
     );
 };

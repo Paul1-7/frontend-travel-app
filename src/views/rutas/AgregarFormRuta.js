@@ -17,6 +17,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import { useHistory } from 'react-router';
 import useMapBox from '../../hooks/useMapBox';
 import HorariosRutas from './HorariosRutas';
+import { DevTool } from '@hookform/devtools';
 
 const intialFormRutas = {
     titulo: '',
@@ -37,23 +38,6 @@ const intialFormRutas = {
 
 const AgregarFormRuta = () => {
     const [resPost, errorPost, loadingPost, axiosFetchPost] = useAxios();
-    // const [resGetDias, errorGetDias, , axiosFetchGetDias] = useAxios();
-    // const [resGetHoras, errorGetHoras, , axiosFetchGetHoras] = useAxios(customTime);
-
-    // useEffect(() => {
-    //     axiosFetchGetHoras({
-    //         axiosInstance: axios,
-    //         method: 'GET',
-    //         url: '/api/v1/horas/rutas'
-    //     });
-    //     axiosFetchGetDias({
-    //         axiosInstance: axios,
-    //         method: 'GET',
-    //         url: '/api/v1/dias'
-    //     });
-
-    //     //eslint-disable-next-line
-    // }, []);
 
     const { mapRef, generateMarkers, deleteMarkers } = useMapBox({ initialMarker: false });
 
@@ -63,20 +47,32 @@ const AgregarFormRuta = () => {
         defaultValues: intialFormRutas,
         mode: 'all',
         criteriaMode: 'all',
-        shouldFocusError: true
+        shouldFocusError: true,
+        reValidateMode: 'onChange'
     });
-    console.log('TCL: AgregarFormRuta -> methods', methods.formState.errors);
+    //  methods.formState.isValid
+    console.log('TCL: AgregarFormRuta -> methods err', methods.formState.errors);
     console.log('TCL: AgregarFormRuta -> methods watc', methods.watch());
 
-    const onSubmit = (data) => {
-        axiosFetchPost({
-            axiosInstance: axios,
-            method: 'post',
-            url: '/api/v1/rutas',
-            requestConfig: {
-                ...data
-            }
-        });
+    const onSubmit = (data, e) => {
+        console.log({ e });
+        e.submitted = false;
+        const horarios = data.horarios
+            .filter(({ checkedDia }) => checkedDia.length)
+            .map(({ idDia, idHorario }) => ({
+                idDia: idDia[0],
+                idHorario: idHorario[0]
+            }));
+        const newData = { ...data, horarios };
+        console.log(newData);
+        // axiosFetchPost({
+        //     axiosInstance: axios,
+        //     method: 'post',
+        //     url: '/api/v1/rutas',
+        //     requestConfig: {
+        //         ...newData
+        //     }
+        // });
     };
 
     useEffect(() => {
@@ -126,19 +122,6 @@ const AgregarFormRuta = () => {
                                     Horarios
                                 </MuiTypography>
                             </Grid>
-                            {/* <Grid item lg={12} container sx={{ flexWrap: 'nowrap' }}>
-                                    <Grid item>
-                                        <Checkbox name="dias" label="Dias" items={resGetDias} />
-                                    </Grid>
-                                    <Grid  >
-                                        <Grid item>
-                                            <Checkbox name="idHorarios" label="Horas" items={resGetHoras} vertical />
-                                        </Grid>
-                                        <Grid item>
-                                            <Checkbox name="idHorarios" items={resGetHoras} vertical />
-                                        </Grid>
-                                    </Grid>
-                                </Grid> */}
                             <Grid item lg={12}>
                                 <HorariosRutas />
                             </Grid>
@@ -159,6 +142,7 @@ const AgregarFormRuta = () => {
                     </form>
                 </FormProvider>
             </>
+            <DevTool control={methods.control} />
         </MainCard>
     );
 };

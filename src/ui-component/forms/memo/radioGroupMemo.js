@@ -19,7 +19,9 @@ const RadioGroupMemo = memo(
                 control={methods.control}
                 render={({ field }) => (
                     <FormControl>
-                        <FormLabel id={name}>{label}</FormLabel>
+                        <FormLabel id={name} color="secondary">
+                            {label}
+                        </FormLabel>
                         <RadioGroup
                             aria-labelledby={name}
                             {...field}
@@ -55,7 +57,8 @@ const RadioGroupMemo = memo(
     },
     (prevProps, nextProps) =>
         prevProps.methods.formState.isDirty === nextProps.methods.formState.isDirty &&
-        prevProps.methods.formState.errors !== nextProps.methods.formState.errors
+        prevProps.methods.formState.errors !== nextProps.methods.formState.errors &&
+        prevProps.methods.formState.submitCount === nextProps.methods.formState.submitCount
 );
 
 export default RadioGroupMemo;

@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import axios from '../../apis';
 import useAxios from '../../hooks/useAxios';
 import Checkbox from '../../ui-component/forms/container/Checkbox';
@@ -25,9 +25,15 @@ const customTime = ({ data }) => {
 const HorariosRutas = ({ data = [] }) => {
     const [resGetDias, errorGetDias, , axiosFetchGetDias] = useAxios();
     const [resGetHora, errorGetHoras, , axiosFetchGetHora] = useAxios(customTime);
-    const { control, watch } = useFormContext();
-    // const checkedDia
-    const { fields, append } = useFieldArray({
+    const [disabledHour, setDisabledHour] = useState([]);
+    const { control } = useFormContext();
+
+    const { fields, append, update } = useFieldArray({
+        control,
+        name: 'horarios'
+    });
+
+    const horarios = useWatch({
         control,
         name: 'horarios'
     });
@@ -59,6 +65,28 @@ const HorariosRutas = ({ data = [] }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resGetHora, resGetDias]);
 
+    useEffect(() => {
+        if (!horarios.length) return;
+
+        const disableHours = horarios.map(({ checkedDia, ...item }, index) => {
+            if (checkedDia?.length) {
+                return false;
+            }
+            console.log(item);
+            // update(index, { ...item, idHorario: resGetDias });
+
+            return true;
+        });
+
+        setDisabledHour(disableHours);
+    }, [horarios]);
+
+    // const updateDisabledHour = (index) => {
+    //     const data = [...disabledHour];
+    //     data[index] = !data[index];
+    //     setDisabledHour(data);
+    // };
+
     return (
         <>
             {!!resGetDias.length && !!resGetHora.length && !errorGetDias && !errorGetHoras && (
@@ -66,10 +94,24 @@ const HorariosRutas = ({ data = [] }) => {
                     {fields.map(({ id, idDia, idHorario, checkedDia }, index) => (
                         <Grid key={id} item container spacing={2}>
                             <Grid item>
-                                <Checkbox name={`horarios.${index}.checkedDia`} items={idDia} sx={{ width: '7rem' }} />
+                                <Checkbox
+                                    name={`horarios.${index}.checkedDia`}
+                                    items={idDia}
+                                    sx={{ width: '7rem' }}
+                                    isArray
+                                    // onClick={() => {
+                                    //     updateDisabledHour(index);
+                                    // }}
+                                />
                             </Grid>
                             <Grid item>
-                                <Checkbox name={`horarios.${index}.idHorario`} items={idHorario} vertical />
+                                <Checkbox
+                                    name={`horarios.${index}.idHorario`}
+                                    items={idHorario}
+                                    vertical
+                                    isArray
+                                    disabled={disabledHour?.[index]}
+                                />
                             </Grid>
                         </Grid>
                     ))}

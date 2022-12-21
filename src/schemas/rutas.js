@@ -10,8 +10,13 @@ const itinerarios = yup.object().shape({
 
 const horarios = yup.object().shape({
     idDia: yup.array().min(1, 'tiene que seleccionar al menos una opción').required(),
-    idHorario: yup.array().of(yup.array()).required(),
-    checkedDia: yup.array().of(yup.array()).required()
+    idHorario: yup
+        .array()
+        .required()
+        .when('checkedDia', (checkedDia, schema) => {
+            if (!checkedDia.length) return schema.min('tiene que seleccionar un horario');
+        }),
+    checkedDia: yup.array().required()
 });
 
 const rutas = yup.object().shape({

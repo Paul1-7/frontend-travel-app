@@ -17,7 +17,9 @@ const SelectMemo = memo(
                 control={methods.control}
                 render={({ field }) => (
                     <FormControl fullWidth size="small">
-                        <InputLabel id={name}>{label}</InputLabel>
+                        <InputLabel id={name} color="secondary">
+                            {label}
+                        </InputLabel>
                         <Select
                             labelId={name}
                             {...field}
@@ -30,9 +32,11 @@ const SelectMemo = memo(
                             value={field.value}
                             {...others}
                         >
-                            <MenuItem value="0">Ninguno</MenuItem>
+                            <MenuItem value="0" color="secondary">
+                                Ninguno
+                            </MenuItem>
                             {items.map((item, index) => (
-                                <MenuItem key={index} value={item.id}>
+                                <MenuItem key={index} value={item.id} color="secondary">
                                     {item.nombre}
                                 </MenuItem>
                             ))}
@@ -47,7 +51,8 @@ const SelectMemo = memo(
     },
     (prevProps, nextProps) =>
         prevProps.methods.formState.isDirty === nextProps.methods.formState.isDirty &&
-        prevProps.methods.formState.errors !== nextProps.methods.formState.errors
+        prevProps.methods.formState.errors !== nextProps.methods.formState.errors &&
+        prevProps.methods.formState.submitCount === nextProps.methods.formState.submitCount
 );
 
 export default SelectMemo;

@@ -2,9 +2,9 @@ import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import CheckboxMemo from '../memo/CheckboxMemo';
 
-const Checkbox = ({ name, isArray, label, items, ...others }) => {
+const Checkbox = ({ name, isArray, label, disabled, items, ...others }) => {
     const methods = useFormContext();
-    return <CheckboxMemo name={name} label={label} methods={methods} {...others} items={items} isArray={isArray} />;
+    return <CheckboxMemo name={name} label={label} methods={methods} {...others} items={items} isArray={isArray} disabled={disabled} />;
 };
 
 export default Checkbox;
@@ -14,5 +14,6 @@ Checkbox.propTypes = {
     label: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
     others: PropTypes.object,
-    isArray: PropTypes.bool
+    isArray: PropTypes.bool,
+    disabled: PropTypes.bool
 };

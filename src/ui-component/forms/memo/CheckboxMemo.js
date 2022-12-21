@@ -7,7 +7,7 @@ import { objectByString } from '../../../utils/dataHandler';
 import { Checkbox, FormControl, FormGroup, FormLabel, useTheme } from '@material-ui/core';
 
 const CheckboxMemo = memo(
-    ({ name, isArray, label = '', methods, vertical = false, items, ...others }) => {
+    ({ name, isArray, label = '', methods, vertical = false, items, disabled = false, ...others }) => {
         const error = methods.formState.errors;
         const theme = useTheme();
         const SECONDARY_COLOR = theme.palette.secondary.main;
@@ -46,8 +46,7 @@ const CheckboxMemo = memo(
                                                 checked={checkedValues.includes(id)}
                                                 onChange={() => field.onChange(handleSelect(id))}
                                                 size="small"
-                                                // {...field}
-
+                                                disabled={disabled}
                                                 sx={{
                                                     color: SECONDARY_COLOR,
                                                     '&.Mui-checked': {
@@ -71,7 +70,8 @@ const CheckboxMemo = memo(
     },
     (prevProps, nextProps) =>
         prevProps.methods.formState.isDirty === nextProps.methods.formState.isDirty &&
-        prevProps.methods.formState.errors !== nextProps.methods.formState.errors
+        prevProps.methods.formState.errors !== nextProps.methods.formState.errors &&
+        prevProps.methods.formState.submitCount === nextProps.methods.formState.submitCount
 );
 
 export default CheckboxMemo;
@@ -83,5 +83,6 @@ CheckboxMemo.propTypes = {
     methods: PropTypes.object,
     others: PropTypes.object,
     isArray: PropTypes.bool,
-    vertical: PropTypes.bool
+    vertical: PropTypes.bool,
+    disabled: PropTypes.bool
 };

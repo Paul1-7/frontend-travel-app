@@ -12,7 +12,7 @@ setLocale({
         max: ({ max }) => ({ key: `El valor debe de ser menor a ${max}`, values: { max } })
     },
     array: {
-        min: 'el campo deberia tener al menos un item'
+        min: 'tiene que seleccionar al menos una opcíon'
     }
 });
 

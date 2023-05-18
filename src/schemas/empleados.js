@@ -12,5 +12,4 @@ const empleados = yup.object().shape({
     repetirPassword: yup.string().oneOf([yup.ref('password'), null], 'Las constraseñas no coinciden'),
     telefono: yup.string().required().matches(regex.tel, msg.tel).required()
 });
-
 export default empleados;

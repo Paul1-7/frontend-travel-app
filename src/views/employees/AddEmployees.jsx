@@ -2,15 +2,24 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useForm } from 'react-hook-form'
 import schema from '../../schemas'
-import { Report } from 'notiflix/build/notiflix-report-aio'
-import { DASHBOARD, initialFormEmployees } from '@/constants'
+import { DASHBOARD, ROUTES, initialFormEmployees } from '@/constants'
 import FormEmployees from './FormEmployees'
 import { DashboardContainer, Form } from '@/ui-component'
-import { useSWRConfig } from 'swr'
-import { URL_EMPLOYEES, addEmployees } from '@/services'
+import { addEmployees } from '@/services'
+import { useMutation } from '@tanstack/react-query'
+import { useSnackbarMessage } from '@/hooks'
+import { Redirect } from 'react-router-dom'
 
 const AddEmployee = () => {
-  const { mutate } = useSWRConfig()
+  const { mutate, isLoading, isSuccess, error, isError, data } = useMutation({
+    mutationFn: (data) => {
+      return addEmployees({ data })
+    }
+  })
+  console.log('TCL: AddEmployee -> data', data)
+  useSnackbarMessage({
+    errors: [error?.message]
+  })
 
   const methods = useForm({
     resolver: yupResolver(schema.empleados),
@@ -19,20 +28,14 @@ const AddEmployee = () => {
     criteriaMode: 'all'
   })
 
-  const onSubmit = (data) => {
-    console.log('TCL: onSubmit -> data', data)
-    mutate(URL_EMPLOYEES.default, addEmployees(data), {
-      revalidate: false,
-      rollbackOnError: true,
-      populateCache: true
-    })
-  }
-
   return (
     <DashboardContainer data={DASHBOARD.employees.add}>
-      <Form methods={methods} onSubmit={onSubmit}>
-        <FormEmployees loading={false} />
+      <Form methods={methods} onSubmit={mutate}>
+        <FormEmployees loading={isLoading} />
       </Form>
+      {!isLoading && !isError && isSuccess && (
+        <Redirect to={{ pathname: ROUTES.employees.default, state: data }} />
+      )}
     </DashboardContainer>
   )
 }

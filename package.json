@@ -27,6 +27,7 @@
     "@mui/x-date-pickers": "^6.4.0",
     "@tabler/icons": "^1.101.0",
     "@tanstack/react-query": "^4.29.7",
+    "@tanstack/react-query-devtools": "^4.29.7",
     "apexcharts": "^3.26.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",

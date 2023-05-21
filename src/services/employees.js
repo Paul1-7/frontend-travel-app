@@ -7,11 +7,9 @@ export const URL_EMPLOYEES = {
 
 export const listEmployees = () =>
   Axios.get(URL_EMPLOYEES.default).then((res) => {
-    return employeesListAdapter(res.data)
+    return employeesListAdapter(res)
   })
 
-export const addEmployees = ({ data }) => {
-  Axios.post(URL_EMPLOYEES.default, data).then((res) => {
-    return res.data
-  })
+export const addEmployees = async ({ data }) => {
+  return Axios.post(URL_EMPLOYEES.default, data)
 }

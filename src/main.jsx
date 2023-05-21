@@ -10,14 +10,28 @@ import config from './config'
 // style + assets
 import './assets/scss/style.scss'
 import mapboxgl from 'mapbox-gl'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { customResponseWithAxios } from './interceptors/customResponse.js'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      retry: false
+    }
+  }
+})
+customResponseWithAxios()
 
 mapboxgl.accessToken = config.MAPBOX_ACCESS_TOKEN
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persister}>
         <BrowserRouter basename={config.basename}>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
         </BrowserRouter>
       </PersistGate>
     </Provider>

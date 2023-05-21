@@ -18,6 +18,7 @@ specifiers:
   '@mui/x-date-pickers': ^6.4.0
   '@tabler/icons': ^1.101.0
   '@tanstack/react-query': ^4.29.7
+  '@tanstack/react-query-devtools': ^4.29.7
   '@types/react': ^17.0.2
   '@types/react-dom': ^17.0.2
   '@vitejs/plugin-react-swc': ^3.0.0
@@ -69,6 +70,7 @@ dependencies:
   '@mui/x-date-pickers': 6.4.0_wpyyp2lmbicw45j62ivwp2ucs4
   '@tabler/icons': 1.119.0_sfoxds7t5ydpegc3knd667wn6m
   '@tanstack/react-query': 4.29.7_sfoxds7t5ydpegc3knd667wn6m
+  '@tanstack/react-query-devtools': 4.29.7_sokt6e5dwbgk7xuvhgikfkjgxu
   apexcharts: 3.40.0
   axios: 0.21.4
   clsx: 1.2.1
@@ -1347,8 +1349,30 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /@tanstack/match-sorter-utils/8.8.4:
+    resolution: {integrity: sha512-rKH8LjZiszWEvmi01NR72QWZ8m4xmXre0OOwlRGnjU01Eqz/QnN+cqpty2PJ0efHblq09+KilvyR7lsbzmXVEw==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
   /@tanstack/query-core/4.29.7:
     resolution: {integrity: sha512-GXG4b5hV2Loir+h2G+RXhJdoZhJLnrBWsuLB2r0qBRyhWuXq9w/dWxzvpP89H0UARlH6Mr9DiVj4SMtpkF/aUA==}
+    dev: false
+
+  /@tanstack/react-query-devtools/4.29.7_sokt6e5dwbgk7xuvhgikfkjgxu:
+    resolution: {integrity: sha512-fckNnBV6Kfbtq6EJqQen8oBjPqGFcOPS9SJmNKLbFLQgd7OpNIlA4M0r37iJYUY9m14/ESKc1wzKd36VfeiPjg==}
+    peerDependencies:
+      '@tanstack/react-query': 4.29.7
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.8.4
+      '@tanstack/react-query': 4.29.7_sfoxds7t5ydpegc3knd667wn6m
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      superjson: 1.12.3
+      use-sync-external-store: 1.2.0_react@17.0.2
     dev: false
 
   /@tanstack/react-query/4.29.7_sfoxds7t5ydpegc3knd667wn6m:
@@ -1682,6 +1706,13 @@ packages:
 
   /convert-source-map/1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
+    dev: false
+
+  /copy-anything/3.0.4:
+    resolution: {integrity: sha512-MaQ9FwzlZ/KLeVCLhzI3rZw0EhrIryfZa3AyT4agVybR0DjlkDHA8898lamLD6kfkf9MMn8D+zDAUR4+GxaymQ==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.10
     dev: false
 
   /cosmiconfig/7.1.0:
@@ -2464,6 +2495,11 @@ packages:
       call-bind: 1.0.2
     dev: true
 
+  /is-what/4.1.10:
+    resolution: {integrity: sha512-JBy26nXqBUwzTfgj6T5Y/UgXSmRd+03FTq5v3P+N1cOmOtI1hz7dBn+ZfqM7c86qqWTNBEH98h3pkpmI6USnQA==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /isarray/0.0.1:
     resolution: {integrity: sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==}
     dev: false
@@ -3085,6 +3121,10 @@ packages:
       functions-have-names: 1.2.3
     dev: true
 
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
+
   /reselect/4.1.8:
     resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
     dev: false
@@ -3294,6 +3334,13 @@ packages:
     resolution: {integrity: sha512-EulshI3pGUM66o6ZdH3ReiFcvHpM3vAigyK+vcxdjpJyEbIIrtbmBdY23mGgnI24uXiGFvrGq9Gkum/8U7vJWg==}
     dependencies:
       kdbush: 3.0.0
+    dev: false
+
+  /superjson/1.12.3:
+    resolution: {integrity: sha512-0j+U70KUtP8+roVPbwfqkyQI7lBt7ETnuA7KXbTDX3mCKiD/4fXs2ldKSMdt0MCfpTwiMxo20yFU3vu6ewETpQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.4
     dev: false
 
   /supports-color/5.5.0:

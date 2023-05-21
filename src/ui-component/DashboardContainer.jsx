@@ -11,7 +11,9 @@ function DashboardContainer({ data, children }) {
       <Typography variant="h1" gutterBottom>
         {title}
       </Typography>
-      <Typography component="p">{description}</Typography>
+      <Typography component="p" sx={{ mb: 4 }}>
+        {description}
+      </Typography>
       {button && (
         <Grid item container direction="row-reverse">
           <ButtonLink to={url} endIcon={<Icon />}>

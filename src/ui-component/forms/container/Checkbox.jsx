@@ -1,19 +1,27 @@
-import { useFormContext } from 'react-hook-form';
-import PropTypes from 'prop-types';
-import CheckboxMemo from '../memo/CheckboxMemo';
+import { useFormContext } from 'react-hook-form'
+import PropTypes from 'prop-types'
+import { CheckboxMemo } from '../memo'
 
-const Checkbox = ({ name, isArray, label, disabled, items, ...others }) => {
-    const methods = useFormContext();
-    return <CheckboxMemo name={name} label={label} methods={methods} {...others} items={items} isArray={isArray} disabled={disabled} />;
-};
+function Checkbox({ name, isArray, label, items, ...others }) {
+  const methods = useFormContext()
+  return (
+    <CheckboxMemo
+      name={name}
+      label={label}
+      methods={methods}
+      {...others}
+      items={items}
+      isArray={isArray}
+    />
+  )
+}
 
-export default Checkbox;
+export default Checkbox
 
 Checkbox.propTypes = {
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.object),
-    others: PropTypes.object,
-    isArray: PropTypes.bool,
-    disabled: PropTypes.bool
-};
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object),
+  others: PropTypes.object,
+  isArray: PropTypes.bool
+}

@@ -2,10 +2,11 @@ import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { Controller } from 'react-hook-form'
-import { FormHelperText, TextField } from '@material-ui/core'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { objectByString } from '@/utils/dataHandler'
+import { es } from 'date-fns/locale'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { FormHelperText, TextField } from '@mui/material'
 
 const convertValueToEvent = (name, value) => ({
   target: {
@@ -26,26 +27,25 @@ const DatePickerMemo = memo(
         control={methods.control}
         render={({ field }) => (
           <>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              adapterLocale={es}
+              dateAdapter={AdapterDateFns}
+            >
               <DatePicker
                 label={label}
                 {...field}
                 {...others}
+                fullWidth
                 onChange={(value) =>
                   field.onChange(convertValueToEvent('fechaInicio', value))
                 }
                 renderInput={(params) => (
-                  <TextField
-                    fullWidth
-                    size="small"
-                    {...params}
-                    color="secondary"
-                  />
+                  <TextField fullWidth size="small" {...params} />
                 )}
               />
             </LocalizationProvider>
-            <FormHelperText error={errorValue} color="error">
-              {errorValue?.message}
+            <FormHelperText error={!!errorValue} color="error">
+              {errorValue?.message ?? ' '}
             </FormHelperText>
           </>
         )}
@@ -59,7 +59,7 @@ const DatePickerMemo = memo(
     prevProps.methods.formState.submitCount ===
       nextProps.methods.formState.submitCount
 )
-
+DatePickerMemo.displayName = 'DatePickerMemo'
 export default DatePickerMemo
 
 DatePickerMemo.propTypes = {

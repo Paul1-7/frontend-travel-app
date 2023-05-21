@@ -25,6 +25,7 @@ specifiers:
   apexcharts: ^3.26.1
   axios: ^0.21.1
   clsx: ^1.1.1
+  date-fns: ^2.30.0
   eslint: ^8.38.0
   eslint-plugin-react: ^7.32.2
   eslint-plugin-react-hooks: ^4.6.0
@@ -59,7 +60,7 @@ dependencies:
   '@material-ui/core': 5.0.0-beta.5_tn4wpgotrfebequcwko5a5gkni
   '@material-ui/data-grid': 4.0.0-alpha.37_kwolvehpylan6dqixfzfskdlz4
   '@material-ui/icons': 5.0.0-beta.5_xf5pnik53sqlw2bnzssyzf573q
-  '@material-ui/lab': 5.0.0-alpha.44_lup5vqasekishsccyfur4mcchu
+  '@material-ui/lab': 5.0.0-alpha.44_46fadrxopysxsg2p5lipslpeau
   '@material-ui/styles': 5.0.0-beta.5_wfmuqocisy6ijxsutdsg4s4lmy
   '@material-ui/utils': 5.0.0-beta.5_react@17.0.2
   '@mui/base': 5.0.0-beta.1_67ls2tg6s4m7k3le76ov6hhyyu
@@ -67,13 +68,14 @@ dependencies:
   '@mui/material': 5.13.0_tn4wpgotrfebequcwko5a5gkni
   '@mui/system': 5.13.1_i7kw5v4fxkybydiiagjsek7ela
   '@mui/x-data-grid': 5.17.26_32bo6veah2un6yvoskum35wpde
-  '@mui/x-date-pickers': 6.4.0_wpyyp2lmbicw45j62ivwp2ucs4
+  '@mui/x-date-pickers': 6.4.0_hsgtmicxlem5unsckwpmj5nbim
   '@tabler/icons': 1.119.0_sfoxds7t5ydpegc3knd667wn6m
   '@tanstack/react-query': 4.29.7_sfoxds7t5ydpegc3knd667wn6m
   '@tanstack/react-query-devtools': 4.29.7_sokt6e5dwbgk7xuvhgikfkjgxu
   apexcharts: 3.40.0
   axios: 0.21.4
   clsx: 1.2.1
+  date-fns: 2.30.0
   framer-motion: 4.1.17_sfoxds7t5ydpegc3knd667wn6m
   just-compare: 2.3.0
   mapbox-gl: 2.14.1
@@ -161,7 +163,7 @@ packages:
     resolution: {integrity: sha512-DYmSzkr+jToahwWrsiRA2/pzMEtz9Bq1euJwoOuYwuwIYXnZFtHajY2E6a1VNVDc9jP8YUXK1BvnZH9mmT19Zg==}
     dev: false
 
-  /@date-io/date-fns/2.16.0:
+  /@date-io/date-fns/2.16.0_date-fns@2.30.0:
     resolution: {integrity: sha512-bfm5FJjucqlrnQcXDVU5RD+nlGmL3iWgkHTq3uAZWVIuBu6dDmGa3m8a6zo2VQQpu8ambq9H22UyUpn7590joA==}
     peerDependencies:
       date-fns: ^2.0.0
@@ -170,6 +172,7 @@ packages:
         optional: true
     dependencies:
       '@date-io/core': 2.16.0
+      date-fns: 2.30.0
     dev: false
 
   /@date-io/dayjs/2.16.0:
@@ -715,7 +718,7 @@ packages:
       react: 17.0.2
     dev: false
 
-  /@material-ui/lab/5.0.0-alpha.44_lup5vqasekishsccyfur4mcchu:
+  /@material-ui/lab/5.0.0-alpha.44_46fadrxopysxsg2p5lipslpeau:
     resolution: {integrity: sha512-x5Tovc8rgxAoLZ8Hcm45tfCVlgYnUEbxIoRAQ2Bc+rEulYfdZY+xq492mt4wzwSCh8ZoTq7IwrL1sXN/SaLPdA==}
     engines: {node: '>=12.0.0'}
     deprecated: Material UI v4 doesn't receive active development since September 2021. See the guide https://mui.com/material-ui/migration/migration-v4/ to upgrade to v5.
@@ -741,7 +744,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.21.5
-      '@date-io/date-fns': 2.16.0
+      '@date-io/date-fns': 2.16.0_date-fns@2.30.0
       '@date-io/dayjs': 2.16.0
       '@date-io/luxon': 2.16.1
       '@date-io/moment': 2.16.1
@@ -751,6 +754,7 @@ packages:
       '@material-ui/utils': 5.0.0-beta.5_react@17.0.2
       '@types/react': 17.0.59
       clsx: 1.2.1
+      date-fns: 2.30.0
       prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -1144,7 +1148,7 @@ packages:
       reselect: 4.1.8
     dev: false
 
-  /@mui/x-date-pickers/6.4.0_wpyyp2lmbicw45j62ivwp2ucs4:
+  /@mui/x-date-pickers/6.4.0_hsgtmicxlem5unsckwpmj5nbim:
     resolution: {integrity: sha512-EdKj+TVaEvx+nIljsv1BlDOYYwcMWVYB+ZMRoOCStFojY5uuDzhttQAP6DbsAPPrpKt1lzyecIukLfmIfIGcsA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1191,6 +1195,7 @@ packages:
       '@mui/utils': 5.12.3_react@17.0.2
       '@types/react-transition-group': 4.4.6
       clsx: 1.2.1
+      date-fns: 2.30.0
       prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -1748,6 +1753,13 @@ packages:
 
   /csstype/3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+
+  /date-fns/2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.21.5
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

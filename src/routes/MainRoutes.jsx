@@ -48,7 +48,7 @@ const MainRoutes = () => {
         <Switch location={location} key={location.pathname}>
           {/* <AuthGuard> */}
           <Route path={ROUTES.dashboard} component={DashboardDefault} />
-          <Route
+          {/* <Route
             exact
             path={ROUTES.routes.default}
             children={
@@ -56,19 +56,17 @@ const MainRoutes = () => {
                 <Rutas />
               </DataTableProvider>
             }
-          />
-          <Route exact path="/rutas/nuevo" component={AgregarFormRuta} />
+          /> */}
+          {/* <Route exact path="/rutas/nuevo" component={AgregarFormRuta} />
           <Route
             exact
             path="/rutas/modificar/:id"
             component={ModificarFormRuta}
           />
-          {/* lugares */}
           <Route exact path="/lugares" component={Lugares} />
           <Route exact path="/lugares/nuevo" component={AgregarFormLugar} />
-          {/* clientes */}
           <Route exact path="/clientes" component={Clientes} />
-          <Route exact path="/clientes/nuevo" component={AgregarFormCliente} />
+          <Route exact path="/clientes/nuevo" component={AgregarFormCliente} /> */}
           {/* empleados */}
           <Route exact path={ROUTES.employees.default} component={Employees} />
           <Route exact path={ROUTES.employees.add} component={AddEmployees} />

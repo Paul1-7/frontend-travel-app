@@ -1,19 +1,21 @@
 import { memo } from 'react'
 import PropTypes from 'prop-types'
+
 import { Controller } from 'react-hook-form'
+
+import { objectByString } from '@/utils/dataHandler'
 import {
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
   Select
-} from '@material-ui/core'
-import { objectByString } from '@/utils/dataHandler'
+} from '@mui/material'
+import { DEFAULT_VALUE_ITEM } from '@/constants'
 
 const SelectMemo = memo(
-  ({ name, label, isArray, methods, onChange, items, ...others }) => {
+  ({ name, label, isArray, methods, items, ...others }) => {
     const error = methods.formState.errors
-
     const errorValue = isArray ? objectByString(error, name) : error[name]
 
     return (
@@ -21,33 +23,28 @@ const SelectMemo = memo(
         name={name}
         control={methods.control}
         render={({ field }) => (
-          <FormControl fullWidth size="small" error={!!errorValue}>
-            <InputLabel id={name} color="secondary">
-              {label}
-            </InputLabel>
+          <FormControl fullWidth size="small">
+            <InputLabel id={name}>{label}</InputLabel>
             <Select
               labelId={name}
               {...field}
               label={label}
-              onChange={(value) => {
-                field.onChange(value)
-                onChange?.(value.target)
-              }}
-              color="secondary"
+              onChange={(value) => field.onChange(value)}
               value={field.value}
               {...others}
             >
-              <MenuItem value="0" color="secondary">
-                Ninguno
-              </MenuItem>
-              {items.map((item, index) => (
-                <MenuItem key={index} value={item.id} color="secondary">
-                  {item.nombre}
-                </MenuItem>
-              ))}
+              <MenuItem value={DEFAULT_VALUE_ITEM}>Ninguno</MenuItem>
+              {items.map((item, index) => {
+                const value = Object.values(item)
+                return (
+                  <MenuItem key={index} value={value?.[0]}>
+                    {value?.[1]}
+                  </MenuItem>
+                )
+              })}
             </Select>
             <FormHelperText error={!!errorValue} color="error">
-              {errorValue?.message}
+              {errorValue?.message ?? ' '}
             </FormHelperText>
           </FormControl>
         )}
@@ -61,15 +58,14 @@ const SelectMemo = memo(
     prevProps.methods.formState.submitCount ===
       nextProps.methods.formState.submitCount
 )
-
+SelectMemo.displayName = 'SelectMemo'
 export default SelectMemo
 
 SelectMemo.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object),
   methods: PropTypes.object,
   others: PropTypes.object,
-  isArray: PropTypes.bool,
-  onChange: PropTypes.func
+  isArray: PropTypes.bool
 }

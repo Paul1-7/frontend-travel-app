@@ -1,29 +1,37 @@
 import { memo } from 'react'
+import { TextField } from '@mui/material'
 import PropTypes from 'prop-types'
 import { Controller } from 'react-hook-form'
 import { objectByString } from '@/utils/dataHandler'
-import { TextField } from '@material-ui/core'
 
 const InputMemo = memo(
-  ({ name, isArray = false, label, methods, ...others }) => {
+  ({
+    name,
+    label,
+    isArray,
+    helperText,
+    methods,
+    HelperTextProps,
+    variant = null,
+    ...others
+  }) => {
     const error = methods.formState.errors
 
     const errorValue = isArray ? objectByString(error, name) : error[name]
-
     return (
       <Controller
         name={name}
         control={methods.control}
         render={({ field }) => (
           <TextField
-            variant="outlined"
+            variant={variant ?? 'outlined'}
             label={label}
             value={field.value}
             onChange={field.onChange}
-            color="secondary"
             error={!!errorValue}
-            helperText={errorValue?.message ?? ' '}
+            helperText={errorValue?.message ?? helperText ?? ' '}
             fullWidth
+            FormHelperTextProps={HelperTextProps}
             size="small"
             {...others}
             {...field}
@@ -32,20 +40,27 @@ const InputMemo = memo(
       />
     )
   },
-  (prevProps, nextProps) =>
-    prevProps.methods.formState.isDirty ===
-      nextProps.methods.formState.isDirty &&
-    prevProps.methods.formState.errors !== nextProps.methods.formState.errors &&
-    prevProps.methods.formState.submitCount ===
-      nextProps.methods.formState.submitCount
+  (prevProps, nextProps) => {
+    return (
+      prevProps.methods.formState.isDirty ===
+        nextProps.methods.formState.isDirty &&
+      prevProps.methods.formState.errors !==
+        nextProps.methods.formState.errors &&
+      prevProps.methods.formState.submitCount ===
+        nextProps.methods.formState.submitCount
+    )
+  }
 )
-
+InputMemo.displayName = 'InputMemo'
 export default InputMemo
 
 InputMemo.propTypes = {
   name: PropTypes.string.isRequired,
-  isArray: PropTypes.bool,
+  helperText: PropTypes.string,
+  variant: PropTypes.string,
   label: PropTypes.string.isRequired,
   others: PropTypes.node,
-  methods: PropTypes.object
+  methods: PropTypes.object,
+  HelperTextProps: PropTypes.object,
+  isArray: PropTypes.bool
 }

@@ -19,11 +19,11 @@ const Lugares = () => {
     const [response, error, loading, axiosFetch] = useAxios();
 
     useEffect(() => {
-        axiosFetch({
-            axiosInstance: axios,
-            method: 'GET',
-            url: '/api/v1/lugares'
-        });
+        // axiosFetch({
+        //     axiosInstance: axios,
+        //     method: 'GET',
+        //     url: '/api/v1/lugares'
+        // });
         //eslint-disable-next-line
     }, []);
 

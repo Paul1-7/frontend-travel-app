@@ -2,43 +2,32 @@ import { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Controller } from 'react-hook-form'
+
 import { objectByString } from '@/utils/dataHandler'
 import {
-  Checkbox,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  useTheme,
-  FormControlLabel,
-  FormHelperText
-} from '@material-ui/core'
+  Autocomplete,
+  CircularProgress,
+  FormHelperText,
+  TextField
+} from '@mui/material'
 
-const CheckboxMemo = memo(
+const AutocompleteMemo = memo(
   ({
     name,
+    label,
     isArray,
-    label = '',
+    loading,
     methods,
-    vertical = false,
-    items = [],
-    disabled = false,
+    items,
+    HelperTextProps,
     ...others
   }) => {
+    const [inputValue, setInputValue] = useState('')
+    const defaultValue = { nombre: 'Ninguno', id: '0' }
+    items = [...items, ...[defaultValue]]
+
     const error = methods.formState.errors
-    const theme = useTheme()
-    const SECONDARY_COLOR = theme.palette.secondary.main
-    const [checkedValues, setCheckedValues] = useState([])
-    // console.log(`items ${name}`, items);
     const errorValue = isArray ? objectByString(error, name) : error[name]
-
-    const handleSelect = (checkedName) => {
-      const newNames = checkedValues?.includes(checkedName)
-        ? checkedValues?.filter((name) => name !== checkedName)
-        : [...(checkedValues ?? []), checkedName]
-      setCheckedValues(newNames)
-
-      return newNames
-    }
 
     return (
       <Controller
@@ -46,49 +35,52 @@ const CheckboxMemo = memo(
         control={methods.control}
         render={({ field }) => (
           <>
-            <FormControl component="fieldset" variant="standard" {...others}>
-              {label && (
-                <FormLabel component="legend" color="secondary">
-                  {label}
-                </FormLabel>
+            <Autocomplete
+              value={field.value}
+              size="small"
+              autoComplete
+              fullWidth
+              inputValue={inputValue}
+              loading={loading}
+              loadingText="Cargando..."
+              onChange={(event, newValue) => {
+                if (newValue === null)
+                  methods.setValue(name, defaultValue, { shouldValidate: true })
+                else field.onChange(newValue)
+              }}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue)
+              }}
+              id="controllable-states-demo"
+              options={items}
+              isOptionEqualToValue={(option, value) =>
+                option.nombre === value.nombre
+              }
+              getOptionLabel={(option) => option?.nombre ?? ''}
+              {...others}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={label}
+                  fullWidth
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <>
+                        {loading ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </>
+                    )
+                  }}
+                />
               )}
-              <FormGroup sx={vertical ? { flexDirection: 'row' } : {}}>
-                {items.map((item, index) => {
-                  const [id, nombre] = Object.values(item)
-                  // if ('idHorarioAux' in item) {
-                  //     item.idHorario = item.idHorarioAux;
-                  //     item.checkedDia = handleSelect(item[0])
-                  // }
-                  // console.log(`check ${name}`, field.value?.[index]);
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox
-                          checked={checkedValues.includes(id)}
-                          onChange={() => field.onChange(handleSelect(id))}
-                          // onChange={field.onChange}
-                          size="small"
-                          disabled={disabled}
-                          // value={field.value}
-                          sx={{
-                            color: SECONDARY_COLOR,
-                            '&.Mui-checked': {
-                              color: SECONDARY_COLOR
-                            }
-                          }}
-                        />
-                      }
-                      label={nombre}
-                    />
-                  )
-                })}
-              </FormGroup>
-            </FormControl>
+            />
             <FormHelperText
               error={!!errorValue}
               color="error"
-              sx={{ position: 'relative', top: '-10px' }}
+              {...HelperTextProps}
             >
               {errorValue?.message ?? ' '}
             </FormHelperText>
@@ -104,16 +96,16 @@ const CheckboxMemo = memo(
     prevProps.methods.formState.submitCount ===
       nextProps.methods.formState.submitCount
 )
+AutocompleteMemo.displayName = 'AutocompleteMemo'
+export default AutocompleteMemo
 
-export default CheckboxMemo
-
-CheckboxMemo.propTypes = {
+AutocompleteMemo.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  items: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   methods: PropTypes.object,
   others: PropTypes.object,
   isArray: PropTypes.bool,
-  vertical: PropTypes.bool,
-  disabled: PropTypes.bool
+  HelperTextProps: PropTypes.object
 }

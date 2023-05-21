@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MainCard from '../../ui-component/cards/MainCard';
 import MuiTypography from '@material-ui/core/Typography';
 import useAxios from '../../hooks/useAxios';
-import axios from '../../apis';
+// import axios from '../../apis';
 import SaveIcon from '@mui/icons-material/Save';
 import { LoadingButton } from '@material-ui/lab';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -41,14 +41,14 @@ const AgregarFormLugar = () => {
         const newData = { lugar: data, punto: getLngLatMarker(0) };
         console.log('TCL: onSubmit -> data', newData);
 
-        axiosFetchPost({
-            axiosInstance: axios,
-            method: 'post',
-            url: '/api/v1/lugares',
-            requestConfig: {
-                ...newData
-            }
-        });
+        // axiosFetchPost({
+        //     axiosInstance: axios,
+        //     method: 'post',
+        //     url: '/api/v1/lugares',
+        //     requestConfig: {
+        //         ...newData
+        //     }
+        // });
     };
 
     useEffect(() => {

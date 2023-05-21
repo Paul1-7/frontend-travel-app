@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form'
 import PropTypes from 'prop-types'
-import SelectMemo from '../memo/SelectMemo'
+import { SelectMemo } from '../memo'
 
-const Select = ({ name, isArray, onChange, label, items, ...others }) => {
+function Select({ name, isArray, label, items, ...others }) {
   const methods = useFormContext()
   return (
     <SelectMemo
@@ -10,9 +10,8 @@ const Select = ({ name, isArray, onChange, label, items, ...others }) => {
       label={label}
       isArray={isArray}
       methods={methods}
-      {...others}
       items={items}
-      onChange={onChange}
+      {...others}
     />
   )
 }
@@ -24,6 +23,5 @@ Select.propTypes = {
   label: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object),
   others: PropTypes.object,
-  onChange: PropTypes.func,
   isArray: PropTypes.bool
 }

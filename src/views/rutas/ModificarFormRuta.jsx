@@ -5,7 +5,7 @@ import MainCard from '../../ui-component/cards/MainCard'
 import Itinerario from '../../ui-component/Itinerario'
 import MuiTypography from '@material-ui/core/Typography'
 import useAxios from '../../hooks/useAxios'
-import axios from '../../apis'
+// import axios from '../../apis'
 import SaveIcon from '@mui/icons-material/Save'
 import { LoadingButton } from '@material-ui/lab'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -67,22 +67,22 @@ const ModificarFormRuta = () => {
       }))
     const newData = { ...data, horarios }
     console.log({ newData })
-    axiosFetchPut({
-      axiosInstance: axios,
-      method: 'Put',
-      url: '/api/v1/rutas',
-      requestConfig: {
-        ...newData
-      }
-    })
+    // axiosFetchPut({
+    //   axiosInstance: axios,
+    //   method: 'Put',
+    //   url: '/api/v1/rutas',
+    //   requestConfig: {
+    //     ...newData
+    //   }
+    // })
   }
 
   useEffect(() => {
-    axiosFetchGet({
-      axiosInstance: axios,
-      method: 'GET',
-      url: `/api/v1/rutas/${id}`
-    })
+    // axiosFetchGet({
+    //   axiosInstance: axios,
+    //   method: 'GET',
+    //   url: `/api/v1/rutas/${id}`
+    // })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

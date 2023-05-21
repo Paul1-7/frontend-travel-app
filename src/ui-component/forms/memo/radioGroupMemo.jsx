@@ -1,23 +1,22 @@
 import { memo } from 'react'
 import PropTypes from 'prop-types'
-
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup as MuiRadioGroup,
+  FormControlLabel,
+  Radio,
+  FormHelperText
+} from '@mui/material'
 import { Controller } from 'react-hook-form'
 import { objectByString } from '@/utils/dataHandler'
-import {
-  useTheme,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-  Radio,
-  RadioGroup
-} from '@material-ui/core'
+import { useTheme } from '@material-ui/core'
 
 const RadioGroupMemo = memo(
-  ({ name, isArray, label, methods, items, ...others }) => {
-    const error = methods.formState.errors
+  ({ name, label, isArray, methods, items, ...others }) => {
     const theme = useTheme()
     const SECONDARY_COLOR = theme.palette.secondary.main
+    const error = methods.formState.errors
 
     const errorValue = isArray ? objectByString(error, name) : error[name]
     return (
@@ -29,7 +28,7 @@ const RadioGroupMemo = memo(
             <FormLabel id={name} color="secondary">
               {label}
             </FormLabel>
-            <RadioGroup
+            <MuiRadioGroup
               aria-labelledby={name}
               {...field}
               onChange={(event, value) => field.onChange(value)}
@@ -53,8 +52,8 @@ const RadioGroupMemo = memo(
                   label={item.title}
                 />
               ))}
-            </RadioGroup>
-            <FormHelperText error={errorValue} color="error">
+            </MuiRadioGroup>
+            <FormHelperText error={!!errorValue} color="error">
               {errorValue?.message}
             </FormHelperText>
           </FormControl>
@@ -69,13 +68,13 @@ const RadioGroupMemo = memo(
     prevProps.methods.formState.submitCount ===
       nextProps.methods.formState.submitCount
 )
-
+RadioGroupMemo.displayName = 'RadioGroupMemo'
 export default RadioGroupMemo
 
 RadioGroupMemo.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  items: PropTypes.arrayOf(PropTypes.object),
   methods: PropTypes.object,
   others: PropTypes.object,
   isArray: PropTypes.bool

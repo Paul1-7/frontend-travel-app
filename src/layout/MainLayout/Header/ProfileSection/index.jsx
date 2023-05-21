@@ -127,7 +127,6 @@ const ProfileSection = () => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
   const handleLogout = () => {
-    console.log(account.token)
     axios
       .post(
         configData.BASE_URL + 'users/logout',
@@ -139,12 +138,9 @@ const ProfileSection = () => {
         //if (response.data.success) {
         dispatcher({ type: LOGOUT })
         //} else {
-        //    console.log('response - ', response.data.msg);
         //}
       })
-      .catch(function (error) {
-        console.log('error - ', error)
-      })
+      .catch(function (error) {})
   }
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)

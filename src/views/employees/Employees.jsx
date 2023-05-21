@@ -1,15 +1,15 @@
 import { DASHBOARD } from '@/constants/dashboard'
 import { DashboardContainer, DataTable } from '@/ui-component'
 import { COLUMNS_TABLE } from '@/constants'
-import useSWR from 'swr'
-import { URL_EMPLOYEES, listEmployees } from '@/services'
+import { listEmployees } from '@/services'
+import { useQuery } from '@tanstack/react-query'
 
 const buttonsActions = { edit: true, remove: true, detail: false }
 const Employees = () => {
-  const { data, error, isLoading } = useSWR(
-    URL_EMPLOYEES.default,
-    listEmployees
-  )
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['listEmployees'],
+    queryFn: listEmployees
+  })
 
   return (
     <DashboardContainer data={DASHBOARD.employees.default}>

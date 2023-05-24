@@ -9,5 +9,6 @@ export const initialFormEmployees = {
   password: '',
   repetirPassword: '',
   ci: '',
-  estado: '1'
+  estado: '1',
+  oldPassword: null
 }

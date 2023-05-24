@@ -64,7 +64,10 @@ const DialogConfirmation = ({
         cancelar
       </Button>
       <LoadingButton
-        onClick={() => handleDelete(id)}
+        onClick={() => {
+          handleDelete(id)
+          handleClickClose()
+        }}
         loading={loading}
         autoFocus
         color="error"

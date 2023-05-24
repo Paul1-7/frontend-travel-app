@@ -11,7 +11,6 @@ const useSnackBarMessage = ({ errors = [], successes = [] }) => {
   }, [errors])
 
   useEffect(() => {
-    console.log(successes)
     successes.some((success) => {
       if (typeof success === 'string') toast.success(success)
       return false

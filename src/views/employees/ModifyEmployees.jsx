@@ -5,17 +5,25 @@ import schema from '../../schemas'
 import { DASHBOARD, ROUTES, initialFormEmployees } from '@/constants'
 import FormEmployees from './FormEmployees'
 import { DashboardContainer, Form } from '@/ui-component'
-import { addEmployees } from '@/services'
-import { useMutation } from '@tanstack/react-query'
+import {  getEmployeesById, modifyEmployees } from '@/services'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useSnackbarMessage } from '@/hooks'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
-const AddEmployee = () => {
+const ModifyEmployees = () => {
+  const { id } = useParams()
   const { mutate, isLoading, isSuccess, error, isError, data } = useMutation({
     mutationFn: (data) => {
-      return addEmployees({ data })
+      return modifyEmployees({ data, id })
     }
   })
+
+  const employee = useQuery({
+    queryFn: () => getEmployeesById(id),
+    queryKey: ['employee']
+  })
+
   useSnackbarMessage({
     errors: [error?.message]
   })
@@ -26,10 +34,23 @@ const AddEmployee = () => {
     mode: 'all',
     criteriaMode: 'all'
   })
-  console.log(methods.formState.errors)
+
+  useEffect(() => {
+    if (!employee.isSuccess) return
+
+    Object.entries(employee.data).forEach(([key, value]) => {
+      if (key === 'password') {
+        methods.setValue(key, '')
+        methods.setValue('oldPassword', value)
+        return
+      }
+
+      methods.setValue(key, value, { shouldValidate: true })
+    })
+  }, [employee.isSuccess, employee.data])
 
   return (
-    <DashboardContainer data={DASHBOARD.employees.add}>
+    <DashboardContainer data={DASHBOARD.employees.modify}>
       <Form methods={methods} onSubmit={mutate}>
         <FormEmployees loading={isLoading} />
       </Form>
@@ -40,4 +61,4 @@ const AddEmployee = () => {
   )
 }
 
-export default AddEmployee
+export default ModifyEmployees

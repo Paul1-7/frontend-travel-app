@@ -30,4 +30,9 @@ const ITEMS_ROL = [
   }
 ]
 
-export { ITEMS_RADIO_GROUP, ITEMS_ROL, DEFAULT_VALUE_ITEM }
+const TEXT_MODAL = {
+  delete:
+    '¿Estas seguro de querer eliminar el registro seleccionado ? Esta accion no se puede deshacer'
+}
+
+export { ITEMS_RADIO_GROUP, ITEMS_ROL, DEFAULT_VALUE_ITEM, TEXT_MODAL }

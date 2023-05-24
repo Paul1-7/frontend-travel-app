@@ -1,4 +1,4 @@
-import { employeesListAdapter } from '@/adapters'
+import { employeeAdapter, employeesListAdapter } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_EMPLOYEES = {
@@ -10,6 +10,19 @@ export const listEmployees = () =>
     return employeesListAdapter(res)
   })
 
+export const getEmployeesById = (id) =>
+  Axios.get(`${URL_EMPLOYEES.default}/${id}`).then((res) => {
+    return employeeAdapter(res)
+  })
+
 export const addEmployees = async ({ data }) => {
   return Axios.post(URL_EMPLOYEES.default, data)
+}
+
+export const modifyEmployees = async ({ data, id }) => {
+  return Axios.put(`${URL_EMPLOYEES.default}/${id}`, data)
+}
+
+export const deleteEmployee = async ({ id }) => {
+  return Axios.delete(`${URL_EMPLOYEES.default}/${id}`)
 }

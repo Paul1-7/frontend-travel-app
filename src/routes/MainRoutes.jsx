@@ -36,6 +36,9 @@ const Employees = Loadable(lazy(() => import('../views/employees/Employees')))
 const AddEmployees = Loadable(
   lazy(() => import('../views/employees/AddEmployees'))
 )
+const ModifyEmployees = Loadable(
+  lazy(() => import('../views/employees/ModifyEmployees'))
+)
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
@@ -68,8 +71,21 @@ const MainRoutes = () => {
           <Route exact path="/clientes" component={Clientes} />
           <Route exact path="/clientes/nuevo" component={AgregarFormCliente} /> */}
           {/* empleados */}
-          <Route exact path={ROUTES.employees.default} component={Employees} />
+          <Route
+            exact
+            path={ROUTES.employees.default}
+            children={
+              <DataTableProvider>
+                <Employees />
+              </DataTableProvider>
+            }
+          />
           <Route exact path={ROUTES.employees.add} component={AddEmployees} />
+          <Route
+            exact
+            path={`${ROUTES.employees.modify}/:id`}
+            component={ModifyEmployees}
+          />
           {/* </AuthGuard> */}
         </Switch>
       </MainLayout>

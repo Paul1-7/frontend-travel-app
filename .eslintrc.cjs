@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
     'react/display-name': 'off',
-    'react/no-children-prop': 'off'
+    'react/no-children-prop': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   }
 }

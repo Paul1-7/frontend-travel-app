@@ -41,6 +41,9 @@ const Customers = Loadable(lazy(() => import('../views/customers/Customers')))
 const AddCustomer = Loadable(
   lazy(() => import('../views/customers/AddCustomer'))
 )
+const ModifyCustomer = Loadable(
+  lazy(() => import('../views/customers/ModifyCustomer'))
+)
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
@@ -98,11 +101,11 @@ const MainRoutes = () => {
             }
           />
           <Route exact path={ROUTES.customers.add} component={AddCustomer} />
-          {/* <Route
+          <Route
             exact
-            path={`${ROUTES.employees.modify}/:id`}
-            component={ModifyEmployees}
-          /> */}
+            path={`${ROUTES.customers.modify}/:id`}
+            component={ModifyCustomer}
+          />
           {/* </AuthGuard> */}
         </Switch>
       </MainLayout>

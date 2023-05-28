@@ -5,7 +5,7 @@ import {
   DialogConfirmation
 } from '@/ui-component'
 import { COLUMNS_TABLE, TEXT_MODAL } from '@/constants'
-import { deleteEmployee, listEmployees } from '@/services'
+import { deleteCustomer, listCustomers } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import useSnackBarMessage from '@/hooks/useSnackbarMessage'
 import { useLocation, useHistory } from 'react-router-dom'
@@ -20,11 +20,11 @@ const Employees = () => {
 
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['listCustomers'],
-    queryFn: listEmployees
+    queryFn: listCustomers
   })
 
   const resDeleteCustomer = useMutation({
-    mutationFn: (id) => deleteEmployee({ id }),
+    mutationFn: (id) => deleteCustomer({ id }),
     onSuccess: () => {
       refetch()
     }

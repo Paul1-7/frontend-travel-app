@@ -42,7 +42,6 @@ const Employees = () => {
     successes: [state?.message, resDeleteEmployee.data?.message],
     errors: [resDeleteEmployee.error?.message]
   })
-  console.log(resDeleteEmployee.data?.message)
 
   if (state?.message) {
     history.replace(pathname)

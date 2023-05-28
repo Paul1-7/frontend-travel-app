@@ -12,6 +12,12 @@ export const COLUMNS_TABLE = {
     { field: 'ci', header: 'CI/Nit', type: '' },
     { field: 'roles', header: 'Roles', type: '' },
     { field: 'estado', header: 'Estado', type: 'states' }
+  ],
+  customers: [
+    { field: 'nombre', header: 'Nombre', type: '' },
+    { field: 'apellido', header: 'Apellido', type: '' },
+    { field: 'ci', header: 'CI/Nit', type: '' },
+    { field: 'estado', header: 'Estado', type: 'states' }
   ]
 }
 

@@ -20,5 +20,24 @@ export const DASHBOARD = {
       title: 'Modificar empleado',
       description: 'Modifica un empleado existente para el acceso al sistema'
     }
+  },
+  customers: {
+    default: {
+      title: 'Clientes',
+      description: 'Lista de clientes',
+      button: {
+        icon: IconUser,
+        url: ROUTES.customers.add,
+        name: 'Nuevo cliente'
+      }
+    },
+    add: {
+      title: 'Agregar cliente',
+      description: 'Agrega un cliente para el acceso al sistema'
+    },
+    modify: {
+      title: 'Modificar cliente',
+      description: 'Modifica un cliente existente para el acceso al sistema'
+    }
   }
 }

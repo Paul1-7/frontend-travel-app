@@ -26,7 +26,6 @@ const AddEmployee = () => {
     mode: 'all',
     criteriaMode: 'all'
   })
-  console.log(methods.formState.errors)
 
   return (
     <DashboardContainer data={DASHBOARD.employees.add}>

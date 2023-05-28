@@ -12,3 +12,11 @@ export const initialFormEmployees = {
   estado: '1',
   oldPassword: null
 }
+
+export const initialFormCustomers = {
+  nombre: '',
+  apellido: '',
+  ci: '',
+  telefono: '',
+  estado: '1'
+}

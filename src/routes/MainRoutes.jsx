@@ -26,18 +26,20 @@ const Lugares = Loadable(lazy(() => import('../views/lugares/Lugares')))
 const AgregarFormLugar = Loadable(
   lazy(() => import('../views/lugares/AgregarFormLugar'))
 )
-// clientes
-const Clientes = Loadable(lazy(() => import('../views/clientes/Clientes')))
-const AgregarFormCliente = Loadable(
-  lazy(() => import('../views/clientes/AgregarFormCliente'))
-)
-// empleados
+
+// employees
 const Employees = Loadable(lazy(() => import('../views/employees/Employees')))
 const AddEmployees = Loadable(
   lazy(() => import('../views/employees/AddEmployees'))
 )
 const ModifyEmployees = Loadable(
   lazy(() => import('../views/employees/ModifyEmployees'))
+)
+
+// customers
+const Customers = Loadable(lazy(() => import('../views/customers/Customers')))
+const AddCustomer = Loadable(
+  lazy(() => import('../views/customers/AddCustomer'))
 )
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
@@ -68,8 +70,7 @@ const MainRoutes = () => {
           />
           <Route exact path="/lugares" component={Lugares} />
           <Route exact path="/lugares/nuevo" component={AgregarFormLugar} />
-          <Route exact path="/clientes" component={Clientes} />
-          <Route exact path="/clientes/nuevo" component={AgregarFormCliente} /> */}
+          
           {/* empleados */}
           <Route
             exact
@@ -86,6 +87,22 @@ const MainRoutes = () => {
             path={`${ROUTES.employees.modify}/:id`}
             component={ModifyEmployees}
           />
+          {/* customers */}
+          <Route
+            exact
+            path={ROUTES.customers.default}
+            children={
+              <DataTableProvider>
+                <Customers />
+              </DataTableProvider>
+            }
+          />
+          <Route exact path={ROUTES.customers.add} component={AddCustomer} />
+          {/* <Route
+            exact
+            path={`${ROUTES.employees.modify}/:id`}
+            component={ModifyEmployees}
+          /> */}
           {/* </AuthGuard> */}
         </Switch>
       </MainLayout>

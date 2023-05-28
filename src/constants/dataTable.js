@@ -18,6 +18,11 @@ export const COLUMNS_TABLE = {
     { field: 'apellido', header: 'Apellido', type: '' },
     { field: 'ci', header: 'CI/Nit', type: '' },
     { field: 'estado', header: 'Estado', type: 'states' }
+  ],
+  places: [
+    { field: 'nombre', header: 'Nombre', type: '' },
+    { field: 'direccion', header: 'Direción', type: '' },
+    { field: 'estado', header: 'Estado', type: 'states' }
   ]
 }
 

@@ -1,5 +1,6 @@
 import { IconUser } from '@tabler/icons'
 import { ROUTES } from './routes'
+import { IconMountain } from '@tabler/icons'
 
 export const DASHBOARD = {
   employees: {
@@ -38,6 +39,25 @@ export const DASHBOARD = {
     modify: {
       title: 'Modificar cliente',
       description: 'Modifica un cliente existente para el acceso al sistema'
+    }
+  },
+  places: {
+    default: {
+      title: 'Lugares',
+      description: 'Lista de lugares',
+      button: {
+        icon: IconMountain,
+        url: ROUTES.places.add,
+        name: 'Nuevo lugar'
+      }
+    },
+    add: {
+      title: 'Agregar nuevo lugar',
+      description: 'Agrega un lugar para crear una ruta'
+    },
+    modify: {
+      title: 'Modificar lugar',
+      description: 'Modifica un lugar existente'
     }
   }
 }

@@ -22,10 +22,8 @@ const ModificarFormRuta = Loadable(
   lazy(() => import('../views/rutas/ModificarFormRuta'))
 )
 // lugares
-const Lugares = Loadable(lazy(() => import('../views/lugares/Lugares')))
-const AgregarFormLugar = Loadable(
-  lazy(() => import('../views/lugares/AgregarFormLugar'))
-)
+const Places = Loadable(lazy(() => import('../views/places/Places')))
+const AddPlace = Loadable(lazy(() => import('../views/places/AddPlace')))
 
 // employees
 const Employees = Loadable(lazy(() => import('../views/employees/Employees')))
@@ -65,16 +63,23 @@ const MainRoutes = () => {
               </DataTableProvider>
             }
           /> */}
-          {/* <Route exact path="/rutas/nuevo" component={AgregarFormRuta} />
+          {/* places*/}
           <Route
             exact
-            path="/rutas/modificar/:id"
-            component={ModificarFormRuta}
+            path={ROUTES.places.default}
+            children={
+              <DataTableProvider>
+                <Places />
+              </DataTableProvider>
+            }
           />
-          <Route exact path="/lugares" component={Lugares} />
-          <Route exact path="/lugares/nuevo" component={AgregarFormLugar} />
-          
-          {/* empleados */}
+          <Route exact path={ROUTES.places.add} component={AddPlace} />
+          {/* <Route
+            exact
+            path={`${ROUTES.employees.modify}/:id`}
+            component={ModifyEmployees}
+          />  */}
+          {/* empleados*/}
           <Route
             exact
             path={ROUTES.employees.default}

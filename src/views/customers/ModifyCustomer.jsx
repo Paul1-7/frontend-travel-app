@@ -6,14 +6,13 @@ import { DASHBOARD, ROUTES, initialFormCustomers } from '@/constants'
 import { DashboardContainer, Form } from '@/ui-component'
 import { getCustomerById, modifyCustomer } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useSnackbarMessage } from '@/hooks'
 import { Redirect, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import FormCustomer from './FormCustomer'
 
 const ModifyCustomer = () => {
   const { id } = useParams()
-  const { mutate, isLoading, isSuccess, error, isError, data } = useMutation({
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
       return modifyCustomer({ data, id })
     }
@@ -22,10 +21,6 @@ const ModifyCustomer = () => {
   const customer = useQuery({
     queryFn: () => getCustomerById(id),
     queryKey: ['getCustomer']
-  })
-
-  useSnackbarMessage({
-    errors: [error?.message]
   })
 
   const methods = useForm({
@@ -49,7 +44,7 @@ const ModifyCustomer = () => {
         <FormCustomer loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
-        <Redirect to={{ pathname: ROUTES.customers.default, state: data }} />
+        <Redirect to={{ pathname: ROUTES.customers.default }} />
       )}
     </DashboardContainer>
   )

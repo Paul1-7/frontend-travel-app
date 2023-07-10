@@ -6,12 +6,12 @@ export const URL_CUSTOMERS = {
 
 export const listCustomers = () =>
   Axios.get(URL_CUSTOMERS.default).then((res) => {
-    return res
+    return res.data
   })
 
 export const getCustomerById = (id) =>
   Axios.get(`${URL_CUSTOMERS.default}/${id}`).then((res) => {
-    return res
+    return res.data
   })
 
 export const addCustomer = async ({ data }) => {

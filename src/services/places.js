@@ -6,12 +6,12 @@ export const URL_PLACES = {
 
 export const listPlaces = () =>
   Axios.get(URL_PLACES.default).then((res) => {
-    return res
+    return res.data
   })
 
 export const getPlaceById = (id) =>
   Axios.get(`${URL_PLACES.default}/${id}`).then((res) => {
-    return res
+    return res.data
   })
 
 export const addPlace = async ({ data }) => {

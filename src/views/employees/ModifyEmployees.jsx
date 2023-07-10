@@ -1,19 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import { useForm } from 'react-hook-form'
-import schema from '../../schemas'
+import schema from '@/schemas'
 import { DASHBOARD, ROUTES, initialFormEmployees } from '@/constants'
 import FormEmployees from './FormEmployees'
 import { DashboardContainer, Form } from '@/ui-component'
-import {  getEmployeesById, modifyEmployees } from '@/services'
+import { getEmployeesById, modifyEmployees } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useSnackbarMessage } from '@/hooks'
 import { Redirect, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const ModifyEmployees = () => {
   const { id } = useParams()
-  const { mutate, isLoading, isSuccess, error, isError, data } = useMutation({
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
       return modifyEmployees({ data, id })
     }
@@ -22,10 +20,6 @@ const ModifyEmployees = () => {
   const employee = useQuery({
     queryFn: () => getEmployeesById(id),
     queryKey: ['employee']
-  })
-
-  useSnackbarMessage({
-    errors: [error?.message]
   })
 
   const methods = useForm({
@@ -55,7 +49,7 @@ const ModifyEmployees = () => {
         <FormEmployees loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
-        <Redirect to={{ pathname: ROUTES.employees.default, state: data }} />
+        <Redirect to={{ pathname: ROUTES.employees.default }} />
       )}
     </DashboardContainer>
   )

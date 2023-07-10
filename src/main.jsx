@@ -11,7 +11,6 @@ import config from './config'
 import './assets/scss/style.scss'
 import mapboxgl from 'mapbox-gl'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import { customResponseWithAxios } from './interceptors/customResponse.js'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +19,6 @@ const queryClient = new QueryClient({
     }
   }
 })
-customResponseWithAxios()
 
 mapboxgl.accessToken = config.MAPBOX_ACCESS_TOKEN
 

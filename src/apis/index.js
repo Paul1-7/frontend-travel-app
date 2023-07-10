@@ -1,5 +1,11 @@
 import axios from 'axios'
 import configData from '../config'
+import {
+  onRequest,
+  onRequestError,
+  onResponse,
+  onResponseError
+} from '@/interceptors'
 
 const { BASE_URL, MAPBOX_URL_BASE, MAPBOX_ACCESS_TOKEN } = configData
 
@@ -19,3 +25,6 @@ export const directionMapBox = axios.create({
     access_token: MAPBOX_ACCESS_TOKEN
   }
 })
+
+Axios.interceptors.response.use(onResponse, onResponseError)
+Axios.interceptors.request.use(onRequest, onRequestError)

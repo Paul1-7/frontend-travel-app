@@ -7,11 +7,8 @@ import {
 import { COLUMNS_TABLE, TEXT_MODAL } from '@/constants'
 import { deleteEmployee, listEmployees } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import useSnackBarMessage from '@/hooks/useSnackbarMessage'
-import { useLocation, useHistory } from 'react-router-dom'
 import { useContext } from 'react'
 import DataTableContext from '@/contexts/DataTableContext'
-import { useResetError } from '@/hooks'
 
 const buttonsActions = { edit: true, remove: true, detail: false }
 const Employees = () => {
@@ -25,27 +22,8 @@ const Employees = () => {
 
   const resDeleteEmployee = useMutation({
     mutationFn: (id) => deleteEmployee({ id }),
-    onSuccess: () => {
-      refetch()
-    }
+    onSuccess: refetch
   })
-
-  const { state, pathname } = useLocation()
-  const history = useHistory()
-
-  useResetError({
-    fn: resDeleteEmployee.reset,
-    ctx: [resDeleteEmployee]
-  })
-
-  useSnackBarMessage({
-    successes: [state?.message, resDeleteEmployee.data?.message],
-    errors: [resDeleteEmployee.error?.message]
-  })
-
-  if (state?.message) {
-    history.replace(pathname)
-  }
 
   const handleDelete = (id) => {
     resDeleteEmployee.mutate(id)

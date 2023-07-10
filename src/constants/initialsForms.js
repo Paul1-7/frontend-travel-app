@@ -20,3 +20,10 @@ export const initialFormCustomers = {
   telefono: '',
   estado: '1'
 }
+
+export const initialFormPlaces = {
+  nombre: '',
+  direccion: '',
+  horariosAtencion: '',
+  estado: '1'
+}

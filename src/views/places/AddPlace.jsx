@@ -13,7 +13,7 @@ import { Box } from '@material-ui/core'
 
 const AddPlace = () => {
   const { mapRef, getLngLatMarker } = useMapBox()
-  const { mutate, isLoading, isSuccess, isError, data } = useMutation({
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
       return addPlace({ data })
     }
@@ -46,7 +46,7 @@ const AddPlace = () => {
         <FormPlaces loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
-        <Redirect to={{ pathname: ROUTES.places.default, state: data }} />
+        <Redirect to={{ pathname: ROUTES.places.default }} />
       )}
     </DashboardContainer>
   )

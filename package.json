@@ -34,7 +34,7 @@
     "date-fns": "^2.30.0",
     "framer-motion": "^4.1.13",
     "just-compare": "^2.3.0",
-    "mapbox-gl": "^2.10.0",
+    "mapbox-gl": "^2.15.0",
     "material-ui-popup-state": "^1.8.0",
     "notiflix": "^3.2.5",
     "prop-types": "^15.8.1",

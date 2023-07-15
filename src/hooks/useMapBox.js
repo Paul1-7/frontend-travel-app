@@ -49,9 +49,10 @@ const getStringMarker = (data) => {
   return stringMarkers.substring(0, stringMarkers.length - 1)
 }
 
-const useMapBox = (options) => {
+const useMapBox = ({ initialMarker = true }) => {
   const [resGet, , , axiosFetchGet] = useAxios()
-  const { initialMarker = true } = options || {}
+  const [mapLoaded, setMapLoaded] = useState(false)
+
   const center = [-64.728096, -21.521383]
   const theme = useTheme()
   const SECONDARY_MAIN = theme.palette.secondary.main
@@ -70,14 +71,18 @@ const useMapBox = (options) => {
 
   useLayoutEffect(() => {
     if (!mapRef.current) return
-    setMap(
-      new Map({
-        container: mapRef.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center,
-        zoom: 12
-      })
-    )
+
+    const mapInstance = new Map({
+      container: mapRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center,
+      zoom: 12
+    })
+
+    mapInstance.on('load', () => {
+      setMap(mapInstance)
+      setMapLoaded(true)
+    })
     setLocation(center)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -118,9 +123,11 @@ const useMapBox = (options) => {
     return markers[index].getLngLat()
   }
 
-  const generateMarkers = (array, options = {}) => {
-    const newMarkers = array.map(({ lngLat, label }) =>
-      new Marker({ color: SECONDARY_MAIN, ...options })
+  const generateMarkers = (array) => {
+    if (!mapLoaded) return
+
+    const newMarkers = array.map(({ lngLat, label, ...other }) =>
+      new Marker({ color: SECONDARY_MAIN, ...other })
         .setLngLat(lngLat)
         .setPopup(new Popup({ offset: 15 }).setHTML(`<h4>${label}</h4>`))
         .addTo(map)
@@ -150,7 +157,8 @@ const useMapBox = (options) => {
     map,
     setMarkers,
     generateMarkers,
-    deleteMarkers
+    deleteMarkers,
+    mapLoaded
   }
 }
 

@@ -11,6 +11,7 @@ import config from './config'
 import './assets/scss/style.scss'
 import mapboxgl from 'mapbox-gl'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const queryClient = new QueryClient({
   defaultOptions: {

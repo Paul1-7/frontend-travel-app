@@ -1,5 +1,6 @@
 // assets
 import { ROUTES } from '@/constants'
+import { IconCar } from '@tabler/icons'
 import {
   IconHelp,
   IconMountain,
@@ -14,11 +15,12 @@ import {
 const icons = {
   rutas: IconRoute,
   lugares: IconMountain,
+  choferes: IconCar,
   clientes: IconUser,
   empleados: IconUsers,
   IconHelp: IconHelp,
   IconSitemap: IconSitemap,
-  dashboard: IconLayoutDashboard
+  dashboard: IconLayoutDashboard,
 }
 
 export const other = {
@@ -75,6 +77,14 @@ export const other = {
       type: 'item',
       url: ROUTES.customers.default,
       icon: icons.clientes,
+      breadcrumbs: true
+    },
+    {
+      id: 'choferes',
+      title: 'Choferes',
+      type: 'item',
+      url: ROUTES.drivers.default,
+      icon: icons.choferes,
       breadcrumbs: true
     },
     {

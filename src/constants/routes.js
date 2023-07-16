@@ -21,5 +21,10 @@ export const ROUTES = {
     add: DEFAULT_ADMIN_PATH + '/rutas/agregar',
     modify: DEFAULT_ADMIN_PATH + '/rutas/modificar',
     default: DEFAULT_ADMIN_PATH + '/rutas'
+  },
+  drivers: {
+    add: DEFAULT_ADMIN_PATH + '/choferes/agregar',
+    modify: DEFAULT_ADMIN_PATH + '/choferes/modificar',
+    default: DEFAULT_ADMIN_PATH + '/choferes'
   }
 }

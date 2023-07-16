@@ -4,7 +4,6 @@ import { Route, Switch, useLocation } from 'react-router-dom'
 // project imports
 import MainLayout from './../layout/MainLayout'
 import Loadable from '../ui-component/Loadable'
-import AuthGuard from './../utils/route-guard/AuthGuard'
 import { DataTableProvider } from '../contexts/DataTableContext'
 import { ROUTES } from '@/constants'
 
@@ -36,6 +35,12 @@ const AddCustomer = Loadable(
 )
 const ModifyCustomer = Loadable(
   lazy(() => import('../views/customers/ModifyCustomer'))
+)
+// drivers
+const Drivers = Loadable(lazy(() => import('../views/drivers/Drivers')))
+const AddDriver = Loadable(lazy(() => import('../views/drivers/AddDriver')))
+const ModifyDriver = Loadable(
+  lazy(() => import('../views/drivers/ModifyDriver'))
 )
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
@@ -104,6 +109,22 @@ const MainRoutes = () => {
             exact
             path={`${ROUTES.customers.modify}/:id`}
             component={ModifyCustomer}
+          />
+          {/* drivers */}
+          <Route
+            exact
+            path={ROUTES.drivers.default}
+            children={
+              <DataTableProvider>
+                <Drivers />
+              </DataTableProvider>
+            }
+          />
+          <Route exact path={ROUTES.drivers.add} component={AddDriver} />
+          <Route
+            exact
+            path={`${ROUTES.drivers.modify}/:id`}
+            component={ModifyDriver}
           />
           {/* </AuthGuard> */}
         </Switch>

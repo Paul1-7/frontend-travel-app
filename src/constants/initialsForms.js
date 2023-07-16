@@ -27,3 +27,10 @@ export const initialFormPlaces = {
   horariosAtencion: '',
   estado: '1'
 }
+
+export const initialFormDriver = {
+  nombreChofer: '',
+  apellidoChofer: '',
+  auto: '',
+  capacidad: ''
+}

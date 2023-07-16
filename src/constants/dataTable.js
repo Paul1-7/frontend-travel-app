@@ -23,6 +23,12 @@ export const COLUMNS_TABLE = {
     { field: 'nombre', header: 'Nombre', type: '' },
     { field: 'direccion', header: 'Direción', type: '' },
     { field: 'estado', header: 'Estado', type: 'states' }
+  ],
+  drivers: [
+    { field: 'nombreChofer', header: 'Nombre', type: '' },
+    { field: 'apellidoChofer', header: 'Apellido', type: '' },
+    { field: 'auto', header: 'Auto', type: '' },
+    { field: 'capacidad', header: 'Capacidad', type: '' }
   ]
 }
 

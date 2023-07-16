@@ -59,5 +59,24 @@ export const DASHBOARD = {
       title: 'Modificar lugar',
       description: 'Modifica un lugar existente'
     }
+  },
+  drivers: {
+    default: {
+      title: 'Choferes',
+      description: 'Lista de choferes para las rutas',
+      button: {
+        icon: IconUser,
+        url: ROUTES.drivers.add,
+        name: 'Nuevo chofer'
+      }
+    },
+    add: {
+      title: 'Agregar chofer',
+      description: 'Agrega un chofer para las rutas'
+    },
+    modify: {
+      title: 'Modificar chofer',
+      description: 'Modifica un chofer existente para las rutas'
+    }
   }
 }

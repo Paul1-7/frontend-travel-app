@@ -50,7 +50,7 @@ const ModifyPlace = () => {
 
     const markers = [
       {
-        lngLat: [punto?.[0].lng, punto?.[0].lat],
+        lngLat: [punto?.lng, punto?.lat],
         label: nombre,
         draggable: true
       }

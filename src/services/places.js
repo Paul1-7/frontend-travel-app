@@ -1,3 +1,4 @@
+import { getPlaceWithLatLng } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_PLACES = {
@@ -7,6 +8,11 @@ export const URL_PLACES = {
 export const listPlaces = () =>
   Axios.get(URL_PLACES.default).then((res) => {
     return res.data
+  })
+
+export const listPlacesWithLatLng = () =>
+  Axios.get(URL_PLACES.default).then((res) => {
+    return getPlaceWithLatLng(res.data)
   })
 
 export const getPlaceById = (id) =>

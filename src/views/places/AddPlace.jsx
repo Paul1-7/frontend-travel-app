@@ -12,7 +12,9 @@ import FormPlaces from './FormPlaces'
 import { Box } from '@material-ui/core'
 
 const AddPlace = () => {
-  const { mapRef, getLngLatMarker } = useMapBox()
+  const { mapRef, getLngLatMarker } = useMapBox({
+    initialMarker: true
+  })
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
       return addPlace({ data })

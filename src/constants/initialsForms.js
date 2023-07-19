@@ -34,3 +34,15 @@ export const initialFormDriver = {
   auto: '',
   capacidad: ''
 }
+
+export const initialFormRoute = {
+  titulo: '',
+  descripcion: '',
+  duracion: '',
+  precio: '',
+  itinerarios: [
+    {
+      idLugar: '0'
+    }
+  ]
+}

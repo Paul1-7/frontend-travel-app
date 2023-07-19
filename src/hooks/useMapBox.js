@@ -108,14 +108,12 @@ const useMapBox = ({ initialMarker = true }) => {
   }, [resGet])
 
   useEffect(() => {
-    if (!map || !initialMarker) return
+    if (!map || !initialMarker || !mapLoaded) return
     const marker = new Marker({ color: SECONDARY_MAIN })
     marker.setDraggable(true)
     marker.setLngLat(location).addTo(map)
     setMarkers([marker])
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location])
+  }, [location, mapLoaded])
 
   const getLngLatMarker = (index) => {
     if (markers.length === 0) return null

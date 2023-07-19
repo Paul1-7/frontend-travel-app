@@ -13,7 +13,9 @@ const DashboardDefault = Loadable(
 )
 
 // rutas
-
+const Routes = Loadable(lazy(() => import('../views/routes/Routes')))
+const AddRoute = Loadable(lazy(() => import('../views/routes/AddRoute')))
+const ModifyRoute = Loadable(lazy(() => import('../views/routes/ModifyRoute')))
 // lugares
 const Places = Loadable(lazy(() => import('../views/places/Places')))
 const AddPlace = Loadable(lazy(() => import('../views/places/AddPlace')))
@@ -54,15 +56,7 @@ const MainRoutes = () => {
         <Switch location={location} key={location.pathname}>
           {/* <AuthGuard> */}
           <Route path={ROUTES.dashboard} component={DashboardDefault} />
-          {/* <Route
-            exact
-            path={ROUTES.routes.default}
-            children={
-              <DataTableProvider>
-                <Rutas />
-              </DataTableProvider>
-            }
-          /> */}
+
           {/* places*/}
           <Route
             exact
@@ -78,6 +72,23 @@ const MainRoutes = () => {
             exact
             path={`${ROUTES.places.modify}/:id`}
             component={ModifyPlace}
+          />
+
+          {/* routes*/}
+          <Route
+            exact
+            path={ROUTES.routes.default}
+            children={
+              <DataTableProvider>
+                <Routes />
+              </DataTableProvider>
+            }
+          />
+          <Route exact path={ROUTES.routes.add} component={AddRoute} />
+          <Route
+            exact
+            path={`${ROUTES.routes.modify}/:id`}
+            component={ModifyRoute}
           />
           <Route
             exact

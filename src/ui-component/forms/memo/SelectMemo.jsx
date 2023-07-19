@@ -12,9 +12,19 @@ import {
   Select
 } from '@mui/material'
 import { DEFAULT_VALUE_ITEM } from '@/constants'
+import compare from 'just-compare'
 
 const SelectMemo = memo(
-  ({ name, label, isArray, methods, items, ...others }) => {
+  ({
+    name,
+    label,
+    isArray,
+    methods,
+    items = [],
+    onChange,
+    propsContainer = {},
+    ...others
+  }) => {
     const error = methods.formState.errors
     const errorValue = isArray ? objectByString(error, name) : error[name]
 
@@ -23,13 +33,16 @@ const SelectMemo = memo(
         name={name}
         control={methods.control}
         render={({ field }) => (
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size="small" {...propsContainer}>
             <InputLabel id={name}>{label}</InputLabel>
             <Select
               labelId={name}
               {...field}
               label={label}
-              onChange={(value) => field.onChange(value)}
+              onChange={(value) => {
+                field.onChange(value)
+                onChange && onChange(value)
+              }}
               value={field.value}
               {...others}
             >
@@ -52,11 +65,8 @@ const SelectMemo = memo(
     )
   },
   (prevProps, nextProps) =>
-    prevProps.methods.formState.isDirty ===
-      nextProps.methods.formState.isDirty &&
-    prevProps.methods.formState.errors !== nextProps.methods.formState.errors &&
-    prevProps.methods.formState.submitCount ===
-      nextProps.methods.formState.submitCount
+    prevProps?.disabled === nextProps?.disabled &&
+    !compare(prevProps.methods, nextProps.methods)
 )
 SelectMemo.displayName = 'SelectMemo'
 export default SelectMemo
@@ -67,5 +77,7 @@ SelectMemo.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
   methods: PropTypes.object,
   others: PropTypes.object,
-  isArray: PropTypes.bool
+  isArray: PropTypes.bool,
+  onChange: PropTypes.func,
+  propsContainer: PropTypes.object
 }

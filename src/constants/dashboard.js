@@ -1,6 +1,7 @@
 import { IconUser } from '@tabler/icons'
 import { ROUTES } from './routes'
 import { IconMountain } from '@tabler/icons'
+import { Route } from '@mui/icons-material'
 
 export const DASHBOARD = {
   employees: {
@@ -77,6 +78,29 @@ export const DASHBOARD = {
     modify: {
       title: 'Modificar chofer',
       description: 'Modifica un chofer existente para las rutas'
+    }
+  },
+  routes: {
+    default: {
+      title: 'Rutas',
+      description: 'Lista de rutas',
+      button: {
+        icon: Route,
+        url: ROUTES.routes.add,
+        name: 'Nueva ruta'
+      }
+    },
+    add: {
+      title: 'Agregar ruta',
+      description: 'Agrega una nueva ruta '
+    },
+    modify: {
+      title: 'Modificar ruta',
+      description: 'Modifica una ruta existente'
+    },
+    detail: {
+      title: 'Detalle de ruta',
+      description: 'Muestra la informacion de la ruta y los cambios que tuvo'
     }
   }
 }

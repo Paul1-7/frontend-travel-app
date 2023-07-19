@@ -1,10 +1,9 @@
 export const COLUMNS_TABLE = {
-  rutas: [
+  routes: [
     { field: 'titulo', header: 'titulo', type: '' },
     { field: 'descripcion', header: 'descripcion', type: '' },
     { field: 'duracion', header: 'duracion', type: '' },
-    { field: 'precio', header: 'precio', type: 'currency' },
-    { field: 'estado', header: 'estado', type: 'states' }
+    { field: 'precio', header: 'precio por persona', type: 'currency' }
   ],
   employees: [
     { field: 'nombre', header: 'Nombre', type: '' },

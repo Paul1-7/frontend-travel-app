@@ -7,7 +7,7 @@ import { LngLatBounds } from 'mapbox-gl'
 import useAxios from './useAxios'
 import { directionMapBox } from '../apis'
 
-const ID_SOURCE = 'mapbox-source'
+const ID_SOURCE = `mapbox-source-${new Date()}`
 
 const sourceData = (coordinates) => ({
   type: 'geojson',
@@ -76,7 +76,8 @@ const useMapBox = ({ initialMarker = true }) => {
       container: mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center,
-      zoom: 12
+      zoom: 12,
+      preserveDrawingBuffer: true
     })
 
     mapInstance.on('load', () => {

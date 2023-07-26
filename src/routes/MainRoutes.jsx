@@ -15,6 +15,7 @@ const DashboardDefault = Loadable(
 // rutas
 const Routes = Loadable(lazy(() => import('../views/routes/Routes')))
 const AddRoute = Loadable(lazy(() => import('../views/routes/AddRoute')))
+const DetailRoute = Loadable(lazy(() => import('../views/routes/DetailRoute')))
 const ModifyRoute = Loadable(lazy(() => import('../views/routes/ModifyRoute')))
 // lugares
 const Places = Loadable(lazy(() => import('../views/places/Places')))
@@ -85,6 +86,11 @@ const MainRoutes = () => {
             }
           />
           <Route exact path={ROUTES.routes.add} component={AddRoute} />
+          <Route
+            exact
+            path={`${ROUTES.routes.detail}/:id`}
+            component={DetailRoute}
+          />
           <Route
             exact
             path={`${ROUTES.routes.modify}/:id`}

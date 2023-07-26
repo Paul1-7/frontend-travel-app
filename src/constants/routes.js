@@ -20,6 +20,7 @@ export const ROUTES = {
   routes: {
     add: DEFAULT_ADMIN_PATH + '/rutas/agregar',
     modify: DEFAULT_ADMIN_PATH + '/rutas/modificar',
+    detail: DEFAULT_ADMIN_PATH + '/rutas/detalle',
     default: DEFAULT_ADMIN_PATH + '/rutas'
   },
   drivers: {

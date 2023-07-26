@@ -39,7 +39,12 @@ const Itinerario = ({
   })
 
   useEffect(() => {
-    if (!placesData.isSuccess || !routeData?.isSuccess || !isMapLoaded) return
+    if (
+      !placesData.isSuccess ||
+      (!routeData?.isSuccess && typeof routeData?.isSuccess === 'boolean') ||
+      !isMapLoaded
+    )
+      return
 
     const idPlaces = placesWatch.map(({ idLugar }) => idLugar)
 

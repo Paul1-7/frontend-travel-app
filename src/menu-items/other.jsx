@@ -2,13 +2,12 @@
 import { ROUTES } from '@/constants'
 import { IconCar } from '@tabler/icons'
 import {
-  IconHelp,
   IconMountain,
   IconRoute,
-  IconSitemap,
   IconUser,
   IconUsers,
-  IconLayoutDashboard
+  IconLayoutDashboard,
+  IconCalendarStats
 } from '@tabler/icons'
 
 // constant
@@ -18,9 +17,8 @@ const icons = {
   choferes: IconCar,
   clientes: IconUser,
   empleados: IconUsers,
-  IconHelp: IconHelp,
-  IconSitemap: IconSitemap,
   dashboard: IconLayoutDashboard,
+  placesSchedules: IconCalendarStats
 }
 
 export const other = {
@@ -93,6 +91,14 @@ export const other = {
       type: 'item',
       url: ROUTES.employees.default,
       icon: icons.empleados,
+      breadcrumbs: true
+    },
+    {
+      id: 'placesSchedule',
+      title: 'Horarios de lugares',
+      type: 'item',
+      url: ROUTES.placesSchedules.default,
+      icon: icons.placesSchedules,
       breadcrumbs: true
     }
   ]

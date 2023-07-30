@@ -27,5 +27,8 @@ export const ROUTES = {
     add: DEFAULT_ADMIN_PATH + '/choferes/agregar',
     modify: DEFAULT_ADMIN_PATH + '/choferes/modificar',
     default: DEFAULT_ADMIN_PATH + '/choferes'
+  },
+  placesSchedules: {
+    default: DEFAULT_ADMIN_PATH + '/horarios-lugares'
   }
 }

@@ -10,5 +10,10 @@ export default defineConfig({
     alias: {
       '@': resolve(process.cwd(), './src')
     }
+  },
+  server: {
+    host: '0.0.0.0',
+    port: '5173',
+    open: true
   }
 })

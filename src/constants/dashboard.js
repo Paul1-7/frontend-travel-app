@@ -102,5 +102,11 @@ export const DASHBOARD = {
       title: 'Detalle de ruta',
       description: 'Muestra la informacion de la ruta y los cambios que tuvo'
     }
+  },
+  placesSchedules: {
+    default: {
+      title: 'Horarios de lugares',
+      description: 'Se define los horarios de atención de cada lugar'
+    }
   }
 }

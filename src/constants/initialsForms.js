@@ -46,3 +46,7 @@ export const initialFormRoute = {
     }
   ]
 }
+
+export const initialFormPlaceSchedule = {
+  idLugar: '0'
+}

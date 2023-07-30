@@ -11,6 +11,24 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.3.0
     version: 11.11.0(@emotion/react@11.11.0)(@types/react@17.0.59)(react@17.0.2)
+  '@fullcalendar/core':
+    specifier: ^6.1.8
+    version: 6.1.8
+  '@fullcalendar/daygrid':
+    specifier: ^6.1.8
+    version: 6.1.8(@fullcalendar/core@6.1.8)
+  '@fullcalendar/interaction':
+    specifier: ^6.1.8
+    version: 6.1.8(@fullcalendar/core@6.1.8)
+  '@fullcalendar/react':
+    specifier: ^6.1.8
+    version: 6.1.8(@fullcalendar/core@6.1.8)(react-dom@17.0.2)(react@17.0.2)
+  '@fullcalendar/rrule':
+    specifier: ^6.1.8
+    version: 6.1.8(@fullcalendar/core@6.1.8)(rrule@2.7.2)
+  '@fullcalendar/timegrid':
+    specifier: ^6.1.8
+    version: 6.1.8(@fullcalendar/core@6.1.8)
   '@hookform/resolvers':
     specifier: ^3.1.0
     version: 3.1.0(react-hook-form@7.43.9)
@@ -128,6 +146,9 @@ dependencies:
   redux-persist:
     specifier: ^6.0.0
     version: 6.0.0(react@17.0.2)(redux@4.2.1)
+  rrule:
+    specifier: ^2.7.2
+    version: 2.7.2
   sonner:
     specifier: ^0.3.5
     version: 0.3.5(react-dom@17.0.2)(react@17.0.2)
@@ -631,6 +652,59 @@ packages:
     resolution: {integrity: sha512-ElyB54bJIhXQYVKjDSvCkPO1iU1tSAeVQJbllWJq1XQSmmA4dgFk8CbiBGpiOPxleE48vDogxCtmMYku4HSVLA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fullcalendar/core@6.1.8:
+    resolution: {integrity: sha512-i8JBIvZCWGO9dsMEDcx9bnsQZ9PtGSJdOXGgWbhLaGq2iq41OBdp9g9gM4b/Otv2oK8bL5Gl6CsMmb/HkDtA6Q==}
+    dependencies:
+      preact: 10.12.1
+    dev: false
+
+  /@fullcalendar/daygrid@6.1.8(@fullcalendar/core@6.1.8):
+    resolution: {integrity: sha512-kCZxQFKb9Vqa3CZRX0v7rMSJ2mlTt4gDpyLfiNJKxUAq7W51uKurPaFZWicaXy1ESHVBxKNlbx5uNjBpyu50JQ==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.8
+    dependencies:
+      '@fullcalendar/core': 6.1.8
+    dev: false
+
+  /@fullcalendar/interaction@6.1.8(@fullcalendar/core@6.1.8):
+    resolution: {integrity: sha512-r6W4E9ohaA87M2uPSlmpE2WT7Fzu7LN0u2pE6D/tThruCEaAPbN8Pw5+sqclsuyTIL09mg0eSJm/ggJekTabSA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.8
+    dependencies:
+      '@fullcalendar/core': 6.1.8
+    dev: false
+
+  /@fullcalendar/react@6.1.8(@fullcalendar/core@6.1.8)(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-E8GQSQyZHkjpwxQW5Vci7iZgN7f33ntuRcvfGii4Fn35t9VHGz2SEyKAWXpVf38elcKTZKVgajU9ipStd+1LEg==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.8
+      react: ^16.7.0 || ^17 || ^18
+      react-dom: ^16.7.0 || ^17 || ^18
+    dependencies:
+      '@fullcalendar/core': 6.1.8
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+    dev: false
+
+  /@fullcalendar/rrule@6.1.8(@fullcalendar/core@6.1.8)(rrule@2.7.2):
+    resolution: {integrity: sha512-Ikl1ipRCxeNlQ7UNcG0QC3yxAaiItXo1zYa90hodXwf/UK5Bi9aR0f/bcViIP89U0Uq4trUOy9yFaD61dLuYSg==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.8
+      rrule: ^2.6.0
+    dependencies:
+      '@fullcalendar/core': 6.1.8
+      rrule: 2.7.2
+    dev: false
+
+  /@fullcalendar/timegrid@6.1.8(@fullcalendar/core@6.1.8):
+    resolution: {integrity: sha512-3+3KHHCoNcaLs/gQt004hAqICbY5+WAffrZ0ePv+80HFB1OVh8BQ5XXLHSOUbTvXdgtUTcfBHuw9fhO31kt5gA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.8
+    dependencies:
+      '@fullcalendar/core': 6.1.8
+      '@fullcalendar/daygrid': 6.1.8(@fullcalendar/core@6.1.8)
+    dev: false
 
   /@hookform/resolvers@3.1.0(react-hook-form@7.43.9):
     resolution: {integrity: sha512-z0A8K+Nxq+f83Whm/ajlwE6VtQlp/yPHZnXw7XWVPIGm1Vx0QV8KThU3BpbBRfAZ7/dYqCKKBNnQh85BkmBKkA==}
@@ -2966,6 +3040,10 @@ packages:
     resolution: {integrity: sha512-Q+/tYsFU9r7xoOJ+y/ZTtdVQwTWfzjbiXBDMM/JKUux3+QPP02iUuIoeBQ+Ot6oEDlC+/PGjB/5A3K7KKb7hcw==}
     dev: false
 
+  /preact@10.12.1:
+    resolution: {integrity: sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==}
+    dev: false
+
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -3267,6 +3345,12 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /rrule@2.7.2:
+    resolution: {integrity: sha512-NkBsEEB6FIZOZ3T8frvEBOB243dm46SPufpDckY/Ap/YH24V1zLeMmDY8OA10lk452NdrF621+ynDThE7FQU2A==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
 
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}

@@ -45,8 +45,10 @@ const AddDriver = Loadable(lazy(() => import('../views/drivers/AddDriver')))
 const ModifyDriver = Loadable(
   lazy(() => import('../views/drivers/ModifyDriver'))
 )
-
-//-----------------------|| MAIN ROUTING ||-----------------------//
+// placesSchedules
+const placesSchedules = Loadable(
+  lazy(() => import('../views/placesSchedules/PlacesSchedules'))
+)
 
 const MainRoutes = () => {
   const location = useLocation()
@@ -57,7 +59,12 @@ const MainRoutes = () => {
         <Switch location={location} key={location.pathname}>
           {/* <AuthGuard> */}
           <Route path={ROUTES.dashboard} component={DashboardDefault} />
-
+          {/* placesSchedules */}
+          <Route
+            path={ROUTES.placesSchedules.default}
+            component={placesSchedules}
+            exact
+          />
           {/* places*/}
           <Route
             exact

@@ -1,4 +1,6 @@
 export { default as useAxios } from './useAxios'
 export { default as useMapBox } from './useMapBox'
+export * from './usePlacesSchedule'
 export * from './usePrint'
+export * from './useRepeatEvents'
 export { default as useScriptRef } from './useScriptRef'

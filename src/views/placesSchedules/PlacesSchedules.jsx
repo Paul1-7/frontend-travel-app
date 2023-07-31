@@ -148,6 +148,8 @@ const Schedules = () => {
         eventMouseLeave={() => {
           setAnchorEl(null)
         }}
+        eventOverlap
+        slotEventOverlap
         eventContent={PlaceScheduleEventContent}
       />
     </DashboardContainer>

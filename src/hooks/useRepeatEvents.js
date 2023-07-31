@@ -33,7 +33,7 @@ export const useRepeatEvents = ({ events = [] }) => {
         borderColor: SECONDARY_COLOR,
         textColor: '#000',
         editable: false,
-        overlap: false,
+        overlap: true,
         extendedProps: { ...item },
         endStr: item.horarioSalida,
         end: dateFinish

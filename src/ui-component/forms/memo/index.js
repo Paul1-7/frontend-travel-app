@@ -1,3 +1,4 @@
+export { default as AutocompleteMemo } from './AutocompleteMemo'
 export { default as CheckboxMemo } from './CheckboxMemo'
 export { default as DatePickerMemo } from './DatePickerMemo'
 export { default as InputMemo } from './InputMemo'

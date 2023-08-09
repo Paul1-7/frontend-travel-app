@@ -1,3 +1,4 @@
+export { default as AutoComplete } from './AutoComplete'
 export { default as Checkbox } from './Checkbox'
 export { default as DatePicker } from './DatePicker'
 export { default as Input } from './Input'

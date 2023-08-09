@@ -30,5 +30,8 @@ export const ROUTES = {
   },
   placesSchedules: {
     default: DEFAULT_ADMIN_PATH + '/horarios-lugares'
+  },
+  routesSchedules: {
+    default: DEFAULT_ADMIN_PATH + '/horarios-rutas'
   }
 }

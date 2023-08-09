@@ -1,4 +1,4 @@
-import { ITEMS_ROL } from './inputs'
+import { DEFAULT_VALUE_ITEM, ITEMS_ROL } from './inputs'
 
 export const initialFormEmployees = {
   nombre: '',
@@ -49,4 +49,21 @@ export const initialFormRoute = {
 
 export const initialFormPlaceSchedule = {
   idLugar: '0'
+}
+
+export const initialFormRouteListSchedule = {
+  route: {
+    id: DEFAULT_VALUE_ITEM,
+    titulo: 'ninguno',
+    precio: null,
+    borrado: false,
+    descripcion: null,
+    duracion: null,
+    horariosLugar: null,
+    itinerarios: []
+  }
+}
+
+export const initialFormRouteSchedule = {
+  idRuta: '0'
 }

@@ -18,7 +18,7 @@ const icons = {
   clientes: IconUser,
   empleados: IconUsers,
   dashboard: IconLayoutDashboard,
-  placesSchedules: IconCalendarStats
+  schedules: IconCalendarStats
 }
 
 export const other = {
@@ -98,7 +98,15 @@ export const other = {
       title: 'Horarios de lugares',
       type: 'item',
       url: ROUTES.placesSchedules.default,
-      icon: icons.placesSchedules,
+      icon: icons.schedules,
+      breadcrumbs: true
+    },
+    {
+      id: 'routesSchedule',
+      title: 'Horarios de rutas',
+      type: 'item',
+      url: ROUTES.routesSchedules.default,
+      icon: icons.schedules,
       breadcrumbs: true
     }
   ]

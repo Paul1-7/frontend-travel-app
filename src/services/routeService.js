@@ -1,4 +1,4 @@
-import { getRouteWithItinerario } from '@/adapters'
+import { getRouteWithDetails, getRoutesWithDetails } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_ROUTES = {
@@ -10,9 +10,14 @@ export const listRoutes = () =>
     return res.data
   })
 
+export const listRoutesWithDetails = () =>
+  Axios.get(URL_ROUTES.default).then((res) => {
+    return getRoutesWithDetails(res.data)
+  })
+
 export const getRouteById = (id) =>
   Axios.get(`${URL_ROUTES.default}/${id}`).then((res) => {
-    return getRouteWithItinerario(res.data)
+    return getRouteWithDetails(res.data)
   })
 
 export const addRoute = async ({ data }) => {

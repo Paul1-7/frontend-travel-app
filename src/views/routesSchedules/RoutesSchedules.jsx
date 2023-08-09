@@ -2,46 +2,55 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import esLocale from '@fullcalendar/core/locales/es'
 import interactionPlugin from '@fullcalendar/interaction'
-import { useState } from 'react'
-import PlaceScheduleForm from './PlaceScheduleForm'
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from '@/schemas'
-import { DASHBOARD, TEXT_MODAL, initialFormPlaceSchedule } from '@/constants'
+import {
+  DASHBOARD,
+  TEXT_MODAL,
+  initialFormRouteListSchedule,
+  initialFormRouteSchedule
+} from '@/constants'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   addPlacesSchedule,
   deletePlacesSchedule,
-  listPlaces,
+  listRoutesWithDetails,
   modifyPlacesSchedule,
-  placesSchedulesListDetail
+  routesSchedulesListDetail
 } from '@/services'
-import { useRepeatEvents, useSchedule } from '@/hooks'
+import { useDialog, useFormFields, useRepeatEvents, useSchedule } from '@/hooks'
 import PlaceSchedulePopoper from './PlaceSchedulePopoper'
-import PlaceScheduleEventContent from './PlaceScheduleEventContent'
+import PlaceScheduleEventContent from './RouteScheduleEventContent'
 import rrulePlugin from '@fullcalendar/rrule'
 import { DashboardContainer, DialogConfirmation } from '@/ui-component'
+import { MenuItem, Select } from '@mui/material'
 
-const Schedules = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+const RoutesSchedule = () => {
   const [anchorEl, setAnchorEl] = useState()
+  const { closeDialog, isDialogOpen, openDialog } = useDialog()
+  const { formFields, handleChange } = useFormFields(
+    initialFormRouteListSchedule
+  )
+  console.log('TCL: RoutesSchedule -> formFields', formFields)
   const datesSelected = useRef(null)
   const eventSelected = useRef(null)
 
-  const openDialog = () => setIsDialogOpen(true)
-  const closeDialog = () => setIsDialogOpen(false)
-
   const listSchedules = useQuery({
     queryKey: ['schedulesList'],
-    queryFn: placesSchedulesListDetail
+    queryFn: routesSchedulesListDetail
   })
 
-  const { events } = useRepeatEvents({ events: listSchedules.data })
+  const routes = useQuery({
+    queryKey: ['routesList'],
+    queryFn: listRoutesWithDetails
+  })
 
-  const places = useQuery({
-    queryKey: ['placesList'],
-    queryFn: listPlaces
+  const { events } = useRepeatEvents({
+    events: listSchedules.data,
+    eventsBackground: formFields.route?.horariosLugar,
+    placesLength: formFields.route?.itinerarios?.length
   })
 
   const addScheduleData = useMutation({
@@ -50,6 +59,7 @@ const Schedules = () => {
     },
     onSuccess: listSchedules.refetch
   })
+
   const modifyScheduleData = useMutation({
     mutationFn: (data) => {
       return modifyPlacesSchedule({ data, id: data.id })
@@ -64,7 +74,7 @@ const Schedules = () => {
 
   const methods = useForm({
     resolver: yupResolver(schema.placesSchedule),
-    defaultValues: initialFormPlaceSchedule,
+    defaultValues: initialFormRouteSchedule,
     mode: 'all',
     criteriaMode: 'all'
   })
@@ -73,19 +83,12 @@ const Schedules = () => {
     deleteScheduleData.mutate(id)
   }
 
-  const {
-    handleModalClose,
-    handleSubmit,
-    handleDateSelect,
-    handleClickEvent,
-    isUpdateEvent,
-    isModalOpen
-  } = useSchedule({
+  const { handleDateSelect, handleClickEvent } = useSchedule({
     addScheduleData,
     modifyScheduleData,
     datesSelected,
     methods,
-    initialForm: initialFormPlaceSchedule
+    initialForm: initialFormRouteSchedule
   })
 
   return (
@@ -103,15 +106,24 @@ const Schedules = () => {
         setAnchorEl={setAnchorEl}
         data={eventSelected.current}
       />
-      <PlaceScheduleForm
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        places={places.data}
-        methods={methods}
-        onSubmit={handleSubmit}
-        isUpdateEvent={isUpdateEvent}
-        openDialog={openDialog}
-      />
+      <Select
+        value={formFields.route}
+        onChange={handleChange}
+        name="route"
+        size="small"
+        color="secondary"
+      >
+        <MenuItem value={initialFormRouteListSchedule.route}>
+          {initialFormRouteListSchedule.route.titulo}
+        </MenuItem>
+        {routes.data?.map((route, index) => {
+          return (
+            <MenuItem key={index} value={route}>
+              {route.titulo}
+            </MenuItem>
+          )
+        })}
+      </Select>
       <FullCalendar
         plugins={[interactionPlugin, rrulePlugin, timeGridPlugin]}
         initialView="timeGridWeek"
@@ -156,4 +168,4 @@ const Schedules = () => {
   )
 }
 
-export default Schedules
+export default RoutesSchedule

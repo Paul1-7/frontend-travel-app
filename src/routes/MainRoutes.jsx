@@ -46,8 +46,12 @@ const ModifyDriver = Loadable(
   lazy(() => import('../views/drivers/ModifyDriver'))
 )
 // placesSchedules
-const placesSchedules = Loadable(
+const PlacesSchedules = Loadable(
   lazy(() => import('../views/placesSchedules/PlacesSchedules'))
+)
+// routesSchedules
+const RoutesSchedules = Loadable(
+  lazy(() => import('../views/routesSchedules/RoutesSchedules'))
 )
 
 const MainRoutes = () => {
@@ -62,7 +66,13 @@ const MainRoutes = () => {
           {/* placesSchedules */}
           <Route
             path={ROUTES.placesSchedules.default}
-            component={placesSchedules}
+            component={PlacesSchedules}
+            exact
+          />
+          {/* routesSchedules */}
+          <Route
+            path={ROUTES.routesSchedules.default}
+            component={RoutesSchedules}
             exact
           />
           {/* places*/}

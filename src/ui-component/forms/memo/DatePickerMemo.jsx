@@ -6,7 +6,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { objectByString } from '@/utils/dataHandler'
 import { es } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { FormHelperText, TextField } from '@mui/material'
+import { FormHelperText } from '@mui/material'
 
 const convertValueToEvent = (name, value) => ({
   target: {
@@ -36,12 +36,17 @@ const DatePickerMemo = memo(
                 {...field}
                 {...others}
                 fullWidth
+                size="small"
                 onChange={(value) =>
                   field.onChange(convertValueToEvent('fechaInicio', value))
                 }
-                renderInput={(params) => (
-                  <TextField fullWidth size="small" {...params} />
-                )}
+                slotProps={{
+                  textField: {
+                    variant: 'outlined',
+                    fullWidth: true,
+                    size: 'small'
+                  }
+                }}
               />
             </LocalizationProvider>
             <FormHelperText error={!!errorValue} color="error">

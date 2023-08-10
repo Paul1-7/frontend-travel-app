@@ -35,4 +35,15 @@ const TEXT_MODAL = {
     '¿Estas seguro de querer eliminar el registro seleccionado ? Esta accion no se puede deshacer'
 }
 
+export const ITEMS_LANGUAJE = [
+  {
+    id: 'es',
+    title: 'Español'
+  },
+  {
+    id: 'en',
+    title: 'Ingles'
+  }
+]
+
 export { ITEMS_RADIO_GROUP, ITEMS_ROL, DEFAULT_VALUE_ITEM, TEXT_MODAL }

@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import schema from '@/schemas'
 import {
   DASHBOARD,
+  DEFAULT_VALUE_ITEM,
   TEXT_MODAL,
   initialFormRouteListSchedule,
   initialFormRouteSchedule
@@ -20,12 +21,18 @@ import {
   modifyPlacesSchedule,
   routesSchedulesListDetail
 } from '@/services'
-import { useDialog, useFormFields, useRepeatEvents, useSchedule } from '@/hooks'
+import {
+  useDialog,
+  useFormFields,
+  useRepeatEvents,
+  usePlaceSchedule
+} from '@/hooks'
 import PlaceSchedulePopoper from './PlaceSchedulePopoper'
 import PlaceScheduleEventContent from './RouteScheduleEventContent'
 import rrulePlugin from '@fullcalendar/rrule'
 import { DashboardContainer, DialogConfirmation } from '@/ui-component'
 import { MenuItem, Select } from '@mui/material'
+import { useEffect } from 'react'
 
 const RoutesSchedule = () => {
   const [anchorEl, setAnchorEl] = useState()
@@ -33,7 +40,6 @@ const RoutesSchedule = () => {
   const { formFields, handleChange } = useFormFields(
     initialFormRouteListSchedule
   )
-  console.log('TCL: RoutesSchedule -> formFields', formFields)
   const datesSelected = useRef(null)
   const eventSelected = useRef(null)
 
@@ -83,7 +89,19 @@ const RoutesSchedule = () => {
     deleteScheduleData.mutate(id)
   }
 
-  const { handleDateSelect, handleClickEvent } = useSchedule({
+  useEffect(() => {
+    const {
+      route: { id }
+    } = formFields
+
+    if (id === DEFAULT_VALUE_ITEM) return
+
+    console.log('sss', datesSelected.current)
+
+    //addScheduleData.mutate()
+  }, [formFields])
+
+  const { handleDateSelect, handleClickEvent } = usePlaceSchedule({
     addScheduleData,
     modifyScheduleData,
     datesSelected,
@@ -92,7 +110,7 @@ const RoutesSchedule = () => {
   })
 
   return (
-    <DashboardContainer data={DASHBOARD.placesSchedules.default}>
+    <DashboardContainer data={DASHBOARD.routesSchedules.default}>
       <DialogConfirmation
         open={isDialogOpen}
         handleClickClose={closeDialog}
@@ -112,6 +130,7 @@ const RoutesSchedule = () => {
         name="route"
         size="small"
         color="secondary"
+        sx={{ mb: 4 }}
       >
         <MenuItem value={initialFormRouteListSchedule.route}>
           {initialFormRouteListSchedule.route.titulo}

@@ -1,12 +1,11 @@
 import { daysToRepeat } from '@/constants'
 import { getTimeDifferenceWithFormat } from '@/utils'
 import { useTheme } from '@mui/material'
-import { getHours, isAfter, isBefore, isSameHour, max } from 'date-fns'
+import { getHours, max } from 'date-fns'
 import { parseISO } from 'date-fns'
 import { add, sub } from 'date-fns'
 import { min } from 'date-fns'
 import { format } from 'date-fns'
-import compare from 'just-compare'
 import { useState, useEffect, useMemo } from 'react'
 
 export const useRepeatEvents = ({
@@ -45,21 +44,20 @@ export const useRepeatEvents = ({
 
   const getEarliestTime = (dateArray) => {
     const time = {
-      morning:{ start:[], end:[]},
-      afternoon:{ start:[], end:[]},
+      morning: { start: [], end: [] },
+      afternoon: { start: [], end: [] }
     }
 
     dateArray.forEach(({ horarioEntrada, horarioSalida }) => {
-
       const dateEntryParse = parseISO(horarioEntrada)
       const timeEntry = getHours(new Date(dateEntryParse))
 
       const dateFinishParse = parseISO(horarioSalida)
       const timeFinish = getHours(new Date(dateFinishParse))
-      
-      if(timeEntry >= 0 && timeEntry < 12){
+
+      if (timeEntry >= 0 && timeEntry < 12) {
         time.morning.start.push(dateEntryParse)
-      }else{
+      } else {
         time.afternoon.start.push(dateEntryParse)
       }
 
@@ -68,8 +66,7 @@ export const useRepeatEvents = ({
       } else {
         time.afternoon.end.push(dateFinishParse)
       }
-
-  })
+    })
 
     const earliestStartDate = max(startDates)
     const earliestFinishDate = min(finishDates)
@@ -79,7 +76,6 @@ export const useRepeatEvents = ({
       finishDate: earliestFinishDate
     }
   }
-
 
   const getEventsWithRules = useMemo(() => {
     return events.map((event) => {

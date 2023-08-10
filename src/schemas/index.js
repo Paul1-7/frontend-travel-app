@@ -4,6 +4,8 @@ import clientes from './clientes'
 import empleados from './empleados'
 import drivers from './drivers'
 import placesSchedule from './placesSchedule'
+import contracts from './contracts'
+import contractsReport from './contractsReport'
 
 const schema = {
   rutas,
@@ -11,7 +13,9 @@ const schema = {
   clientes,
   empleados,
   drivers,
-  placesSchedule
+  placesSchedule,
+  contracts,
+  contractsReport
 }
 
 export default schema

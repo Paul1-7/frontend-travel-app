@@ -18,7 +18,7 @@ function FormRoute({
   return (
     <>
       <Grid wrap="wrap" container spacing={2}>
-        <Grid item lg={12}>
+        <Grid item xs={12}>
           <Typography variant="h3" gutterBottom>
             Datos de la ruta
           </Typography>

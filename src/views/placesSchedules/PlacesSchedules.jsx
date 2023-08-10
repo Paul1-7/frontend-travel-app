@@ -17,7 +17,7 @@ import {
   modifyPlacesSchedule,
   placesSchedulesListDetail
 } from '@/services'
-import { useRepeatEvents, useSchedule } from '@/hooks'
+import { useRepeatEvents, usePlaceSchedule } from '@/hooks'
 import PlaceSchedulePopoper from './PlaceSchedulePopoper'
 import PlaceScheduleEventContent from './PlaceScheduleEventContent'
 import rrulePlugin from '@fullcalendar/rrule'
@@ -80,7 +80,7 @@ const Schedules = () => {
     handleClickEvent,
     isUpdateEvent,
     isModalOpen
-  } = useSchedule({
+  } = usePlaceSchedule({
     addScheduleData,
     modifyScheduleData,
     datesSelected,

@@ -1,7 +1,7 @@
 import { IconUser } from '@tabler/icons'
 import { ROUTES } from './routes'
 import { IconMountain } from '@tabler/icons'
-import { Route } from '@mui/icons-material'
+import { Article } from '@mui/icons-material'
 
 export const DASHBOARD = {
   employees: {
@@ -85,7 +85,7 @@ export const DASHBOARD = {
       title: 'Rutas',
       description: 'Lista de rutas',
       button: {
-        icon: Route,
+        icon: Article,
         url: ROUTES.routes.add,
         name: 'Nueva ruta'
       }
@@ -107,6 +107,43 @@ export const DASHBOARD = {
     default: {
       title: 'Horarios de lugares',
       description: 'Se define los horarios de atención de cada lugar'
+    }
+  },
+  routesSchedules: {
+    default: {
+      title: 'Horarios de rutas',
+      description:
+        'Se define los horarios de las rutas en base a los horarios disponibles de los lugares'
+    }
+  },
+  contracts: {
+    default: {
+      title: 'Contrataciones',
+      description: 'Lista de contrataciones',
+      button: {
+        icon: Article,
+        url: ROUTES.contracts.add,
+        name: 'Nueva contratación'
+      }
+    },
+    add: {
+      title: 'Agregar contratación',
+      description: 'Agrega una nueva contratación '
+    },
+    modify: {
+      title: 'Modificar contratación',
+      description: 'Modifica una contratación existente'
+    },
+    detail: {
+      title: 'Detalle de contratación',
+      description: 'Muestra la informacion de la ruta y los cambios que tuvo'
+    }
+  },
+  reports: {
+    contracts: {
+      title: 'Reportes de de contratos de rutas',
+      description:
+        'Genera reportes de los contratos de rutas en formato PDF o CSV'
     }
   }
 }

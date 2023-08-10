@@ -38,6 +38,7 @@ const SelectMemo = memo(
             <Select
               labelId={name}
               {...field}
+              color="secondary"
               label={label}
               onChange={(value) => {
                 field.onChange(value)

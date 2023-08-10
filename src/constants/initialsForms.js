@@ -1,3 +1,4 @@
+import { add } from 'date-fns'
 import { DEFAULT_VALUE_ITEM, ITEMS_ROL } from './inputs'
 
 export const initialFormEmployees = {
@@ -66,4 +67,22 @@ export const initialFormRouteListSchedule = {
 
 export const initialFormRouteSchedule = {
   idRuta: '0'
+}
+
+export const initialFormContract = {
+  idRuta: '0',
+  idCliente: { id: 0, nombre: 'Ninguno' },
+  fecha: new Date(),
+  monto: 0,
+  cantidadPersonas: 1,
+  idioma: 'es'
+}
+
+export const initialFormContractReport = {
+  options: {
+    criterio: DEFAULT_VALUE_ITEM,
+    orderBy: DEFAULT_VALUE_ITEM
+  },
+  dateStart: new Date(),
+  dateEnd: add(new Date(), { days: 1 })
 }

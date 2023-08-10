@@ -1,13 +1,7 @@
 import { useRef } from 'react'
 import { useState } from 'react'
 
-export const usePlaceSchedule = ({
-  addScheduleData,
-  modifyScheduleData,
-  datesSelected,
-  methods,
-  initialForm
-}) => {
+export const useRouteSchedule = ({ datesSelected, methods, initialForm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const isUpdateEvent = useRef(false)
 
@@ -22,23 +16,12 @@ export const usePlaceSchedule = ({
     setIsModalOpen(false)
   }
 
-  const handleSubmit = (data) => {
+  const getData = () => {
     const { endStr, startStr } = datesSelected.current ?? {}
-
-    if (isUpdateEvent.current) {
-      modifyScheduleData.mutate(data)
-      handleModalClose()
-      return
-    }
-
-    const newData = {
-      ...data,
+    return {
       horarioEntrada: startStr,
       horarioSalida: endStr
     }
-
-    addScheduleData.mutate(newData)
-    handleModalClose()
   }
 
   const handleClickEvent = (data) => {
@@ -59,7 +42,7 @@ export const usePlaceSchedule = ({
   return {
     handleClickEvent,
     handleDateSelect,
-    handleSubmit,
+    getData,
     handleModalClose,
     isModalOpen,
     isUpdateEvent: isUpdateEvent.current

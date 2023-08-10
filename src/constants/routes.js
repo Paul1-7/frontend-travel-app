@@ -33,5 +33,15 @@ export const ROUTES = {
   },
   routesSchedules: {
     default: DEFAULT_ADMIN_PATH + '/horarios-rutas'
+  },
+  contracts: {
+    add: DEFAULT_ADMIN_PATH + '/contrataciones/agregar',
+    modify: DEFAULT_ADMIN_PATH + '/contrataciones/modificar',
+    detail: DEFAULT_ADMIN_PATH + '/contrataciones/detalle',
+    default: DEFAULT_ADMIN_PATH + '/contrataciones'
+  },
+  reports: {
+    default: DEFAULT_ADMIN_PATH + '/reportes',
+    contracts: DEFAULT_ADMIN_PATH + '/reportes/contratos',
   }
 }

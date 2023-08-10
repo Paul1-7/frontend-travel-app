@@ -28,6 +28,14 @@ export const COLUMNS_TABLE = {
     { field: 'apellidoChofer', header: 'Apellido', type: '' },
     { field: 'auto', header: 'Auto', type: '' },
     { field: 'capacidad', header: 'Capacidad', type: '' }
+  ],
+  contracts: [
+    { field: 'cliente', header: 'Cliente', type: '' },
+    { field: 'monto', header: 'Monto', type: '' },
+    { field: 'cantidadPersonas', header: 'Cantidad de personas', type: '' },
+    { field: 'ruta', header: 'Ruta', type: '' },
+    { field: 'fecha', header: 'Fecha de salida', type: 'date' },
+    { field: 'estado', header: 'Estado', type: '' }
   ]
 }
 

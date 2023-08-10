@@ -53,6 +53,22 @@ const PlacesSchedules = Loadable(
 const RoutesSchedules = Loadable(
   lazy(() => import('../views/routesSchedules/RoutesSchedules'))
 )
+// contracts
+const Contracts = Loadable(lazy(() => import('../views/contracts/Contracts')))
+const AddContract = Loadable(
+  lazy(() => import('../views/contracts/AddContract'))
+)
+const ModifyContract = Loadable(
+  lazy(() => import('../views/contracts/ModifyContract'))
+)
+const DetailContract = Loadable(
+  lazy(() => import('../views/contracts/DetailContract'))
+)
+
+// reports
+const ContractReport = Loadable(
+  lazy(() => import('../views/reports/ContractReport'))
+)
 
 const MainRoutes = () => {
   const location = useLocation()
@@ -91,7 +107,6 @@ const MainRoutes = () => {
             path={`${ROUTES.places.modify}/:id`}
             component={ModifyPlace}
           />
-
           {/* routes*/}
           <Route
             exact
@@ -159,6 +174,33 @@ const MainRoutes = () => {
             exact
             path={`${ROUTES.drivers.modify}/:id`}
             component={ModifyDriver}
+          />
+          {/* contracts */}
+          <Route
+            exact
+            path={ROUTES.contracts.default}
+            children={
+              <DataTableProvider>
+                <Contracts />
+              </DataTableProvider>
+            }
+          />
+          <Route exact path={ROUTES.contracts.add} component={AddContract} />
+          <Route
+            exact
+            path={`${ROUTES.contracts.modify}/:id`}
+            component={ModifyContract}
+          />
+          <Route
+            exact
+            path={`${ROUTES.contracts.detail}/:id`}
+            component={DetailContract}
+          />
+          {/* reports */}
+          <Route
+            exact
+            path={`${ROUTES.reports.contracts}`}
+            component={ContractReport}
           />
           {/* </AuthGuard> */}
         </Switch>

@@ -1,13 +1,15 @@
 // assets
 import { ROUTES } from '@/constants'
-import { IconCar } from '@tabler/icons'
 import {
   IconMountain,
   IconRoute,
   IconUser,
   IconUsers,
   IconLayoutDashboard,
-  IconCalendarStats
+  IconCalendarStats,
+  IconCar,
+  IconFileDescription,
+  IconClipboardData
 } from '@tabler/icons'
 
 // constant
@@ -18,7 +20,9 @@ const icons = {
   clientes: IconUser,
   empleados: IconUsers,
   dashboard: IconLayoutDashboard,
-  schedules: IconCalendarStats
+  schedules: IconCalendarStats,
+  contract: IconFileDescription,
+  reports: IconClipboardData
 }
 
 export const other = {
@@ -26,14 +30,6 @@ export const other = {
   title: 'Modulos',
   type: 'group',
   children: [
-    {
-      id: 'dashboard',
-      title: 'Dashboard',
-      type: 'item',
-      url: ROUTES.dashboard,
-      icon: icons.dashboard,
-      breadcrumbs: true
-    },
     {
       id: 'rutas',
       title: 'Rutas',
@@ -108,6 +104,30 @@ export const other = {
       url: ROUTES.routesSchedules.default,
       icon: icons.schedules,
       breadcrumbs: true
+    },
+    {
+      id: 'contracts',
+      title: 'Contratos',
+      type: 'item',
+      url: ROUTES.contracts.default,
+      icon: icons.contract,
+      breadcrumbs: true
+    },
+    {
+      id: 'reports',
+      title: 'Reportes',
+      type: 'collapse',
+      icon: icons.reports,
+      children: [
+        {
+          id: 'contract-report',
+          title: 'Contratos',
+          type: 'item',
+          url: ROUTES.reports.contracts,
+          breadcrumbs: true,
+          icon: icons.contract
+        }
+      ]
     }
   ]
 }

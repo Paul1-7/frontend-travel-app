@@ -44,7 +44,8 @@ const DatePickerMemo = memo(
                   textField: {
                     variant: 'outlined',
                     fullWidth: true,
-                    size: 'small'
+                    size: 'small',
+                    color: 'secondary'
                   }
                 }}
               />

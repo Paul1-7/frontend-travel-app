@@ -1,3 +1,4 @@
+import { getCustomerWithFullName } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_CUSTOMERS = {
@@ -7,6 +8,11 @@ export const URL_CUSTOMERS = {
 export const listCustomers = () =>
   Axios.get(URL_CUSTOMERS.default).then((res) => {
     return res.data
+  })
+
+export const listCustomersWithFullName = () =>
+  Axios.get(URL_CUSTOMERS.default).then((res) => {
+    return getCustomerWithFullName(res.data)
   })
 
 export const getCustomerById = (id) =>

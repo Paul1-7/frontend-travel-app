@@ -29,10 +29,14 @@ function FormEmployees({ loading }) {
           <Input label="Usuario" name="usuario" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Input label="Contraseña" name="password" />
+          <Input label="Contraseña" name="password" type="password" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Input label="Repetir contraseña" name="repetirPassword" />
+          <Input
+            label="Repetir contraseña"
+            name="repetirPassword"
+            type="password"
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <RadioGroup name="estado" label="Estado" items={ITEMS_RADIO_GROUP} />

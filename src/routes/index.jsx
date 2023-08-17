@@ -14,13 +14,6 @@ const Routes = () => {
     <Switch>
       <Redirect exact from="/" to={ROUTES.routes.default} />
       <React.Fragment>
-        {/* Routes for authentication pages */}
-        {/* <AuthenticationRoutes /> */}
-
-        {/* Route for login */}
-        {/* <LoginRoutes /> */}
-
-        {/* Routes for main layouts */}
         <MainRoutes />
       </React.Fragment>
     </Switch>

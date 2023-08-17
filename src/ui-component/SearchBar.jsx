@@ -11,7 +11,7 @@ const SearchBar = ({ setSearchQuery }) => (
       }}
       autoComplete="off"
       variant="outlined"
-      placeholder="Search..."
+      placeholder="Buscar..."
       size="small"
       sx={{ width: '15rem' }}
     />

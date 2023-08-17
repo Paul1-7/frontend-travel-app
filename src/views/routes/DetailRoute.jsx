@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useMapBox, usePrint } from '@/hooks'
 import { Backdrop, Box, Button, Grid, Typography } from '@material-ui/core'
+import { getDateTimeFormat } from '@/utils'
 
 const DetailRoute = () => {
   const { id } = useParams()
@@ -62,51 +63,61 @@ const DetailRoute = () => {
           sx={{ width: '100%', height: 400, marginBottom: '2rem' }}
           ref={mapRef}
         ></Box>
-        <Grid container>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" gutterBottom>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Nombre de la ruta:{' '}
-              </span>
-              {dataRoute?.titulo}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Duracion:
-              </span>
-              {dataRoute?.duracion}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" gutterBottom>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Descripción:
-              </span>
-              {dataRoute?.descripcion}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              component="h2"
-              sx={{ fontWeight: 'bold', color: 'black', mb: 2 }}
-            >
-              Itinerario
-            </Typography>
-          </Grid>
-          {dataRoute?.itinerarios.map(({ id, nombre }, index) => (
-            <Grid item xs={12} key={id}>
+        {route.isSuccess && (
+          <Grid container>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body1" component="h2" gutterBottom>
-                <span style={{ fontWeight: 'bold' }}>
-                  {`${index + 1}. Lugar: `}
+                <span style={{ fontWeight: 'bold', color: 'black' }}>
+                  Nombre de la ruta:
                 </span>
-                {nombre}
+                {dataRoute?.titulo}
               </Typography>
             </Grid>
-          ))}
-        </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="body1" component="h2" sx={{ mb: 2 }}>
+                <span style={{ fontWeight: 'bold', color: 'black' }}>
+                  Duracion:
+                </span>
+                {dataRoute?.duracion}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="body1" component="h2" sx={{ mb: 2 }}>
+                <span style={{ fontWeight: 'bold', color: 'black' }}>
+                  Fecha de creación:
+                </span>
+                {getDateTimeFormat(dataRoute.fechaCreacion)}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="body1" component="h2" gutterBottom>
+                <span style={{ fontWeight: 'bold', color: 'black' }}>
+                  Descripción:
+                </span>
+                {dataRoute?.descripcion}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography
+                variant="h4"
+                component="h2"
+                sx={{ fontWeight: 'bold', color: 'black', mb: 2 }}
+              >
+                Itinerario
+              </Typography>
+            </Grid>
+            {dataRoute?.itinerarios.map(({ id, nombre }, index) => (
+              <Grid item xs={12} key={id}>
+                <Typography variant="body1" component="h2" gutterBottom>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {`${index + 1}. Lugar: `}
+                  </span>
+                  {nombre}
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Grid>
     </DashboardContainer>
   )

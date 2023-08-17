@@ -1,26 +1,30 @@
 import PropTypes from 'prop-types'
 import { Button, Grid, Stack } from '@material-ui/core'
-import { Input } from '@/ui-component'
-import { ROUTES } from '@/constants'
+import { Input, Select } from '@/ui-component'
+import { ITEMS_VEHICLES_TYPE, ROUTES } from '@/constants'
 import { LoadingButton } from '@material-ui/lab'
 import { Clear, Save } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
-function FormDriver({ loading }) {
+function FormVehicle({ loading }) {
   return (
     <>
       <Grid wrap="wrap" container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Input label="Nombres" name="nombreChofer" />
+          <Input label="Modelo" name="modelo" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Input label="Apellidos" name="apellidoChofer" />
+          <Input label="Placa" name="placa" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Input label="Auto" name="auto" />
+          <Select label="Tipo" name="tipo" items={ITEMS_VEHICLES_TYPE} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Input label="Capacidad" name="capacidad" />
+          <Input
+            label="Capacidad (personas)"
+            name="capacidad"
+            type={'number'}
+          />
         </Grid>
       </Grid>
       <Stack justifyContent={'center'} gap={2} flexDirection="row">
@@ -29,7 +33,7 @@ function FormDriver({ loading }) {
           variant="outlined"
           color="error"
           LinkComponent={Link}
-          to={ROUTES.drivers.default}
+          to={ROUTES.vehicles.default}
         >
           Cancelar
         </Button>
@@ -48,8 +52,8 @@ function FormDriver({ loading }) {
   )
 }
 
-FormDriver.propTypes = {
+FormVehicle.propTypes = {
   loading: PropTypes.bool
 }
 
-export default FormDriver
+export default FormVehicle

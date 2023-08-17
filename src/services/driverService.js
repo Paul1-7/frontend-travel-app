@@ -1,3 +1,4 @@
+import { getDriverWithVehicle } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_DRIVERS = {
@@ -6,7 +7,7 @@ export const URL_DRIVERS = {
 
 export const listDrivers = () =>
   Axios.get(URL_DRIVERS.default).then((res) => {
-    return res.data
+    return getDriverWithVehicle(res.data)
   })
 
 export const getDriverById = (id) =>

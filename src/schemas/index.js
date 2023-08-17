@@ -3,6 +3,7 @@ import lugares from './lugares'
 import clientes from './clientes'
 import empleados from './empleados'
 import drivers from './drivers'
+import vehicles from './vehicles'
 import placesSchedule from './placesSchedule'
 import contracts from './contracts'
 import contractsReport from './contractsReport'
@@ -15,7 +16,8 @@ const schema = {
   drivers,
   placesSchedule,
   contracts,
-  contractsReport
+  contractsReport,
+  vehicles
 }
 
 export default schema

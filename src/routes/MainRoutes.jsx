@@ -40,6 +40,12 @@ const AddDriver = Loadable(lazy(() => import('../views/drivers/AddDriver')))
 const ModifyDriver = Loadable(
   lazy(() => import('../views/drivers/ModifyDriver'))
 )
+// vehicles
+const Vehicles = Loadable(lazy(() => import('../views/vehicles/Vehicles')))
+const AddVehicle = Loadable(lazy(() => import('../views/vehicles/AddVehicle')))
+const ModifyVehicle = Loadable(
+  lazy(() => import('../views/vehicles/ModifyVehicle'))
+)
 // placesSchedules
 const PlacesSchedules = Loadable(
   lazy(() => import('../views/placesSchedules/PlacesSchedules'))
@@ -169,6 +175,22 @@ const MainRoutes = () => {
             exact
             path={`${ROUTES.drivers.modify}/:id`}
             component={ModifyDriver}
+          />
+          {/* vehicles */}
+          <Route
+            exact
+            path={ROUTES.vehicles.default}
+            children={
+              <DataTableProvider>
+                <Vehicles />
+              </DataTableProvider>
+            }
+          />
+          <Route exact path={ROUTES.vehicles.add} component={AddVehicle} />
+          <Route
+            exact
+            path={`${ROUTES.vehicles.modify}/:id`}
+            component={ModifyVehicle}
           />
           {/* contracts */}
           <Route

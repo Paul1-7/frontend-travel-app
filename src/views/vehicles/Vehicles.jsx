@@ -5,44 +5,44 @@ import {
   DialogConfirmation
 } from '@/ui-component'
 import { COLUMNS_TABLE, TEXT_MODAL } from '@/constants'
-import {  deleteDriver, listDrivers } from '@/services'
+import { deleteVehicle, listVehicles } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import DataTableContext from '@/contexts/DataTableContext'
 
 const buttonsActions = { edit: true, remove: true, detail: false }
 
-const Drivers = () => {
+const Vehicles = () => {
   const { setOpenDialog, handleCloseDialog, openDialog, dataDialog } =
     useContext(DataTableContext)
 
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ['listDrivers'],
-    queryFn: listDrivers
+    queryKey: ['listVehicles'],
+    queryFn: listVehicles
   })
 
-  const resDeleteDriver = useMutation({
-    mutationFn: (id) => deleteDriver({ id }),
+  const resDeleteVehicle = useMutation({
+    mutationFn: (id) => deleteVehicle({ id }),
     onSuccess: refetch
   })
 
   const handleDelete = (id) => {
-    resDeleteDriver.mutate(id)
+    resDeleteVehicle.mutate(id)
   }
 
   return (
-    <DashboardContainer data={DASHBOARD.drivers.default}>
+    <DashboardContainer data={DASHBOARD.vehicles.default}>
       <DialogConfirmation
         open={openDialog}
         setOpen={setOpenDialog}
         handleClickClose={handleCloseDialog}
         handleDelete={handleDelete}
-        loading={resDeleteDriver.isLoading}
+        loading={resDeleteVehicle.isLoading}
         textContent={TEXT_MODAL.delete}
         id={dataDialog}
       />
       <DataTable
-        columns={COLUMNS_TABLE.drivers}
+        columns={COLUMNS_TABLE.vehicles}
         rows={data}
         error={error}
         loading={isLoading}
@@ -54,4 +54,4 @@ const Drivers = () => {
   )
 }
 
-export default Drivers
+export default Vehicles

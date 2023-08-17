@@ -24,9 +24,15 @@ export const COLUMNS_TABLE = {
     { field: 'estado', header: 'Estado', type: 'states' }
   ],
   drivers: [
-    { field: 'nombreChofer', header: 'Nombre', type: '' },
-    { field: 'apellidoChofer', header: 'Apellido', type: '' },
-    { field: 'auto', header: 'Auto', type: '' },
+    { field: 'nombre', header: 'Nombre', type: '' },
+    { field: 'apellido', header: 'Apellido', type: '' },
+    { field: 'numLicencia', header: 'Número de licencia', type: '' },
+    { field: 'vehiculo', header: 'Vehiculo', type: '' }
+  ],
+  vehicles: [
+    { field: 'placa', header: 'Placa', type: '' },
+    { field: 'modelo', header: 'modelo', type: '' },
+    { field: 'tipo', header: 'tipo', type: '' },
     { field: 'capacidad', header: 'Capacidad', type: '' }
   ],
   contracts: [

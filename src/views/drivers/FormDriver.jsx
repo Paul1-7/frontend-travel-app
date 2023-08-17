@@ -50,7 +50,7 @@ function FormDriver({ loading, vehicles = [] }) {
 
 FormDriver.propTypes = {
   loading: PropTypes.bool,
-  vehicles: PropTypes.string
+  vehicles: PropTypes.array
 }
 
 export default FormDriver

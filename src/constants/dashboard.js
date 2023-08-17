@@ -1,4 +1,4 @@
-import { IconUser } from '@tabler/icons'
+import { IconUser, IconBus } from '@tabler/icons'
 import { ROUTES } from './routes'
 import { IconMountain } from '@tabler/icons'
 import { Article } from '@mui/icons-material'
@@ -78,6 +78,25 @@ export const DASHBOARD = {
     modify: {
       title: 'Modificar chofer',
       description: 'Modifica un chofer existente para las rutas'
+    }
+  },
+  vehicles: {
+    default: {
+      title: 'Vehiculos',
+      description: 'Lista de vehiculos para las rutas',
+      button: {
+        icon: IconBus,
+        url: ROUTES.vehicles.add,
+        name: 'Nuevo vehiculo'
+      }
+    },
+    add: {
+      title: 'Agregar vehiculo',
+      description: 'Agrega un vehiculo para las rutas'
+    },
+    modify: {
+      title: 'Modificar vehiculo',
+      description: 'Modifica los datos de un vehiculo existente para las rutas'
     }
   },
   routes: {

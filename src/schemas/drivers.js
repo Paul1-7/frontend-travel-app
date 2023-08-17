@@ -2,16 +2,23 @@ import * as yup from 'yup'
 import { msg, regex } from '../constants/validaciones'
 
 const drivers = yup.object().shape({
-  nombreChofer: yup
+  nombre: yup.string().matches(regex.alphaNumeric, msg.alphaNumeric).required(),
+  apellido: yup
     .string()
     .matches(regex.alphaNumeric, msg.alphaNumeric)
     .required(),
-  apellidoChofer: yup
+  numLicencia: yup
     .string()
     .matches(regex.alphaNumeric, msg.alphaNumeric)
     .required(),
-  auto: yup.string().matches(regex.alphaNumeric, msg.alphaNumeric).required(),
-  capacidad: yup.number().required().typeError('tiene que ser un número')
+  idVehiculo: yup
+    .string()
+    .test(
+      'idVehiculo',
+      'Tiene que seleccionar una opción',
+      (value) => value !== '0'
+    )
+    .required()
 })
 
 export default drivers

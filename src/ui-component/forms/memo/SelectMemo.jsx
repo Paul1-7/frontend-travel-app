@@ -38,8 +38,8 @@ const SelectMemo = memo(
             <Select
               labelId={name}
               {...field}
-              color="secondary"
               label={label}
+              color="secondary"
               onChange={(value) => {
                 field.onChange(value)
                 onChange && onChange(value)
@@ -51,7 +51,7 @@ const SelectMemo = memo(
               {items.map((item, index) => {
                 const value = Object.values(item)
                 return (
-                  <MenuItem key={index} value={value?.[0]}>
+                  <MenuItem key={index} value={value?.[0]} color="secondary">
                     {value?.[1]}
                   </MenuItem>
                 )

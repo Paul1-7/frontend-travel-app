@@ -7,22 +7,24 @@ import {
   IconUsers,
   IconLayoutDashboard,
   IconCalendarStats,
-  IconCar,
+  IconUserCheck,
   IconFileDescription,
-  IconClipboardData
+  IconClipboardData,
+  IconCar
 } from '@tabler/icons'
 
 // constant
 const icons = {
   rutas: IconRoute,
   lugares: IconMountain,
-  choferes: IconCar,
+  choferes: IconUserCheck,
   clientes: IconUser,
   empleados: IconUsers,
   dashboard: IconLayoutDashboard,
   schedules: IconCalendarStats,
   contract: IconFileDescription,
-  reports: IconClipboardData
+  reports: IconClipboardData,
+  vehicles: IconCar
 }
 
 export const other = {
@@ -79,6 +81,14 @@ export const other = {
       type: 'item',
       url: ROUTES.drivers.default,
       icon: icons.choferes,
+      breadcrumbs: true
+    },
+    {
+      id: 'vehiculos',
+      title: 'Vehiculos',
+      type: 'item',
+      url: ROUTES.vehicles.default,
+      icon: icons.vehicles,
       breadcrumbs: true
     },
     {

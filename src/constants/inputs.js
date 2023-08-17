@@ -30,6 +30,17 @@ const ITEMS_ROL = [
   }
 ]
 
+export const ITEMS_VEHICLES_TYPE = [
+  {
+    id: 'auto',
+    nombre: 'Auto'
+  },
+  {
+    id: 'bus',
+    nombre: 'Bus'
+  }
+]
+
 const TEXT_MODAL = {
   delete:
     '¿Estas seguro de querer eliminar el registro seleccionado ? Esta accion no se puede deshacer'

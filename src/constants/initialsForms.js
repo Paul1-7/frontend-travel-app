@@ -86,3 +86,10 @@ export const initialFormContractReport = {
   dateStart: new Date(),
   dateEnd: add(new Date(), { days: 1 })
 }
+
+export const initialFormVehicle = {
+  modelo: '',
+  tipo: '0',
+  placa: '',
+  capacidad: ''
+}

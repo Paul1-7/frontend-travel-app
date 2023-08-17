@@ -28,6 +28,11 @@ export const ROUTES = {
     modify: DEFAULT_ADMIN_PATH + '/choferes/modificar',
     default: DEFAULT_ADMIN_PATH + '/choferes'
   },
+  vehicles: {
+    add: DEFAULT_ADMIN_PATH + '/vehiculos/agregar',
+    modify: DEFAULT_ADMIN_PATH + '/vehiculos/modificar',
+    default: DEFAULT_ADMIN_PATH + '/vehiculos'
+  },
   placesSchedules: {
     default: DEFAULT_ADMIN_PATH + '/horarios-lugares'
   },
@@ -42,6 +47,6 @@ export const ROUTES = {
   },
   reports: {
     default: DEFAULT_ADMIN_PATH + '/reportes',
-    contracts: DEFAULT_ADMIN_PATH + '/reportes/contratos',
+    contracts: DEFAULT_ADMIN_PATH + '/reportes/contratos'
   }
 }

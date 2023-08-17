@@ -30,10 +30,10 @@ export const initialFormPlaces = {
 }
 
 export const initialFormDriver = {
-  nombreChofer: '',
-  apellidoChofer: '',
-  auto: '',
-  capacidad: ''
+  nombre: '',
+  apellido: '',
+  numLicencia: '',
+  idVehiculo: '0'
 }
 
 export const initialFormRoute = {

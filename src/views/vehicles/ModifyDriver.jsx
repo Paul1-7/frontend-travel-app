@@ -1,24 +1,26 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useForm } from 'react-hook-form'
+import schema from '@/schemas'
 import { DASHBOARD, ROUTES, initialFormDriver } from '@/constants'
 import { DashboardContainer, Form } from '@/ui-component'
-import { addDriver, listVehiclesWithTypeAndBoard } from '@/services'
+import { getDriverById, modifyDriver } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Redirect } from 'react-router-dom'
-import schema from '@/schemas'
+import { Redirect, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 import FormDriver from './FormDriver'
 
-const AddDriver = () => {
+const ModifyDriver = () => {
+  const { id } = useParams()
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
-      return addDriver({ data })
+      return modifyDriver({ data, id })
     }
   })
 
-  const vehicles = useQuery({
-    queryFn: listVehiclesWithTypeAndBoard,
-    queryKey: ['listVehicles']
+  const driver = useQuery({
+    queryFn: () => getDriverById(id),
+    queryKey: ['getDriver']
   })
 
   const methods = useForm({
@@ -28,10 +30,15 @@ const AddDriver = () => {
     criteriaMode: 'all'
   })
 
+  useEffect(() => {
+    if (!driver.isSuccess) return
+    methods.reset(driver.data)
+  }, [driver.isSuccess])
+
   return (
-    <DashboardContainer data={DASHBOARD.drivers.add}>
+    <DashboardContainer data={DASHBOARD.drivers.modify}>
       <Form methods={methods} onSubmit={mutate}>
-        <FormDriver loading={isLoading} vehicles={vehicles.data} />
+        <FormDriver loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
         <Redirect to={{ pathname: ROUTES.drivers.default }} />
@@ -40,4 +47,4 @@ const AddDriver = () => {
   )
 }
 
-export default AddDriver
+export default ModifyDriver

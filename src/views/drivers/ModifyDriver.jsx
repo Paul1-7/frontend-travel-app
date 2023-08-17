@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form'
 import schema from '@/schemas'
 import { DASHBOARD, ROUTES, initialFormDriver } from '@/constants'
 import { DashboardContainer, Form } from '@/ui-component'
-import { getDriverById, modifyDriver } from '@/services'
+import {
+  getDriverById,
+  listVehiclesWithTypeAndBoard,
+  modifyDriver
+} from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Redirect, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -23,6 +27,11 @@ const ModifyDriver = () => {
     queryKey: ['getDriver']
   })
 
+  const vehicles = useQuery({
+    queryFn: listVehiclesWithTypeAndBoard,
+    queryKey: ['listVehicles']
+  })
+
   const methods = useForm({
     resolver: yupResolver(schema.drivers),
     defaultValues: initialFormDriver,
@@ -31,14 +40,14 @@ const ModifyDriver = () => {
   })
 
   useEffect(() => {
-    if (!driver.isSuccess) return
+    if (!driver.isSuccess || !vehicles.isSuccess) return
     methods.reset(driver.data)
-  }, [driver.isSuccess])
+  }, [driver.isSuccess, vehicles.isSuccess])
 
   return (
     <DashboardContainer data={DASHBOARD.drivers.modify}>
       <Form methods={methods} onSubmit={mutate}>
-        <FormDriver loading={isLoading} />
+        <FormDriver loading={isLoading} vehicles={vehicles.data} />
       </Form>
       {!isLoading && !isError && isSuccess && (
         <Redirect to={{ pathname: ROUTES.drivers.default }} />

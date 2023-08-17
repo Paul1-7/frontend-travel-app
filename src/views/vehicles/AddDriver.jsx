@@ -3,8 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { DASHBOARD, ROUTES, initialFormDriver } from '@/constants'
 import { DashboardContainer, Form } from '@/ui-component'
-import { addDriver, listVehiclesWithTypeAndBoard } from '@/services'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { addDriver } from '@/services'
+import { useMutation } from '@tanstack/react-query'
 import { Redirect } from 'react-router-dom'
 import schema from '@/schemas'
 import FormDriver from './FormDriver'
@@ -14,11 +14,6 @@ const AddDriver = () => {
     mutationFn: (data) => {
       return addDriver({ data })
     }
-  })
-
-  const vehicles = useQuery({
-    queryFn: listVehiclesWithTypeAndBoard,
-    queryKey: ['listVehicles']
   })
 
   const methods = useForm({
@@ -31,7 +26,7 @@ const AddDriver = () => {
   return (
     <DashboardContainer data={DASHBOARD.drivers.add}>
       <Form methods={methods} onSubmit={mutate}>
-        <FormDriver loading={isLoading} vehicles={vehicles.data} />
+        <FormDriver loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
         <Redirect to={{ pathname: ROUTES.drivers.default }} />

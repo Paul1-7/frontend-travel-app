@@ -15,17 +15,17 @@ import {
 } from '@/constants'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
-  addPlacesSchedule,
+  addRoutessSchedule,
   deletePlacesSchedule,
+  getRoutesSchedulesById,
   listRoutesWithDetails,
-  modifyPlacesSchedule,
-  routesSchedulesListDetail
+  modifyPlacesSchedule
 } from '@/services'
 import {
   useDialog,
   useFormFields,
   useRepeatEvents,
-  usePlaceSchedule
+  useRouteSchedule
 } from '@/hooks'
 import PlaceSchedulePopoper from './PlaceSchedulePopoper'
 import PlaceScheduleEventContent from './RouteScheduleEventContent'
@@ -43,14 +43,14 @@ const RoutesSchedule = () => {
   const datesSelected = useRef(null)
   const eventSelected = useRef(null)
 
-  const listSchedules = useQuery({
-    queryKey: ['schedulesList'],
-    queryFn: routesSchedulesListDetail
-  })
-
   const routes = useQuery({
     queryKey: ['routesList'],
     queryFn: listRoutesWithDetails
+  })
+
+  const listSchedules = useQuery([formFields], ({ queryKey }) => {
+    const id = queryKey?.[0].route.id
+    return getRoutesSchedulesById(id)
   })
 
   const { events } = useRepeatEvents({
@@ -61,7 +61,7 @@ const RoutesSchedule = () => {
 
   const addScheduleData = useMutation({
     mutationFn: (data) => {
-      return addPlacesSchedule({ data })
+      return addRoutessSchedule({ data })
     },
     onSuccess: listSchedules.refetch
   })
@@ -89,25 +89,25 @@ const RoutesSchedule = () => {
     deleteScheduleData.mutate(id)
   }
 
+  const { handleDateSelect, handleClickEvent, data, resetSelectedRange } =
+    useRouteSchedule({
+      datesSelected,
+      methods,
+      initialForm: initialFormRouteSchedule
+    })
+
   useEffect(() => {
-    const {
-      route: { id }
-    } = formFields
+    const { route } = formFields
 
-    if (id === DEFAULT_VALUE_ITEM) return
+    if (route.id === DEFAULT_VALUE_ITEM || !data) return
 
-    console.log('sss', datesSelected.current)
+    addScheduleData.mutate({
+      ...data,
+      idRuta: route.id
+    })
 
-    //addScheduleData.mutate()
-  }, [formFields])
-
-  const { handleDateSelect, handleClickEvent } = usePlaceSchedule({
-    addScheduleData,
-    modifyScheduleData,
-    datesSelected,
-    methods,
-    initialForm: initialFormRouteSchedule
-  })
+    resetSelectedRange()
+  }, [formFields, data])
 
   return (
     <DashboardContainer data={DASHBOARD.routesSchedules.default}>

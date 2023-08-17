@@ -15,9 +15,9 @@ export const routesSchedulesListDetail = async () => {
   return routesSchedulesListToDetail(response.data)
 }
 
-export const getRoutessScheduleById = (id) =>
+export const getRoutesSchedulesById = (id) =>
   Axios.get(`${URL_ROUTES_SCHEDULE.default}/${id}`).then((res) => {
-    return res.data
+    return routesSchedulesListToDetail(res.data)
   })
 
 export const addRoutessSchedule = async ({ data }) => {

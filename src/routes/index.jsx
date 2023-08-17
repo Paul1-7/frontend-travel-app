@@ -12,7 +12,7 @@ import { ROUTES } from '@/constants'
 const Routes = () => {
   return (
     <Switch>
-      <Redirect exact from="/" to={ROUTES.dashboard} />
+      <Redirect exact from="/" to={ROUTES.routes.default} />
       <React.Fragment>
         {/* Routes for authentication pages */}
         {/* <AuthenticationRoutes /> */}

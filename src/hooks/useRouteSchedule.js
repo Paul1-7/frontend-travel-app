@@ -1,27 +1,30 @@
 import { useRef } from 'react'
 import { useState } from 'react'
 
-export const useRouteSchedule = ({ datesSelected, methods, initialForm }) => {
+export const useRouteSchedule = ({ methods, initialForm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const isUpdateEvent = useRef(false)
+  const [data, setData] = useState(null)
 
   const handleDateSelect = (selectInfo) => {
-    datesSelected.current = selectInfo
+    const { endStr, startStr } = selectInfo ?? {}
+
     methods.reset(initialForm)
     isUpdateEvent.current = false
     setIsModalOpen(true)
+
+    setData({
+      horarioEntrada: startStr,
+      horarioSalida: endStr
+    })
+  }
+
+  const resetSelectedRange = () => {
+    setData(null)
   }
 
   const handleModalClose = () => {
     setIsModalOpen(false)
-  }
-
-  const getData = () => {
-    const { endStr, startStr } = datesSelected.current ?? {}
-    return {
-      horarioEntrada: startStr,
-      horarioSalida: endStr
-    }
   }
 
   const handleClickEvent = (data) => {
@@ -42,9 +45,10 @@ export const useRouteSchedule = ({ datesSelected, methods, initialForm }) => {
   return {
     handleClickEvent,
     handleDateSelect,
-    getData,
+    data,
     handleModalClose,
     isModalOpen,
-    isUpdateEvent: isUpdateEvent.current
+    isUpdateEvent: isUpdateEvent.current,
+    resetSelectedRange
   }
 }

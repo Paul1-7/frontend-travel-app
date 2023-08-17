@@ -1,16 +1,11 @@
 import { lazy } from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 
 // project imports
 import MainLayout from './../layout/MainLayout'
 import Loadable from '../ui-component/Loadable'
 import { DataTableProvider } from '../contexts/DataTableContext'
 import { ROUTES } from '@/constants'
-
-// dashboard routing
-const DashboardDefault = Loadable(
-  lazy(() => import('../views/dashboard/Default'))
-)
 
 // rutas
 const Routes = Loadable(lazy(() => import('../views/routes/Routes')))
@@ -78,7 +73,7 @@ const MainRoutes = () => {
       <MainLayout>
         <Switch location={location} key={location.pathname}>
           {/* <AuthGuard> */}
-          <Route path={ROUTES.dashboard} component={DashboardDefault} />
+          <Redirect from="/administracion" to={ROUTES.routes.default} exact />
           {/* placesSchedules */}
           <Route
             path={ROUTES.placesSchedules.default}

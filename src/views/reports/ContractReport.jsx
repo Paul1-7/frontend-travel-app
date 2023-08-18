@@ -7,7 +7,13 @@ import {
 } from '@/constants'
 import { usePrint, useReport } from '@/hooks'
 import schema from '@/schemas'
-import { DashboardContainer, Form, Loader, Select } from '@/ui-component'
+import {
+  DashboardContainer,
+  Form,
+  HeaderBusinessInfo,
+  Loader,
+  Select
+} from '@/ui-component'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Grid,
@@ -24,6 +30,7 @@ import { listContractsByDates } from '@/services'
 import DateRangePicker from './DateRangePicker'
 import ReportSummary from './ReportSummary'
 import TableReport from './TableReport'
+import TotalSummary from './TotalSummary'
 
 const sxNoPrint = {
   '@media print': {
@@ -83,12 +90,13 @@ export default function ContractReport() {
             <DateRangePicker />
           )}
         </Grid>
-        {!data && <EmptyReport />}
-        {!!data?.length && (
+        {!data?.data?.length ? (
+          <EmptyReport />
+        ) : (
           <ButtonsReport
             handlePrint={handlePrint}
             columnsCSV={COLUMNS_CONTRACTS_REPORT}
-            dataCSV={data}
+            dataCSV={data?.data}
             fileName={fileName}
           />
         )}
@@ -99,8 +107,7 @@ export default function ContractReport() {
           sx={{
             '@media print': {
               padding: '2rem'
-            },
-            minWidth: '720px'
+            }
           }}
         >
           <FormGroup sx={{ paddingBottom: '2rem', displayPrint: 'none' }}>
@@ -111,20 +118,18 @@ export default function ContractReport() {
                   size="small"
                   value={showAllRows}
                   onChange={handleShowRows}
-                  disabled={data?.length <= 10}
+                  disabled={data?.data?.length <= 10}
                 />
               }
               label="Mostrar solo las 10 primeras filas"
             />
           </FormGroup>
-          {/* <HeaderBussinessInfo
-            sx={{ display: 'none', displayPrint: 'block' }}
-          /> */}
+          <HeaderBusinessInfo sx={{ display: 'none', displayPrint: 'block' }} />
           <Typography
             gutterBottom
             variant="h3"
             align="center"
-            sx={{ display: 'none', displayPrint: 'inherit' }}
+            sx={{ display: 'none', displayPrint: 'inherit', mt: 4 }}
           >
             Reporte de contratos
           </Typography>
@@ -135,9 +140,10 @@ export default function ContractReport() {
           />
           <TableReport
             columns={COLUMNS_CONTRACTS_REPORT}
-            rows={data}
+            rows={data?.data}
             showAllRows={showAllRows}
           />
+          <TotalSummary total={data?.total} />
         </Grid>
       )}
     </DashboardContainer>

@@ -9,9 +9,11 @@ export const getContractWithDetails = (contracts) => {
 }
 
 export const getContractsToReport = (contracts) => {
-  return contracts.map((contract, index) => {
+  let total = 0
+  const data = contracts.map((contract, index) => {
     const { cliente, monto, cantidadPersonas, fecha, idioma, empleado } =
       contract
+    total += monto
 
     return {
       index: index + 1,
@@ -23,4 +25,9 @@ export const getContractsToReport = (contracts) => {
       empleado: `${empleado.nombre} ${empleado.apellido}`
     }
   })
+
+  return {
+    data,
+    total
+  }
 }

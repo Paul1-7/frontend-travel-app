@@ -50,7 +50,8 @@ export const useReport = ({
 
     if (!dateStart || !dateEnd) return
 
-    const dateEndMoreHr = addHours(new Date(dateEnd), 1)
+    const dateEndMoreHr = addHours(new Date(dateEnd), 1).toISOString()
+
     const url = `/?dateStart=${dateStart}&dateEnd=${dateEndMoreHr}&orderBy=${orderBy}`
 
     setSearchTerm(url)

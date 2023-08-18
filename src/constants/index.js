@@ -1,3 +1,4 @@
+export * from './businessInfo'
 export * from './dashboard'
 export * from './dataTable'
 export * from './initialsForms'

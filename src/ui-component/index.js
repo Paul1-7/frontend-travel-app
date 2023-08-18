@@ -1,6 +1,7 @@
 export { default as ButtonLink } from './ButtonLink'
 export { default as DashboardContainer } from './DashboardContainer'
 export { default as DialogConfirmation } from './DialogConfirmation'
+export { default as HeaderBusinessInfo } from './HeaderBusinessInfo'
 export { default as Label } from './Label'
 export { default as Loadable } from './Loadable'
 export { default as Loader } from './Loader'

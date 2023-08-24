@@ -28,6 +28,6 @@ export const modifyRoutessSchedule = async ({ data, id }) => {
   return Axios.put(`${URL_ROUTES_SCHEDULE.default}/${id}`, data)
 }
 
-export const deleteRoutessSchedule = async ({ id }) => {
+export const deleteRouteSchedule = async ({ id }) => {
   return Axios.delete(`${URL_ROUTES_SCHEDULE.default}/${id}`)
 }

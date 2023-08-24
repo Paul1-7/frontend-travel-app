@@ -5,6 +5,7 @@ import { ITEMS_LANGUAJE, ROUTES } from '@/constants'
 import { LoadingButton } from '@material-ui/lab'
 import { Clear, Save } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
+import { add } from 'date-fns'
 
 function FormContract({ loading, customers = [], routes = [] }) {
   return (
@@ -27,7 +28,12 @@ function FormContract({ loading, customers = [], routes = [] }) {
           <Input label="Monto total" name="monto" type="number" disabled />
         </Grid>
         <Grid item xs={12} md={6}>
-          <DatePicker label="Fecha de salida" name="fecha" />
+          <DatePicker
+            label="Fecha de salida"
+            name="fecha"
+            disablePast
+            maxDate={add(new Date(), { months: 1 })}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <Select label="Idioma" name="idioma" items={ITEMS_LANGUAJE} />

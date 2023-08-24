@@ -28,14 +28,15 @@ export const useRouteSchedule = ({ methods, initialForm }) => {
   }
 
   const handleClickEvent = (data) => {
-    const { extendedProps, endStr, startStr } = data.event
+    const { extendedProps, endStr, startStr, overlap } = data.event
     const { idLugar, id = null } = extendedProps
 
     const newData = {
       id,
       idLugar,
       endStr,
-      startStr
+      startStr,
+      overlap
     }
     methods.reset(newData)
     isUpdateEvent.current = true

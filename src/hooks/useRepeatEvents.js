@@ -1,24 +1,112 @@
 import { daysToRepeat } from '@/constants'
 import { getTimeDifferenceWithFormat } from '@/utils'
 import { useTheme } from '@mui/material'
-import { getHours, max } from 'date-fns'
-import { parseISO } from 'date-fns'
 import { add, sub } from 'date-fns'
-import { min } from 'date-fns'
 import { format } from 'date-fns'
+import { useRef } from 'react'
 import { useState, useEffect, useMemo } from 'react'
 
-export const useRepeatEvents = ({
-  events = [],
-  eventsBackground,
-  placesLength
-}) => {
+export const useRepeatEvents = ({ events = [], eventsBackground }) => {
   const theme = useTheme()
   const EVENT_COLOR = theme.palette.secondary.light
   const BACKGROUND_COLOR = theme.palette.secondary.main
 
   const [eventsWithRules, setEventsWithRules] = useState([])
   const [eventsBackgroundWithRules, setEventsBackgroundWithRules] = useState([])
+  const eventsToBackground = useRef([])
+
+  function areTimeRangesIntersecting(time1, time2) {
+    const cHorarioEntrada = new Date(time1?.horarioEntrada)
+    const cHorarioFin = new Date(time1?.horarioSalida)
+    const nHorarioEntrada = new Date(time2?.horarioEntrada)
+    let nHorarioFin = new Date(time2?.horarioSalida)
+
+    if (nHorarioFin < nHorarioEntrada) {
+      nHorarioFin = add(new Date(time2?.horarioSalida), { days: 1 })
+    }
+
+    return cHorarioEntrada <= nHorarioFin && cHorarioFin >= nHorarioEntrada
+  }
+
+  function resetEvents() {
+    setEventsWithRules([])
+    setEventsBackgroundWithRules([])
+  }
+
+  function areTimeRangesOverlapping(time1, time2) {
+    const cHorarioEntrada = new Date(time1?.horarioEntrada)
+    const cHorarioFin = new Date(time1?.horarioSalida)
+    const nHorarioEntrada = new Date(time2?.horarioEntrada)
+    let nHorarioFin = new Date(time2?.horarioSalida)
+
+    if (nHorarioFin < nHorarioEntrada) {
+      nHorarioFin = add(new Date(time2?.horarioSalida), { days: 1 })
+    }
+
+    return cHorarioEntrada <= nHorarioEntrada && cHorarioFin >= nHorarioFin
+  }
+
+  function findIntersectionRange(timeRanges) {
+    let maxHoraEntrada = '00:00'
+    let minHoraFin = '23:59'
+
+    for (const { horarioEntrada, horarioSalida } of timeRanges) {
+      if (horarioEntrada <= horarioSalida) {
+        if (horarioEntrada > maxHoraEntrada) {
+          maxHoraEntrada = horarioEntrada
+        }
+
+        if (horarioSalida < minHoraFin) {
+          minHoraFin = horarioSalida
+        }
+      } else {
+        if (horarioEntrada > maxHoraEntrada) {
+          maxHoraEntrada = horarioEntrada
+        }
+
+        if (horarioSalida > minHoraFin) {
+          minHoraFin = horarioSalida
+        }
+      }
+    }
+
+    if (maxHoraEntrada <= minHoraFin) {
+      return { horarioEntrada: maxHoraEntrada, horarioSalida: minHoraFin }
+    }
+
+    return null
+  }
+
+  function getGroupsAndIntersection(times) {
+    let groups = []
+    let notIntercepted = [...times]
+
+    while (notIntercepted.length > 0) {
+      let currentIntersection = notIntercepted[0]
+      groups.push([currentIntersection])
+      notIntercepted = notIntercepted.slice(1)
+      let i = 0
+      while (i < notIntercepted.length) {
+        const isRange = areTimeRangesIntersecting(
+          currentIntersection,
+          notIntercepted[i]
+        )
+        if (isRange) {
+          groups[groups.length - 1].push(notIntercepted[i])
+
+          notIntercepted.splice(i, 1)
+        } else {
+          i++
+        }
+      }
+    }
+
+    const groupsIntersecting = groups.map((group) => {
+      return findIntersectionRange(group)
+    })
+
+    return groupsIntersecting
+  }
 
   const generateEventWithRules = (startDate, finishDate) => {
     const dateStart = new Date(startDate)
@@ -31,49 +119,14 @@ export const useRepeatEvents = ({
         freq: 'weekly',
         byweekday: [daysToRepeat?.[day]],
         dtstart: sub(dateNow.setTime(dateStart.getTime()), {
-          months: 2
+          months: 1
         }).toISOString(),
         until: add(dateNow.setTime(dateFinish.getTime()), {
-          months: 2
+          months: 1
         }).toISOString()
       },
       duration: getTimeDifferenceWithFormat(dateStart, dateFinish),
       end: dateFinish
-    }
-  }
-
-  const getEarliestTime = (dateArray) => {
-    const time = {
-      morning: { start: [], end: [] },
-      afternoon: { start: [], end: [] }
-    }
-
-    dateArray.forEach(({ horarioEntrada, horarioSalida }) => {
-      const dateEntryParse = parseISO(horarioEntrada)
-      const timeEntry = getHours(new Date(dateEntryParse))
-
-      const dateFinishParse = parseISO(horarioSalida)
-      const timeFinish = getHours(new Date(dateFinishParse))
-
-      if (timeEntry >= 0 && timeEntry < 12) {
-        time.morning.start.push(dateEntryParse)
-      } else {
-        time.afternoon.start.push(dateEntryParse)
-      }
-
-      if (timeFinish >= 0 && timeFinish < 12) {
-        time.morning.end.push(dateFinishParse)
-      } else {
-        time.afternoon.end.push(dateFinishParse)
-      }
-    })
-
-    const earliestStartDate = max(startDates)
-    const earliestFinishDate = min(finishDates)
-
-    return {
-      startDate: earliestStartDate,
-      finishDate: earliestFinishDate
     }
   }
 
@@ -93,58 +146,35 @@ export const useRepeatEvents = ({
     })
   }, [events, EVENT_COLOR])
 
-  const groupScheduleByIdLugar = (schedules) => {
-    let idLugarObj = {}
-    schedules.forEach(({ idLugar }) => {
-      if (idLugar in idLugarObj) {
-        idLugarObj[idLugar] += 1
-        return
-      }
-
-      idLugarObj[idLugar] = 1
-    })
-
-    return idLugarObj
-  }
-
   const getEventsBackgroundWithRules = useMemo(() => {
-    const newEvents = []
     if (!eventsBackground) return []
-    console.log(
-      'TCL: getEventsBackgroundWithRules -> eventsBackground',
-      eventsBackground
-    )
-
+    eventsToBackground.current = []
     Object.entries(eventsBackground).forEach(([, value]) => {
-      const IdPlaceByDay = groupScheduleByIdLugar(value)
-
-      const amountIdPlaceByDay = Object.keys(IdPlaceByDay).length
-
-      if (amountIdPlaceByDay !== placesLength) return
-
-      const intersection = getTimeIntersection(value)
-      console.log(
-        'TCL: getEventsBackgroundWithRules -> intersection',
-        intersection
-      )
-
-      // newEvents.push({
-      //   ...generateEventWithRules(startDate, finishDate),
-      //   backgroundColor: BACKGROUND_COLOR,
-      //   borderColor: BACKGROUND_COLOR,
-      //   textColor: '#000',
-      //   editable: false,
-      //   overlap: true,
-      //   endStr: finishDate,
-      //   extendedProps: { title: 'Rango de horarios disponibles' }
-      // })
+      const newRange = getGroupsAndIntersection(value)
+      eventsToBackground.current.push(newRange)
     })
 
-    return newEvents
-  }, [eventsBackground, BACKGROUND_COLOR, placesLength])
+    const newEventsWithRules = eventsToBackground.current
+      .flat()
+      .map((event) => ({
+        ...generateEventWithRules(event.horarioEntrada, event.horarioSalida),
+        backgroundColor: BACKGROUND_COLOR,
+        borderColor: BACKGROUND_COLOR,
+        textColor: '#000',
+        editable: false,
+        overlap: true,
+        endStr: event.horarioSalida,
+        extendedProps: { title: 'Rango de horarios disponibles' }
+      }))
+
+    return newEventsWithRules
+  }, [eventsBackground, BACKGROUND_COLOR])
 
   useEffect(() => {
-    if (!events.length) return
+    if (!events.length) {
+      setEventsWithRules([])
+      return
+    }
 
     setEventsWithRules(getEventsWithRules)
   }, [events, getEventsWithRules])
@@ -155,6 +185,10 @@ export const useRepeatEvents = ({
   }, [eventsBackground, getEventsBackgroundWithRules])
 
   return {
-    events: [...eventsWithRules, ...eventsBackgroundWithRules]
+    events: [...eventsWithRules, ...eventsBackgroundWithRules],
+    backgroundEvents: eventsToBackground.current,
+    areTimeRangesIntersecting,
+    areTimeRangesOverlapping,
+    resetEvents
   }
 }

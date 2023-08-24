@@ -3,7 +3,7 @@ import { Popover } from '@/ui-component'
 import { Typography } from '@mui/material'
 
 const SchedulePopoper = ({ anchorEl, setAnchorEl, data }) => {
-  const { lugar } = data?.extendedProps ?? {}
+  const { lugar, title } = data?.extendedProps ?? {}
   return (
     <Popover
       anchorEl={anchorEl}
@@ -12,7 +12,7 @@ const SchedulePopoper = ({ anchorEl, setAnchorEl, data }) => {
     >
       <Typography variant="caption" textAlign={'center'} color="black">
         <span style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
-          {lugar}
+          {lugar || title}
         </span>
       </Typography>
     </Popover>

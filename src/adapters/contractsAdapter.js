@@ -31,3 +31,19 @@ export const getContractsToReport = (contracts) => {
     total
   }
 }
+
+export const getCustomersMoreContracts = (contracts) => {
+  const data = contracts.map((contract, index) => {
+    const { clienteNombre, contractCount, clienteApellido } = contract
+
+    return {
+      index: index + 1,
+      cliente: `${clienteNombre} ${clienteApellido}`,
+      contratos: contractCount
+    }
+  })
+
+  return {
+    data
+  }
+}

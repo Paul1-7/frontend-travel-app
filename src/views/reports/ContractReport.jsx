@@ -1,5 +1,6 @@
 import {
   COLUMNS_CONTRACTS_REPORT,
+  COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT,
   CONTRACTS_REPORT_SORT_OPTIONS,
   DASHBOARD,
   REPORT_FREQUENCY_OPTIONS,
@@ -26,7 +27,7 @@ import { useForm } from 'react-hook-form'
 import { EmptyReport } from './EmptyReport'
 import { useQuery } from '@tanstack/react-query'
 import { ButtonsReport } from './ButtonsReport'
-import { listContractsByDates } from '@/services'
+import { listContractsByDates, listCustomerByAmountContrats } from '@/services'
 import DateRangePicker from './DateRangePicker'
 import ReportSummary from './ReportSummary'
 import TableReport from './TableReport'
@@ -38,6 +39,12 @@ const sxNoPrint = {
   }
 }
 
+function getColumnsToReport(watchedValues) {
+  const selectedValue = watchedValues.options.orderBy
+  if (selectedValue === '4') return COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT
+  return COLUMNS_CONTRACTS_REPORT
+}
+
 export default function ContractReport() {
   const formMethods = useForm({
     resolver: yupResolver(schema.contractsReport),
@@ -46,6 +53,8 @@ export default function ContractReport() {
     criteriaMode: 'all'
   })
   const watchedFormValues = formMethods.watch()
+
+  const columnsToReport = getColumnsToReport(watchedFormValues)
 
   const { fileName, showAllRows, handleShowRows, searchTerm } = useReport({
     formMethods,
@@ -57,10 +66,16 @@ export default function ContractReport() {
   const { data, isSuccess } = useQuery([searchTerm], ({ queryKey }) => {
     const params = queryKey?.[0]
 
+    const isFourOption = watchedFormValues.options.orderBy === '4'
+
     if (!params || !params.length) return
-    return listContractsByDates(params)
+
+    return isFourOption
+      ? listCustomerByAmountContrats(params)
+      : listContractsByDates(params)
   })
 
+  console.log('TCL: data', data)
   const { loadingPrint, componentToPrintRef, handlePrint } = usePrint({
     fileName
   })
@@ -95,7 +110,7 @@ export default function ContractReport() {
         ) : (
           <ButtonsReport
             handlePrint={handlePrint}
-            columnsCSV={COLUMNS_CONTRACTS_REPORT}
+            columnsCSV={COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT}
             dataCSV={data?.data}
             fileName={fileName}
           />
@@ -139,11 +154,11 @@ export default function ContractReport() {
             watchedFormValues={watchedFormValues.options}
           />
           <TableReport
-            columns={COLUMNS_CONTRACTS_REPORT}
+            columns={columnsToReport}
             rows={data?.data}
             showAllRows={showAllRows}
           />
-          <TotalSummary total={data?.total} />
+          {data?.total && <TotalSummary total={data.total} />}
         </Grid>
       )}
     </DashboardContainer>

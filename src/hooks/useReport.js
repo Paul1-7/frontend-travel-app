@@ -25,7 +25,7 @@ export const useReport = ({
     const selectedValues = Object.values(selectedOptions)
     const initialFormValues = Object.values(initialFormOptions)
 
-    return selectedValues.every((selectedValue) =>
+    return selectedValues.some((selectedValue) =>
       initialFormValues.includes(selectedValue)
     )
   }

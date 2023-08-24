@@ -16,10 +16,9 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   addRoutessSchedule,
-  deletePlacesSchedule,
+  deleteRouteSchedule,
   getRoutesSchedulesById,
-  listRoutesWithDetails,
-  modifyPlacesSchedule
+  listRoutesWithDetails
 } from '@/services'
 import {
   useDialog,
@@ -53,11 +52,11 @@ const RoutesSchedule = () => {
     return getRoutesSchedulesById(id)
   })
 
-  const { events } = useRepeatEvents({
-    events: listSchedules.data,
-    eventsBackground: formFields.route?.horariosLugar,
-    placesLength: formFields.route?.itinerarios?.length
-  })
+  const { events, areTimeRangesOverlapping, backgroundEvents } =
+    useRepeatEvents({
+      events: listSchedules.data,
+      eventsBackground: formFields.route?.horariosLugar
+    })
 
   const addScheduleData = useMutation({
     mutationFn: (data) => {
@@ -66,15 +65,8 @@ const RoutesSchedule = () => {
     onSuccess: listSchedules.refetch
   })
 
-  const modifyScheduleData = useMutation({
-    mutationFn: (data) => {
-      return modifyPlacesSchedule({ data, id: data.id })
-    },
-    onSuccess: listSchedules.refetch
-  })
-
   const deleteScheduleData = useMutation({
-    mutationFn: (id) => deletePlacesSchedule({ id }),
+    mutationFn: (id) => deleteRouteSchedule({ id }),
     onSuccess: listSchedules.refetch
   })
 
@@ -99,7 +91,11 @@ const RoutesSchedule = () => {
   useEffect(() => {
     const { route } = formFields
 
-    if (route.id === DEFAULT_VALUE_ITEM || !data) return
+    const isIntersecting = backgroundEvents.flat().some((backEvent) => {
+      return areTimeRangesOverlapping(backEvent, data)
+    })
+
+    if (route.id === DEFAULT_VALUE_ITEM || !data || !isIntersecting) return
 
     addScheduleData.mutate({
       ...data,
@@ -171,7 +167,11 @@ const RoutesSchedule = () => {
         selectable
         selectMirror
         select={handleDateSelect}
-        eventClick={handleClickEvent}
+        eventClick={(arg) => {
+          const isOpen = arg.event.extendedProps?.title
+          !isOpen && openDialog()
+          handleClickEvent(arg)
+        }}
         eventMouseEnter={(info) => {
           eventSelected.current = info.event
           setAnchorEl(info.el)
@@ -179,8 +179,6 @@ const RoutesSchedule = () => {
         eventMouseLeave={() => {
           setAnchorEl(null)
         }}
-        eventOverlap
-        slotEventOverlap
         eventContent={PlaceScheduleEventContent}
       />
     </DashboardContainer>

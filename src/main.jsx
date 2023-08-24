@@ -24,16 +24,16 @@ const queryClient = new QueryClient({
 mapboxgl.accessToken = config.MAPBOX_ACCESS_TOKEN
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persister}>
-        <BrowserRouter basename={config.basename}>
-          <QueryClientProvider client={queryClient}>
-            <App />
-          </QueryClientProvider>
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persister}>
+      <BrowserRouter basename={config.basename}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 )

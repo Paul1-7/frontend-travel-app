@@ -1,7 +1,8 @@
 import {
   employeeAdapter,
   getContractWithDetails,
-  getContractsToReport
+  getContractsToReport,
+  getCustomersMoreContracts
 } from '@/adapters'
 import { Axios } from '@/apis'
 
@@ -18,6 +19,11 @@ export const listContracts = () =>
 export const listContractsByDates = (params) =>
   Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
     return getContractsToReport(res.data)
+  })
+
+export const listCustomerByAmountContrats = (params) =>
+  Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
+    return getCustomersMoreContracts(res.data?.[0])
   })
 
 export const getContractById = (id) =>

@@ -2,7 +2,8 @@ import { getRouteWithDetails, getRoutesWithDetails } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_ROUTES = {
-  default: '/api/v1/rutas'
+  default: '/api/v1/rutas',
+  schedule: '/api/v1/rutas/horarios'
 }
 
 export const listRoutes = () =>
@@ -13,6 +14,11 @@ export const listRoutes = () =>
 export const listRoutesWithDetails = () =>
   Axios.get(URL_ROUTES.default).then((res) => {
     return getRoutesWithDetails(res.data)
+  })
+
+export const listRoutesWithSchedule = () =>
+  Axios.get(URL_ROUTES.schedule).then((res) => {
+    return res.data
   })
 
 export const getRouteById = (id) =>

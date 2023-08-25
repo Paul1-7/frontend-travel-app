@@ -21,6 +21,11 @@ export const listContractsByDates = (params) =>
     return getContractsToReport(res.data)
   })
 
+export const listContractsByDatesDefault = (params) =>
+  Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
+    return res.data
+  })
+
 export const listCustomerByAmountContrats = (params) =>
   Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
     return getCustomersMoreContracts(res.data?.[0])

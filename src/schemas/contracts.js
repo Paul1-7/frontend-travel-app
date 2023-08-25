@@ -23,6 +23,15 @@ const contracts = yup.object().shape({
       'Debe seleccionar otra opción',
       (value) => value.id !== '0'
     ),
+  idHorarioRuta: yup
+    .string()
+    .matches(regex.alphaNumeric, msg.alphaNumeric)
+    .required()
+    .test(
+      'noDefaultValue',
+      'Tiene que seleccionar una opción',
+      (value) => value !== '0'
+    ),
   fecha: yup.date().required().typeError('tiene que ser una fecha'),
   cantidadPersonas: yup.number().required().min(1, 'el minimo es 1'),
   monto: yup.number().required()

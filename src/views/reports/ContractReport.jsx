@@ -75,7 +75,6 @@ export default function ContractReport() {
       : listContractsByDates(params)
   })
 
-  console.log('TCL: data', data)
   const { loadingPrint, componentToPrintRef, handlePrint } = usePrint({
     fileName
   })

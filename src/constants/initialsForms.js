@@ -75,7 +75,8 @@ export const initialFormContract = {
   fecha: new Date(),
   monto: 0,
   cantidadPersonas: 1,
-  idioma: 'es'
+  idioma: 'es',
+  idHorarioRuta: 0
 }
 
 export const initialFormContractReport = {

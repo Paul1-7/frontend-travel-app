@@ -1,5 +1,7 @@
-import { format } from 'date-fns'
+import { DAYS } from '@/constants'
+import { format, getDay } from 'date-fns'
 import { differenceInMinutes } from 'date-fns'
+import { fTime } from './formatTime'
 
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 const objectByString = (o, s) => {
@@ -46,6 +48,13 @@ export const getDateTimeFormat = (value) => {
   })
   const date = new Date(value)
   return format.format(date)
+}
+
+export const getDayNameAndTimeFormat = (dateStart, dateEnd) => {
+  const dayOfWeek = getDay(new Date(dateStart))
+  const dayName = DAYS[dayOfWeek]
+
+  return `${dayName} de: ${fTime(dateStart)} a ${fTime(dateEnd)}`
 }
 
 export { objectByString, getBOBCurrency, getFormattedTime }

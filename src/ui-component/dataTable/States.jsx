@@ -8,7 +8,7 @@ const States = ({ value, align }) => {
   const states = TABLE_STATES.active
   return (
     <TableCell align={align}>
-      <Label color={states[value].variant}>{states[value].name}</Label>
+      <Label color={states?.[value]?.variant}>{states?.[value]?.name}</Label>
     </TableCell>
   )
 }

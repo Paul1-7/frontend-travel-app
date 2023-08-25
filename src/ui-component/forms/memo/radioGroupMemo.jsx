@@ -11,7 +11,6 @@ import {
 import { Controller } from 'react-hook-form'
 import { objectByString } from '@/utils/dataHandler'
 import { useTheme } from '@material-ui/core'
-
 const RadioGroupMemo = memo(
   ({ name, label, isArray, methods, items, ...others }) => {
     const theme = useTheme()
@@ -35,23 +34,26 @@ const RadioGroupMemo = memo(
               value={field.value}
               {...others}
             >
-              {items.map((item) => (
-                <FormControlLabel
-                  key={item.id}
-                  value={item.id}
-                  control={
-                    <Radio
-                      sx={{
-                        color: SECONDARY_COLOR,
-                        '&.Mui-checked': {
-                          color: SECONDARY_COLOR
-                        }
-                      }}
-                    />
-                  }
-                  label={item.title}
-                />
-              ))}
+              {items.map((item) => {
+                const values = Object.values(item)
+                return (
+                  <FormControlLabel
+                    key={values[0]}
+                    value={values[0]}
+                    control={
+                      <Radio
+                        sx={{
+                          color: SECONDARY_COLOR,
+                          '&.Mui-checked': {
+                            color: SECONDARY_COLOR
+                          }
+                        }}
+                      />
+                    }
+                    label={values[1]}
+                  />
+                )
+              })}
             </MuiRadioGroup>
             <FormHelperText error={!!errorValue} color="error">
               {errorValue?.message}

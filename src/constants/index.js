@@ -1,6 +1,7 @@
 export * from './businessInfo'
 export * from './dashboard'
 export * from './dataTable'
+export * from './dates'
 export * from './initialsForms'
 export * from './inputs'
 export * from './reports'

@@ -31,16 +31,28 @@ export const useRepeatEvents = ({ events = [], eventsBackground }) => {
   function resetEvents() {
     setEventsWithRules([])
     setEventsBackgroundWithRules([])
+    eventsToBackground.current = []
   }
 
-  function areTimeRangesOverlapping(time1, time2) {
-    const cHorarioEntrada = new Date(time1?.horarioEntrada)
-    const cHorarioFin = new Date(time1?.horarioSalida)
-    const nHorarioEntrada = new Date(time2?.horarioEntrada)
-    let nHorarioFin = new Date(time2?.horarioSalida)
+  function resetBackground() {
+    eventsToBackground.current = []
+  }
+
+  function areTimeRangesOverlapping(dateStart, dateEnd) {
+    if (!dateStart || !dateEnd) return false
+
+    const timeStartS = dateStart.horarioEntrada.substring(11, 19)
+    const timeStartF = dateStart.horarioSalida.substring(11, 19)
+    const timeEndS = dateEnd.horarioEntrada.substring(11, 19)
+    const timeEndF = dateEnd.horarioSalida.substring(11, 19)
+
+    const cHorarioEntrada = new Date(`2023-08-21T${timeStartS}`)
+    const cHorarioFin = new Date(`2023-08-21T${timeStartF}`)
+    const nHorarioEntrada = new Date(`2023-08-21T${timeEndS}`)
+    let nHorarioFin = new Date(`2023-08-21T${timeEndF}`)
 
     if (nHorarioFin < nHorarioEntrada) {
-      nHorarioFin = add(new Date(time2?.horarioSalida), { days: 1 })
+      nHorarioFin = add(new Date(timeEndF), { days: 1 })
     }
 
     return cHorarioEntrada <= nHorarioEntrada && cHorarioFin >= nHorarioFin
@@ -172,7 +184,7 @@ export const useRepeatEvents = ({ events = [], eventsBackground }) => {
 
   useEffect(() => {
     if (!events.length) {
-      setEventsWithRules([])
+      // setEventsWithRules([])
       return
     }
 
@@ -189,6 +201,7 @@ export const useRepeatEvents = ({ events = [], eventsBackground }) => {
     backgroundEvents: eventsToBackground.current,
     areTimeRangesIntersecting,
     areTimeRangesOverlapping,
-    resetEvents
+    resetEvents,
+    resetBackground
   }
 }

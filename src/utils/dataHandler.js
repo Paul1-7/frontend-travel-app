@@ -2,6 +2,9 @@ import { DAYS } from '@/constants'
 import { format, getDay } from 'date-fns'
 import { differenceInMinutes } from 'date-fns'
 import { fTime } from './formatTime'
+import { setHours } from 'date-fns'
+import { setMinutes } from 'date-fns'
+import { setSeconds } from 'date-fns'
 
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 const objectByString = (o, s) => {
@@ -55,6 +58,19 @@ export const getDayNameAndTimeFormat = (dateStart, dateEnd) => {
   const dayName = DAYS[dayOfWeek]
 
   return `${dayName} de: ${fTime(dateStart)} a ${fTime(dateEnd)}`
+}
+
+export function setTimeComponentsToAnotherDate(sourceDate, destinationDate) {
+  const hours = sourceDate.getHours()
+  const minutes = sourceDate.getMinutes()
+  const seconds = sourceDate.getSeconds()
+
+  const dateWithTimeComponents = setHours(
+    setMinutes(setSeconds(destinationDate, seconds), minutes),
+    hours
+  )
+
+  return dateWithTimeComponents
 }
 
 export { objectByString, getBOBCurrency, getFormattedTime }

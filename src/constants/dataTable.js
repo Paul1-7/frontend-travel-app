@@ -38,10 +38,10 @@ export const COLUMNS_TABLE = {
   contracts: [
     { field: 'codReferencia', header: 'Código', type: '' },
     { field: 'cliente', header: 'Cliente', type: '' },
-    { field: 'monto', header: 'Monto', type: '' },
+    { field: 'monto', header: 'Monto (Bs)', type: '' },
     { field: 'cantidadPersonas', header: 'Cantidad de personas', type: '' },
     { field: 'ruta', header: 'Ruta', type: '' },
-    { field: 'fecha', header: 'Fecha de salida', type: 'date' },
+    { field: 'fechaSalida', header: 'Fecha de salida', type: 'date' },
     { field: 'estado', header: 'Estado', type: '' }
   ]
 }

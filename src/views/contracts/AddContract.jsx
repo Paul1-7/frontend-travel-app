@@ -18,10 +18,10 @@ import { Redirect } from 'react-router-dom'
 import schema from '@/schemas'
 import FormContract from './FormContract'
 import { useContract } from '@/hooks'
-import RouteInfo from './RouteInfo'
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import { toast } from 'sonner'
+import { setTimeComponentsToAnotherDate } from '@/utils'
 
 const AddContract = () => {
   const { mutate, isLoading, isSuccess, isError } = useMutation({
@@ -49,6 +49,8 @@ const AddContract = () => {
     criteriaMode: 'all'
   })
   const idRouteWatched = formMethods.watch('idRuta')
+  const selectedIdHorario = formMethods.watch('idHorarioRuta')
+  const selectedDate = formMethods.watch('fechaSalida')
 
   const { matchScheduleToContract } = useContract({
     formMethods,
@@ -61,8 +63,16 @@ const AddContract = () => {
       return
     }
 
+    const selectedSchedule = selectedRoute.current.horariosRuta.find(
+      ({ id }) => selectedIdHorario === id
+    )
+
+    const { horarioEntrada } = selectedSchedule
+    const dateSchedule = new Date(horarioEntrada)
+
     const newData = {
       ...data,
+      fechaSalida: setTimeComponentsToAnotherDate(dateSchedule, selectedDate),
       idCliente: data.idCliente.id,
       idEmpleado: data.idCliente.id
     }
@@ -82,7 +92,6 @@ const AddContract = () => {
 
   return (
     <DashboardContainer data={DASHBOARD.contracts.add}>
-      <RouteInfo route={selectedRoute.current} sx={{ mb: 6 }} />
       <Form methods={formMethods} onSubmit={handleSubmit}>
         <FormContract
           loading={isLoading}

@@ -72,7 +72,7 @@ export const initialFormRouteSchedule = {
 export const initialFormContract = {
   idRuta: '0',
   idCliente: { id: 0, nombre: 'Ninguno' },
-  fecha: new Date(),
+  fechaSalida: add(new Date(), { days: 1 }),
   monto: 0,
   cantidadPersonas: 1,
   idioma: 'es',

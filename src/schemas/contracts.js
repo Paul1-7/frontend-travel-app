@@ -32,8 +32,12 @@ const contracts = yup.object().shape({
       'Tiene que seleccionar una opción',
       (value) => value !== '0'
     ),
-  fecha: yup.date().required().typeError('tiene que ser una fecha'),
-  cantidadPersonas: yup.number().required().min(1, 'el minimo es 1'),
+  fechaSalida: yup.date().required().typeError('tiene que ser una fecha'),
+  cantidadPersonas: yup
+    .number()
+    .required()
+    .min(1, 'el minimo es 1')
+    .typeError('Tiene que ser un número'),
   monto: yup.number().required()
 })
 

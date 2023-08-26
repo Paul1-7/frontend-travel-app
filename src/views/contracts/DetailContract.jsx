@@ -78,7 +78,8 @@ const DetailContract = () => {
           <Grid item xs={6}>
             <Typography sx={{ mb: 2 }}>
               <span style={{ fontWeight: 600 }}>Idioma: </span>
-              {ITEMS_LANGUAJE.find(({ id }) => id === data?.idioma).title ?? ''}
+              {ITEMS_LANGUAJE.find(({ id }) => id === data?.idioma)?.title ??
+                ''}
             </Typography>
           </Grid>
           <Grid item xs={6}>

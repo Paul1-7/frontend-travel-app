@@ -1,7 +1,7 @@
 import { DEFAULT_VALUE_ITEM } from '@/constants'
 import { listContractsByDatesDefault } from '@/services'
 import { useQuery } from '@tanstack/react-query'
-import { add } from 'date-fns'
+import { add, isSameDay } from 'date-fns'
 import { useState, useEffect } from 'react'
 
 export const useContract = ({ formMethods, routes = [] }) => {
@@ -13,7 +13,6 @@ export const useContract = ({ formMethods, routes = [] }) => {
   const orderBy = 1
   const params = `/?dateStart=${dateStart}&dateEnd=${dateEnd}&orderBy=${orderBy}`
 
-  // Consulta para obtener los contratos por fechas
   const contracts = useQuery({
     queryKey: ['listContractsByDatesDefault'],
     queryFn: () => listContractsByDatesDefault(params),
@@ -23,9 +22,9 @@ export const useContract = ({ formMethods, routes = [] }) => {
   const { watch, setValue } = formMethods
   const selectedRoutedId = watch('idRuta')
   const selectedSchedule = watch('idHorarioRuta')
+  const selectedDate = watch('fechaSalida')
   const numberOfPeople = watch('cantidadPersonas')
 
-  console.log('TCL: useContract -> selectedSchedule', selectedSchedule)
   useEffect(() => {
     if (
       selectedRoutedId === DEFAULT_VALUE_ITEM ||
@@ -43,20 +42,26 @@ export const useContract = ({ formMethods, routes = [] }) => {
   useEffect(() => {
     if (selectedRoutedId === DEFAULT_VALUE_ITEM) return
     contracts.refetch()
-  }, [selectedRoutedId])
+  }, [selectedRoutedId, selectedSchedule, selectedDate])
 
   function matchScheduleToContract() {
-    const contract = contracts.data.find(({ idRuta, horariosRuta }) => {
-      const { id: idHorario } = horariosRuta
-      return idRuta === selectedRoutedId && idHorario === selectedSchedule
-    })
+    const contract = contracts.data.find(
+      ({ idRuta, horariosRuta, fechaSalida }) => {
+        const { id: idHorario } = horariosRuta
+
+        return (
+          idRuta === selectedRoutedId &&
+          idHorario === selectedSchedule &&
+          isSameDay(new Date(fechaSalida), selectedDate)
+        )
+      }
+    )
 
     return !!contract
   }
 
   useEffect(() => {
     if (!contracts.isSuccess) return
-    console.log('TCL: useContract -> contracts', contracts.data)
 
     const dates = contracts.data.filter(
       ({ idRuta }) => idRuta === selectedRoutedId

@@ -58,7 +58,7 @@ function FormContract({ loading, customers = [], routes = [], route }) {
         <Grid item xs={12} md={6}>
           <DatePicker
             label="Fecha"
-            name="fecha"
+            name="fechaSalida"
             disablePast
             maxDate={add(new Date(), { months: 1 })}
           />

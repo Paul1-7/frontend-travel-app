@@ -28,7 +28,7 @@ const DetailContract = () => {
         color="secondary"
         sx={{ displayPrint: 'none', mb: 4 }}
       >
-        Imprimir detalle de la contratacion
+        Imprimir detalle de contratación
       </Button>
       <Grid
         ref={componentToPrintRef}

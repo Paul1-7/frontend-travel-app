@@ -86,6 +86,9 @@ dependencies:
   clsx:
     specifier: ^1.1.1
     version: 1.2.1
+  conversor-numero-a-letras-es-ar:
+    specifier: ^1.0.3
+    version: 1.0.3
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -1841,6 +1844,10 @@ packages:
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
+
+  /conversor-numero-a-letras-es-ar@1.0.3:
+    resolution: {integrity: sha512-zqnsT+P1gxEiFbQojOal6ZDAANkWwCizygkfIlDBbe5kjHVF2517knCRTsWoHY8RQlXT7cFMMo0hW18GTDA8qA==}
+    dev: false
 
   /convert-source-map@1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}

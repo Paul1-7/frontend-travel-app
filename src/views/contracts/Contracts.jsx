@@ -4,7 +4,7 @@ import { COLUMNS_TABLE } from '@/constants'
 import { listContracts } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 
-const buttonsActions = { edit: true, remove: true, detail: true }
+const buttonsActions = { edit: true, remove: false, detail: true }
 
 const Contracts = () => {
   const { data, error, isLoading } = useQuery({
@@ -19,7 +19,6 @@ const Contracts = () => {
         rows={data}
         error={error}
         loading={isLoading}
-        numeration
         btnActions={buttonsActions}
         orderByDefault="fecha"
       />

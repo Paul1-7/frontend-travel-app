@@ -1,115 +1,116 @@
-import { DASHBOARD } from '@/constants'
-import { DashboardContainer } from '@/ui-component'
-import { getRouteById } from '@/services'
+import { DASHBOARD, ITEMS_LANGUAJE } from '@/constants'
+import { DashboardContainer, HeaderBusinessInfo } from '@/ui-component'
+import { getContractById } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useMapBox, usePrint } from '@/hooks'
-import { Backdrop, Box, Button, Grid, Typography } from '@material-ui/core'
+import { usePrint } from '@/hooks'
+import { Backdrop, Button, Grid, Typography } from '@material-ui/core'
+import { conversorNumerosALetras as ClaseConversor } from 'conversor-numero-a-letras-es-ar'
+import { getBOBCurrency } from '@/utils'
 
-const DetailRoute = () => {
+const DetailContract = () => {
+  const conversorNumerico = new ClaseConversor()
   const { id } = useParams()
   const { componentToPrintRef, handlePrint, loadingPrint } = usePrint()
-  const { mapRef, generateMarkers, mapLoaded } = useMapBox({
-    initialMarker: false
-  })
 
-  const route = useQuery({
-    queryFn: () => getRouteById(id),
+  const { data } = useQuery({
+    queryFn: () => getContractById(id),
     cacheTime: 0,
-    queryKey: ['getRoute']
+    queryKey: ['getContract']
   })
-  const dataRoute = route.data
-
-  useEffect(() => {
-    if (!route.isSuccess || !mapLoaded) return
-
-    const markers = route.data.itinerarios.map(
-      ({ punto: { lng, lat }, nombre }) => ({
-        lngLat: [lng, lat],
-        label: nombre
-      })
-    )
-
-    generateMarkers(markers)
-  }, [route.isSuccess, mapLoaded])
 
   return (
-    <DashboardContainer data={DASHBOARD.routes.detail}>
-      <Backdrop isLoading={loadingPrint} />
+    <DashboardContainer data={DASHBOARD.contracts.detail}>
+      <Backdrop open={loadingPrint} />
       <Button
         onClick={handlePrint}
         variant="outlined"
         color="secondary"
-        sx={{ displayPrint: 'none', mb: 2 }}
+        sx={{ displayPrint: 'none', mb: 4 }}
       >
-        Imprimir detalle de la ruta
+        Imprimir detalle de la contratacion
       </Button>
       <Grid
         ref={componentToPrintRef}
         sx={{
-          '@media print': { padding: '2rem' }
+          '@media print': { padding: '2rem', color: 'black' }
         }}
       >
-        <Typography
-          variant="h2"
-          component="h1"
-          sx={{ mb: 4, display: 'none', displayPrint: 'block' }}
-        >
-          Detalle de la ruta
-        </Typography>
-        <Box
-          sx={{ width: '100%', height: 400, marginBottom: '2rem' }}
-          ref={mapRef}
-        ></Box>
+        <HeaderBusinessInfo
+          sx={{ display: 'none', displayPrint: 'block', mb: 2 }}
+        />
+        <Grid>
+          <Typography variant="h1" align="center" paragraph sx={{ mb: 4 }}>
+            Nota de venta
+          </Typography>
+        </Grid>
         <Grid container>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" gutterBottom>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Nombre de la ruta:{' '}
-              </span>
-              {dataRoute?.titulo}
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Fecha de salida: </span>
+              {new Date(data?.fecha).toLocaleDateString()}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Duracion:
-              </span>
-              {dataRoute?.duracion}
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>NIT/CI/CEX: </span>
+              {data?.cliente?.ci ?? ''}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" component="h2" gutterBottom>
-              <span style={{ fontWeight: 'bold', color: 'black' }}>
-                Descripción:
-              </span>
-              {dataRoute?.descripcion}
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Nombre/Razon social: </span>
+              {data?.cliente?.nombre ?? ''} {data?.cliente?.apellido ?? ''}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              component="h2"
-              sx={{ fontWeight: 'bold', color: 'black', mb: 2 }}
-            >
-              Itinerario
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Codigo de referencia: </span>
+              {data?.codReferencia ?? ''}
             </Typography>
           </Grid>
-          {dataRoute?.itinerarios.map(({ id, nombre }, index) => (
-            <Grid item xs={12} key={id}>
-              <Typography variant="body1" component="h2" gutterBottom>
-                <span style={{ fontWeight: 'bold' }}>
-                  {`${index + 1}. Lugar: `}
-                </span>
-                {nombre}
-              </Typography>
-            </Grid>
-          ))}
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Ruta: </span>
+              {data?.ruta?.titulo ?? ''}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Idioma: </span>
+              {ITEMS_LANGUAJE.find(({ id }) => id === data?.idioma).title ?? ''}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Cantidad de personas: </span>
+              {data?.cantidadPersonas ?? ''}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>precio por persona: </span>
+              {getBOBCurrency(data?.ruta?.precio ?? 0) ?? ''}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid>
+          <Typography
+            sx={{ fontWeight: '700', pt: 4, color: 'black' }}
+            variant="body2"
+            paragraph
+          >
+            {`Son: ${conversorNumerico.convertToText(
+              parseInt(data?.monto ?? 0, 10)
+            )} ${
+              (data?.monto - parseInt(data?.monto ?? 0, 10)).toFixed(2) * 100
+            }/100 Bolivianos`}
+          </Typography>
         </Grid>
       </Grid>
     </DashboardContainer>
   )
 }
 
-export default DetailRoute
+export default DetailContract

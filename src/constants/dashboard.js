@@ -155,7 +155,7 @@ export const DASHBOARD = {
     },
     detail: {
       title: 'Detalle de contratación',
-      description: 'Muestra la informacion de la ruta y los cambios que tuvo'
+      description: 'Muestra la informacion del contrato'
     }
   },
   reports: {

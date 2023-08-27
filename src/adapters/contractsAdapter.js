@@ -8,6 +8,21 @@ export const getContractWithDetails = (contracts) => {
   }))
 }
 
+export const getContractsToAssignment = (contracts) => {
+  return contracts.map(({ fechaSalida, ruta, cantidadRegistros }) => ({
+    id: fechaSalida,
+    value: `${ruta.titulo} - restantes: ${cantidadRegistros}`
+  }))
+}
+
+export const getContractsToForm = (contracts) => {
+  return contracts.map(({ id, codReferencia, cantidadPersonas }) => ({
+    id,
+    value: `${codReferencia} - cant. personas: ${cantidadPersonas}`,
+    cantidadPersonas
+  }))
+}
+
 export const getContractsToReport = (contracts) => {
   let total = 0
   const data = contracts.map((contract, index) => {

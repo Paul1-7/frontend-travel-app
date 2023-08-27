@@ -1,6 +1,8 @@
 import {
   employeeAdapter,
   getContractWithDetails,
+  getContractsToAssignment,
+  getContractsToForm,
   getContractsToReport,
   getCustomersMoreContracts
 } from '@/adapters'
@@ -8,12 +10,24 @@ import { Axios } from '@/apis'
 
 export const URL_CONTRACTS = {
   default: '/api/v1/contratos',
-  report: '/api/v1/contratos/reportes'
+  report: '/api/v1/contratos/reportes',
+  group: '/api/v1/contratos/agrupaciones',
+  noAssignments: '/api/v1/contratos/sin-asignaciones'
 }
 
 export const listContracts = () =>
   Axios.get(URL_CONTRACTS.default).then((res) => {
     return getContractWithDetails(res.data)
+  })
+
+export const listContractsAvailable = () =>
+  Axios.get(URL_CONTRACTS.group).then((res) => {
+    return getContractsToAssignment(res.data)
+  })
+
+export const listContractsToAssignment = (date) =>
+  Axios.get(`${URL_CONTRACTS.noAssignments}/${date}`).then((res) => {
+    return getContractsToForm(res.data)
   })
 
 export const listContractsByDates = (params) =>

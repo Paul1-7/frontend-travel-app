@@ -11,6 +11,13 @@ export const employeesListAdapter = (data) => {
   }))
 }
 
+export const employeesListToForm = (data) => {
+  return data.map(({ id, nombre, apellido }) => ({
+    id,
+    value: `${nombre} ${apellido}`
+  }))
+}
+
 export const employeeAdapter = (data) => {
   return {
     ...data,

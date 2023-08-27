@@ -1,3 +1,4 @@
+export * from './assignmentsAdapter'
 export * from './contractsAdapter'
 export * from './customersAdapter'
 export * from './driversAdapter'

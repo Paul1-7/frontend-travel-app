@@ -10,7 +10,8 @@ import {
   IconUserCheck,
   IconFileDescription,
   IconClipboardData,
-  IconCar
+  IconCar,
+  IconAddressBook
 } from '@tabler/icons'
 
 // constant
@@ -24,7 +25,8 @@ const icons = {
   schedules: IconCalendarStats,
   contract: IconFileDescription,
   reports: IconClipboardData,
-  vehicles: IconCar
+  vehicles: IconCar,
+  assignments: IconAddressBook
 }
 
 export const other = {
@@ -32,41 +34,6 @@ export const other = {
   title: 'Modulos',
   type: 'group',
   children: [
-    {
-      id: 'rutas',
-      title: 'Rutas',
-      type: 'item',
-      url: ROUTES.routes.default,
-      icon: icons.rutas,
-      breadcrumbs: true,
-      children: [
-        {
-          id: 'nueva-ruta',
-          title: 'Nueva ruta',
-          type: 'item',
-          url: '/rutas/nuevo',
-          breadcrumbs: true
-        }
-      ]
-    },
-
-    {
-      id: 'lugares',
-      title: 'Lugares',
-      type: 'item',
-      url: ROUTES.places.default,
-      icon: icons.lugares,
-      breadcrumbs: true,
-      children: [
-        {
-          id: 'nuevo-lugar',
-          title: 'Nuevo lugar',
-          type: 'item',
-          url: '/lugares/nuevo',
-          breadcrumbs: true
-        }
-      ]
-    },
     {
       id: 'clientes',
       title: 'Clientes',
@@ -100,6 +67,40 @@ export const other = {
       breadcrumbs: true
     },
     {
+      id: 'rutas',
+      title: 'Rutas',
+      type: 'item',
+      url: ROUTES.routes.default,
+      icon: icons.rutas,
+      breadcrumbs: true,
+      children: [
+        {
+          id: 'nueva-ruta',
+          title: 'Nueva ruta',
+          type: 'item',
+          url: '/rutas/nuevo',
+          breadcrumbs: true
+        }
+      ]
+    },
+    {
+      id: 'lugares',
+      title: 'Lugares',
+      type: 'item',
+      url: ROUTES.places.default,
+      icon: icons.lugares,
+      breadcrumbs: true,
+      children: [
+        {
+          id: 'nuevo-lugar',
+          title: 'Nuevo lugar',
+          type: 'item',
+          url: '/lugares/nuevo',
+          breadcrumbs: true
+        }
+      ]
+    },
+    {
       id: 'placesSchedule',
       title: 'Horarios de lugares',
       type: 'item',
@@ -121,6 +122,14 @@ export const other = {
       type: 'item',
       url: ROUTES.contracts.default,
       icon: icons.contract,
+      breadcrumbs: true
+    },
+    {
+      id: 'assignments',
+      title: 'Asignaciones para contratos',
+      type: 'item',
+      url: ROUTES.assignments.default,
+      icon: icons.assignments,
       breadcrumbs: true
     },
     {

@@ -43,6 +43,13 @@ export const COLUMNS_TABLE = {
     { field: 'ruta', header: 'Ruta', type: '' },
     { field: 'fechaSalida', header: 'Fecha de salida', type: 'date' },
     { field: 'estado', header: 'Estado', type: '' }
+  ],
+  assignments: [
+    { field: 'codReferencia', header: 'Código', type: '' },
+    { field: 'fecha', header: 'Fecha de salida', type: 'date' },
+    { field: 'totalPersonas', header: 'Cantidad de personas', type: '' },
+    { field: 'ruta', header: 'Ruta', type: '' },
+    { field: 'capMaxPersonas', header: 'Capacidad max. personas', type: '' }
   ]
 }
 

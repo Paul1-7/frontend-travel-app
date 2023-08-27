@@ -20,7 +20,6 @@ import FormContract from './FormContract'
 import { useContract } from '@/hooks'
 import { useEffect } from 'react'
 import { useRef } from 'react'
-import { toast } from 'sonner'
 import { setTimeComponentsToAnotherDate } from '@/utils'
 
 const AddContract = () => {
@@ -52,16 +51,16 @@ const AddContract = () => {
   const selectedIdHorario = formMethods.watch('idHorarioRuta')
   const selectedDate = formMethods.watch('fechaSalida')
 
-  const { matchScheduleToContract } = useContract({
+  useContract({
     formMethods,
     routes: routesData.data
   })
 
   const handleSubmit = (data) => {
-    if (matchScheduleToContract()) {
-      toast.error('el horario elegido ya no esta disponible')
-      return
-    }
+    // if (matchScheduleToContract()) {
+    //   toast.error('el horario elegido ya no esta disponible')
+    //   return
+    // }
 
     const selectedSchedule = selectedRoute.current.horariosRuta.find(
       ({ id }) => selectedIdHorario === id

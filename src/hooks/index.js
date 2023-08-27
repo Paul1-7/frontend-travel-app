@@ -1,3 +1,4 @@
+export * from './useAssignment'
 export { default as useAxios } from './useAxios'
 export * from './useContract'
 export * from './useDialog'

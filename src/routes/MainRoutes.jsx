@@ -66,6 +66,20 @@ const DetailContract = Loadable(
   lazy(() => import('../views/contracts/DetailContract'))
 )
 
+// assignments
+const Assignments = Loadable(
+  lazy(() => import('../views/assignments/Assignments'))
+)
+const AddAssignment = Loadable(
+  lazy(() => import('../views/assignments/AddAssignment'))
+)
+const ModifyAssignment = Loadable(
+  lazy(() => import('../views/assignments/ModifyAssignment'))
+)
+const DetailAssignment = Loadable(
+  lazy(() => import('../views/assignments/DetailAssignment'))
+)
+
 // reports
 const ContractReport = Loadable(
   lazy(() => import('../views/reports/ContractReport'))
@@ -212,6 +226,31 @@ const MainRoutes = () => {
             exact
             path={`${ROUTES.contracts.detail}/:id`}
             component={DetailContract}
+          />
+          {/* assignments*/}
+          <Route
+            exact
+            path={ROUTES.assignments.default}
+            children={
+              <DataTableProvider>
+                <Assignments />
+              </DataTableProvider>
+            }
+          />
+          <Route
+            exact
+            path={ROUTES.assignments.add}
+            component={AddAssignment}
+          />
+          <Route
+            exact
+            path={`${ROUTES.assignments.detail}/:id`}
+            component={DetailAssignment}
+          />
+          <Route
+            exact
+            path={`${ROUTES.assignments.modify}/:id`}
+            component={ModifyAssignment}
           />
           {/* reports */}
           <Route

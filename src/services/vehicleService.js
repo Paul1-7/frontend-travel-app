@@ -1,8 +1,9 @@
-import { getVehiclesWithTypeAndBoard } from '@/adapters'
+import { getVehiclesWithTypeAndCapacity } from '@/adapters'
 import { Axios } from '@/apis'
 
 export const URL_VEHICLES = {
-  default: '/api/v1/vehiculos'
+  default: '/api/v1/vehiculos',
+  noAssignments: '/api/v1/vehiculos/sin-asignaciones'
 }
 
 export const listVehicles = () =>
@@ -10,9 +11,14 @@ export const listVehicles = () =>
     return res.data
   })
 
+export const listVehiclesToAssignment = (date) =>
+  Axios.get(`${URL_VEHICLES.noAssignments}/${date}`).then((res) => {
+    return getVehiclesWithTypeAndCapacity(res.data)
+  })
+
 export const listVehiclesWithTypeAndBoard = () =>
   Axios.get(URL_VEHICLES.default).then((res) => {
-    return getVehiclesWithTypeAndBoard(res.data)
+    return getVehiclesWithTypeAndCapacity(res.data)
   })
 
 export const getVehicleById = (id) =>

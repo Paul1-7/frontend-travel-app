@@ -27,6 +27,10 @@ const ITEMS_ROL = [
   {
     id: '567c0552-c250-4d69-bc54-482296a95e4b',
     nombre: 'Encargado de rutas'
+  },
+  {
+    id: '048ca6cb-cf0e-485e-9ef1-f6ab2522c1db',
+    nombre: 'Guía'
   }
 ]
 

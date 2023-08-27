@@ -158,6 +158,30 @@ export const DASHBOARD = {
       description: 'Muestra la informacion del contrato'
     }
   },
+  assignments: {
+    default: {
+      title: 'Asignaciones para contratos',
+      description: 'Lista de las asignaciones para los contratos de las rutas',
+      button: {
+        icon: Article,
+        url: ROUTES.assignments.add,
+        name: 'Nueva asignación'
+      }
+    },
+    add: {
+      title: 'Agregar asignación',
+      description: 'Agrega una nueva asignación de personal para las rutas'
+    },
+    modify: {
+      title: 'Modificar asignación',
+      description: 'Modifica una asignación existente'
+    },
+    detail: {
+      title: 'Detalle de asignación',
+      description:
+        'Muestra la informacion de la asignación de personal para las rutas'
+    }
+  },
   reports: {
     contracts: {
       title: 'Reportes de de contratos de rutas',

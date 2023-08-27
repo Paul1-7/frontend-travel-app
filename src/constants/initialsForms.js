@@ -79,6 +79,15 @@ export const initialFormContract = {
   idHorarioRuta: 0
 }
 
+export const initialFormAssignment = {
+  fecha: '0',
+  totalPersonas: '0',
+  capMaxPersonas: '0',
+  guias: [],
+  vehiculos: [],
+  contratos: []
+}
+
 export const initialFormContractReport = {
   options: {
     criterio: DEFAULT_VALUE_ITEM,

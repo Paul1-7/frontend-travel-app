@@ -45,6 +45,13 @@ export const ROUTES = {
     detail: DEFAULT_ADMIN_PATH + '/contrataciones/detalle',
     default: DEFAULT_ADMIN_PATH + '/contrataciones'
   },
+  assignments: {
+    add: DEFAULT_ADMIN_PATH + '/asignaciones-contratos/agregar',
+    modify: DEFAULT_ADMIN_PATH + '/asignaciones-contratos/modificar',
+    detail: DEFAULT_ADMIN_PATH + '/asignaciones-contratos/detalle',
+    default: DEFAULT_ADMIN_PATH + '/asignaciones-contratos'
+  },
+
   reports: {
     default: DEFAULT_ADMIN_PATH + '/reportes',
     contracts: DEFAULT_ADMIN_PATH + '/reportes/contratos'

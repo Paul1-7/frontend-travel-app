@@ -1,6 +1,7 @@
-export const getVehiclesWithTypeAndBoard = (vehicles) => {
-  return vehicles.map(({ id, placa, tipo }) => ({
+export const getVehiclesWithTypeAndCapacity = (vehicles) => {
+  return vehicles.map(({ id, placa, capacidad }) => ({
     id,
-    nombre: `placa : ${placa} - tipo: ${tipo}`
+    nombre: `placa : ${placa} - capacidad: ${capacidad}`,
+    capacidad
   }))
 }

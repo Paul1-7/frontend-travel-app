@@ -2,7 +2,11 @@ import * as yup from 'yup'
 
 const assignments = yup.object().shape({
   fecha: yup.string().required(),
-  totalPersonas: yup.number().typeError('tiene que ser un número').required(),
+  totalPersonas: yup
+    .number()
+    .typeError('tiene que ser un número')
+    .required()
+    .min(1, 'el mínimo es una persona'),
 
   capMaxPersonas: yup
     .number()
@@ -16,7 +20,8 @@ const assignments = yup.object().shape({
         )
       }
       return schema
-    }),
+    })
+    .min(1, 'el mínimo es una persona'),
   guias: yup
     .array()
     .test('uniqueIdsGuias', 'Los guias no deben repetirse', (values) => {

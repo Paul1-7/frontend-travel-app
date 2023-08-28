@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const classes = useStyles()
-  const { logout, authenticated } = useAuth()
-  console.log('TCL: Header -> ', authenticated)
+  const { logout } = useAuth()
 
   return (
     <>

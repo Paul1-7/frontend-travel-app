@@ -1,11 +1,11 @@
-import { DASHBOARD, ITEMS_LANGUAJE } from '@/constants'
+import { DASHBOARD } from '@/constants'
 import { DashboardContainer, HeaderBusinessInfo } from '@/ui-component'
 import { getAssignmentById } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { usePrint } from '@/hooks'
 import { Backdrop, Button, Grid, Typography } from '@material-ui/core'
-import { getBOBCurrency, getDateTimeFormat } from '@/utils'
+import { getDateTimeFormat } from '@/utils'
 
 const DetailAssignment = () => {
   const { id } = useParams()

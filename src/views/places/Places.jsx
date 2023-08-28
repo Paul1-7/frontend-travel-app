@@ -4,16 +4,25 @@ import {
   DataTable,
   DialogConfirmation
 } from '@/ui-component'
-import { COLUMNS_TABLE, TEXT_MODAL } from '@/constants'
+import { COLUMNS_TABLE, ROLES, TEXT_MODAL } from '@/constants'
 import { deletePlace, listPlaces } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import DataTableContext from '@/contexts/DataTableContext'
+import { useAuth } from '@/hooks'
 
-const buttonsActions = { edit: true, remove: true, detail: false }
+const { GERENTE, ENCARGADO_RUTAS } = ROLES
+
 const Places = () => {
+  const { isAllowedRol } = useAuth() ?? {}
   const { setOpenDialog, handleCloseDialog, openDialog, dataDialog } =
     useContext(DataTableContext)
+
+  const buttonsActions = {
+    edit: isAllowedRol([GERENTE, ENCARGADO_RUTAS]),
+    remove: isAllowedRol([GERENTE, ENCARGADO_RUTAS]),
+    detail: false
+  }
 
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['listPlaces'],

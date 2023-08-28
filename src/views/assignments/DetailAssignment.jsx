@@ -1,26 +1,24 @@
 import { DASHBOARD, ITEMS_LANGUAJE } from '@/constants'
 import { DashboardContainer, HeaderBusinessInfo } from '@/ui-component'
-import { getContractById } from '@/services'
+import { getAssignmentById } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { usePrint } from '@/hooks'
 import { Backdrop, Button, Grid, Typography } from '@material-ui/core'
-import { conversorNumerosALetras as ClaseConversor } from 'conversor-numero-a-letras-es-ar'
-import { getBOBCurrency } from '@/utils'
+import { getBOBCurrency, getDateTimeFormat } from '@/utils'
 
-const DetailContract = () => {
-  const conversorNumerico = new ClaseConversor()
+const DetailAssignment = () => {
   const { id } = useParams()
   const { componentToPrintRef, handlePrint, loadingPrint } = usePrint()
 
   const { data } = useQuery({
-    queryFn: () => getContractById(id),
+    queryFn: () => getAssignmentById(id),
     cacheTime: 0,
-    queryKey: ['getContract']
+    queryKey: ['getAssignment']
   })
 
   return (
-    <DashboardContainer data={DASHBOARD.contracts.detail}>
+    <DashboardContainer data={DASHBOARD.assignments.detail}>
       <Backdrop open={loadingPrint} />
       <Button
         onClick={handlePrint}
@@ -28,7 +26,7 @@ const DetailContract = () => {
         color="secondary"
         sx={{ displayPrint: 'none', mb: 4 }}
       >
-        Imprimir detalle de contratación
+        Imprimir asignación
       </Button>
       <Grid
         ref={componentToPrintRef}
@@ -41,28 +39,10 @@ const DetailContract = () => {
         />
         <Grid>
           <Typography variant="h1" align="center" paragraph sx={{ mb: 4 }}>
-            Nota de venta
+            Detalle de asignación
           </Typography>
         </Grid>
         <Grid container>
-          <Grid item xs={6}>
-            <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>Fecha de salida: </span>
-              {new Date(data?.fecha).toLocaleDateString()}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>NIT/CI/CEX: </span>
-              {data?.cliente?.ci ?? ''}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>Nombre/Razon social: </span>
-              {data?.cliente?.nombre ?? ''} {data?.cliente?.apellido ?? ''}
-            </Typography>
-          </Grid>
           <Grid item xs={6}>
             <Typography sx={{ mb: 2 }}>
               <span style={{ fontWeight: 600 }}>Codigo de referencia: </span>
@@ -71,47 +51,68 @@ const DetailContract = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography sx={{ mb: 2 }}>
+              <span style={{ fontWeight: 600 }}>Fecha de salida: </span>
+              {data?.fecha && getDateTimeFormat(new Date(data.fecha))}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ mb: 2 }}>
               <span style={{ fontWeight: 600 }}>Ruta: </span>
-              {data?.ruta?.titulo ?? ''}
+              {data?.asigCont?.[0]?.ruta?.titulo ?? ''}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>Idioma: </span>
-              {ITEMS_LANGUAJE.find(({ id }) => id === data?.idioma)?.title ??
-                ''}
+              <span style={{ fontWeight: 600 }}>
+                Cantidad total de personas:{' '}
+              </span>
+              {data?.totalPersonas ?? ''}
+            </Typography>
+          </Grid>
+          <Grid item xs={6} sx={{ mt: 2 }}>
+            <Typography
+              sx={{ mb: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
+            >
+              <span style={{ fontWeight: 600 }}>Contratos asignados: </span>
+              {data?.asigCont?.map(
+                ({ codReferencia, cantidadPersonas }, idx) => (
+                  <div key={codReferencia + idx}>
+                    {`${
+                      idx + 1
+                    }.  ${codReferencia} - ${cantidadPersonas} personas`}
+                  </div>
+                )
+              )}
+            </Typography>
+          </Grid>
+          <Grid item xs={6} sx={{ mt: 2 }}>
+            <Typography
+              sx={{ mb: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
+            >
+              <div style={{ fontWeight: 600 }}>Guias asignados: </div>
+              {data?.asigGuias?.map(({ nombre, apellido }, idx) => (
+                <div key={nombre + idx}>
+                  {`${idx + 1}. ${nombre} ${apellido}`}
+                </div>
+              ))}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>Cantidad de personas: </span>
-              {data?.cantidadPersonas ?? ''}
+            <Typography
+              sx={{ mb: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
+            >
+              <div style={{ fontWeight: 600 }}>Vehiculos asignados: </div>
+              {data?.asigVeh?.map(({ placa, capacidad }, idx) => (
+                <div key={placa + idx}>
+                  {`${idx + 1}. placa: ${placa} - capacidad: ${capacidad}`}
+                </div>
+              ))}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography sx={{ mb: 2 }}>
-              <span style={{ fontWeight: 600 }}>precio por persona: </span>
-              {getBOBCurrency(data?.ruta?.precio ?? 0) ?? ''}
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <Grid>
-          <Typography
-            sx={{ fontWeight: '700', pt: 4, color: 'black' }}
-            variant="body2"
-            paragraph
-          >
-            {`Son: ${conversorNumerico.convertToText(
-              parseInt(data?.monto ?? 0, 10)
-            )} ${
-              (data?.monto - parseInt(data?.monto ?? 0, 10)).toFixed(2) * 100
-            }/100 Bolivianos`}
-          </Typography>
         </Grid>
       </Grid>
     </DashboardContainer>
   )
 }
 
-export default DetailContract
+export default DetailAssignment

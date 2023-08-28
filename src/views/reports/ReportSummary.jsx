@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks'
 import { getDateTimeFormat } from '@/utils'
 import { Grid, Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -7,16 +8,25 @@ const ReportSummary = ({
   frequencyOptions,
   watchedFormValues
 }) => {
+  const { authenticated } = useAuth() ?? {}
+  const { nombre, apellido } = authenticated ?? {}
+
   return (
     <Grid container wrap="wrap">
       <Grid item xs={6}>
-        <Typography variant="body2" sx={{ lineHeight: 1.5 }}>{`Ordenado por: ${
+        <Typography
+          variant="body2"
+          sx={{ lineHeight: 1.5, color: 'black' }}
+        >{`Ordenado por: ${
           sortOptions.find(({ id }) => id === watchedFormValues.orderBy)
             ?.name ?? ''
         }`}</Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography variant="body2" sx={{ lineHeight: 1.5 }}>{`Criterio: ${
+        <Typography
+          variant="body2"
+          sx={{ lineHeight: 1.5, color: 'black' }}
+        >{`Criterio: ${
           frequencyOptions.find(({ id }) => id === watchedFormValues.criterio)
             ?.name ?? ''
         }`}</Typography>
@@ -27,15 +37,16 @@ const ReportSummary = ({
           sx={{
             lineHeight: 1.5,
             display: 'none',
-            displayPrint: 'inherit'
+            displayPrint: 'inherit',
+            color: 'black'
           }}
         >{`Fecha del reporte: ${getDateTimeFormat(new Date())}`}</Typography>
       </Grid>
       <Grid item xs={6} sx={{ display: 'none', displayPrint: 'inherit' }}>
         <Typography
           variant="body2"
-          sx={{ lineHeight: 1.5 }}
-        >{`Realizado por: nombre`}</Typography>
+          sx={{ lineHeight: 1.5, color: 'black' }}
+        >{`Realizado por: ${nombre} ${apellido}`}</Typography>
       </Grid>
     </Grid>
   )

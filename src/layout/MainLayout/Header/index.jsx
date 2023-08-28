@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 // material-ui
 import { makeStyles } from '@material-ui/styles'
-import { Avatar, Box, ButtonBase } from '@material-ui/core'
+import { Avatar, Box, Button, ButtonBase } from '@material-ui/core'
 
 // project imports
 import LogoSection from '../LogoSection'
@@ -11,6 +11,7 @@ import ProfileSection from './ProfileSection'
 
 // assets
 import { IconMenu2 } from '@tabler/icons'
+import { useAuth } from '@/hooks'
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const classes = useStyles()
+  const { logout, authenticated } = useAuth()
+  console.log('TCL: Header -> ', authenticated)
 
   return (
     <>
@@ -70,7 +73,9 @@ const Header = ({ handleLeftDrawerToggle }) => {
       <div className={classes.grow} />
 
       {/* notification & profile */}
-      <ProfileSection />
+      <Button variant="outlined" color="secondary" onClick={logout}>
+        Cerrar sesion
+      </Button>
     </>
   )
 }

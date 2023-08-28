@@ -4,11 +4,21 @@ import { Typography } from '@material-ui/core'
 // project imports
 import NavGroup from './NavGroup'
 import menuItem from '../../../../menu-items'
+import { useAuth } from '@/hooks'
 
 //-----------------------|| SIDEBAR MENU LIST ||-----------------------//
 
 const MenuList = () => {
-  const navItems = menuItem.items.map((item) => {
+  const { isAllowedRol } = useAuth()
+
+  const menus = menuItem.items.map(({ children, ...rest }) => {
+    return {
+      ...rest,
+      children: children.filter(({ allowedRols }) => isAllowedRol(allowedRols))
+    }
+  })
+
+  const navItems = menus.map((item) => {
     switch (item.type) {
       case 'group':
         return <NavGroup key={item.id} item={item} />

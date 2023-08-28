@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import { MainCard } from './cards'
 import { Grid, Typography } from '@material-ui/core'
 import ButtonLink from './ButtonLink'
+import { useAuth } from '@/hooks'
 
 function DashboardContainer({ data, children }) {
+  const { isAllowedRol } = useAuth() ?? {}
   const { title, description, button } = data
   const { icon: Icon, url, name } = button ?? {}
   return (
@@ -14,7 +16,7 @@ function DashboardContainer({ data, children }) {
       <Typography component="p" sx={{ mb: 4 }}>
         {description}
       </Typography>
-      {button && (
+      {button && isAllowedRol(button?.allowedRols) && (
         <Grid item container direction="row-reverse">
           <ButtonLink to={url} endIcon={<Icon />}>
             {name}

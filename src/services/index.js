@@ -1,4 +1,5 @@
 export * from './assignmentsService'
+export * from './authService'
 export * from './contractService'
 export * from './customers'
 export * from './driverService'

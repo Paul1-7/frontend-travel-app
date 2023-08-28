@@ -1,5 +1,5 @@
 // assets
-import { ROUTES } from '@/constants'
+import { ROLES, ROUTES } from '@/constants'
 import {
   IconMountain,
   IconRoute,
@@ -13,6 +13,8 @@ import {
   IconCar,
   IconAddressBook
 } from '@tabler/icons'
+
+const { ENCARGADO_RUTAS, GERENTE, GUIA, SECRETARIA } = ROLES
 
 // constant
 const icons = {
@@ -40,7 +42,8 @@ export const other = {
       type: 'item',
       url: ROUTES.customers.default,
       icon: icons.clientes,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE, SECRETARIA]
     },
     {
       id: 'choferes',
@@ -48,7 +51,8 @@ export const other = {
       type: 'item',
       url: ROUTES.drivers.default,
       icon: icons.choferes,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE, SECRETARIA]
     },
     {
       id: 'vehiculos',
@@ -56,7 +60,8 @@ export const other = {
       type: 'item',
       url: ROUTES.vehicles.default,
       icon: icons.vehicles,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE, SECRETARIA]
     },
     {
       id: 'empleados',
@@ -64,7 +69,8 @@ export const other = {
       type: 'item',
       url: ROUTES.employees.default,
       icon: icons.empleados,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE]
     },
     {
       id: 'rutas',
@@ -73,15 +79,7 @@ export const other = {
       url: ROUTES.routes.default,
       icon: icons.rutas,
       breadcrumbs: true,
-      children: [
-        {
-          id: 'nueva-ruta',
-          title: 'Nueva ruta',
-          type: 'item',
-          url: '/rutas/nuevo',
-          breadcrumbs: true
-        }
-      ]
+      allowedRols: [GERENTE, SECRETARIA, GUIA, ENCARGADO_RUTAS]
     },
     {
       id: 'lugares',
@@ -90,15 +88,7 @@ export const other = {
       url: ROUTES.places.default,
       icon: icons.lugares,
       breadcrumbs: true,
-      children: [
-        {
-          id: 'nuevo-lugar',
-          title: 'Nuevo lugar',
-          type: 'item',
-          url: '/lugares/nuevo',
-          breadcrumbs: true
-        }
-      ]
+      allowedRols: [GERENTE, SECRETARIA, ENCARGADO_RUTAS]
     },
     {
       id: 'placesSchedule',
@@ -106,7 +96,8 @@ export const other = {
       type: 'item',
       url: ROUTES.placesSchedules.default,
       icon: icons.schedules,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE]
     },
     {
       id: 'routesSchedule',
@@ -114,7 +105,8 @@ export const other = {
       type: 'item',
       url: ROUTES.routesSchedules.default,
       icon: icons.schedules,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE]
     },
     {
       id: 'contracts',
@@ -122,7 +114,8 @@ export const other = {
       type: 'item',
       url: ROUTES.contracts.default,
       icon: icons.contract,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE, SECRETARIA]
     },
     {
       id: 'assignments',
@@ -130,13 +123,15 @@ export const other = {
       type: 'item',
       url: ROUTES.assignments.default,
       icon: icons.assignments,
-      breadcrumbs: true
+      breadcrumbs: true,
+      allowedRols: [GERENTE, SECRETARIA, GUIA]
     },
     {
       id: 'reports',
       title: 'Reportes',
       type: 'collapse',
       icon: icons.reports,
+      allowedRols: [GERENTE],
       children: [
         {
           id: 'contract-report',

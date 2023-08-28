@@ -8,6 +8,7 @@ import placesSchedule from './placesSchedule'
 import contracts from './contracts'
 import contractsReport from './contractsReport'
 import assignments from './assignments'
+import login from './login'
 
 const schema = {
   rutas,
@@ -19,7 +20,8 @@ const schema = {
   contracts,
   contractsReport,
   vehicles,
-  assignments
+  assignments,
+  login
 }
 
 export default schema

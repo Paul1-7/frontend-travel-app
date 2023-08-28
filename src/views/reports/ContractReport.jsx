@@ -1,6 +1,7 @@
 import {
   COLUMNS_CONTRACTS_REPORT,
   COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT,
+  COLUMNS_ROUTES_MORE_CONTRACTS_REPORT,
   CONTRACTS_REPORT_SORT_OPTIONS,
   DASHBOARD,
   REPORT_FREQUENCY_OPTIONS,
@@ -27,7 +28,11 @@ import { useForm } from 'react-hook-form'
 import { EmptyReport } from './EmptyReport'
 import { useQuery } from '@tanstack/react-query'
 import { ButtonsReport } from './ButtonsReport'
-import { listContractsByDates, listCustomerByAmountContrats } from '@/services'
+import {
+  listContractsByDates,
+  listCustomerByAmountContrats,
+  listRouteByAmountContrats
+} from '@/services'
 import DateRangePicker from './DateRangePicker'
 import ReportSummary from './ReportSummary'
 import TableReport from './TableReport'
@@ -42,6 +47,7 @@ const sxNoPrint = {
 function getColumnsToReport(watchedValues) {
   const selectedValue = watchedValues.options.orderBy
   if (selectedValue === '4') return COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT
+  if (selectedValue === '5') return COLUMNS_ROUTES_MORE_CONTRACTS_REPORT
   return COLUMNS_CONTRACTS_REPORT
 }
 
@@ -66,13 +72,15 @@ export default function ContractReport() {
   const { data, isSuccess } = useQuery([searchTerm], ({ queryKey }) => {
     const params = queryKey?.[0]
 
-    const isFourOption = watchedFormValues.options.orderBy === '4'
+    const orderValue = watchedFormValues.options.orderBy
 
     if (!params || !params.length) return
 
-    return isFourOption
-      ? listCustomerByAmountContrats(params)
-      : listContractsByDates(params)
+    if (orderValue === '4') return listCustomerByAmountContrats(params)
+
+    if (orderValue === '5') return listRouteByAmountContrats(params)
+
+    return listContractsByDates(params)
   })
 
   const { loadingPrint, componentToPrintRef, handlePrint } = usePrint({
@@ -120,7 +128,8 @@ export default function ContractReport() {
           ref={componentToPrintRef}
           sx={{
             '@media print': {
-              padding: '2rem'
+              padding: '2rem',
+              color: 'black'
             }
           }}
         >

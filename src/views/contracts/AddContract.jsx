@@ -17,12 +17,15 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { Redirect } from 'react-router-dom'
 import schema from '@/schemas'
 import FormContract from './FormContract'
-import { useContract } from '@/hooks'
+import { useAuth, useContract } from '@/hooks'
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import { setTimeComponentsToAnotherDate } from '@/utils'
 
 const AddContract = () => {
+  const { authenticated } = useAuth() ?? {}
+  const { id: idEmpleado } = authenticated ?? {}
+
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: (data) => {
       return addContract({ data })
@@ -57,11 +60,6 @@ const AddContract = () => {
   })
 
   const handleSubmit = (data) => {
-    // if (matchScheduleToContract()) {
-    //   toast.error('el horario elegido ya no esta disponible')
-    //   return
-    // }
-
     const selectedSchedule = selectedRoute.current.horariosRuta.find(
       ({ id }) => selectedIdHorario === id
     )
@@ -73,7 +71,7 @@ const AddContract = () => {
       ...data,
       fechaSalida: setTimeComponentsToAnotherDate(dateSchedule, selectedDate),
       idCliente: data.idCliente.id,
-      idEmpleado: data.idCliente.id
+      idEmpleado
     }
     mutate(newData)
   }

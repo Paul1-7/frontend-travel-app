@@ -3,7 +3,7 @@ import React from 'react'
 
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles'
-import { Box, Drawer, useMediaQuery } from '@material-ui/core'
+import { Avatar, Box, Drawer, useMediaQuery } from '@material-ui/core'
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -14,6 +14,9 @@ import MenuList from './MenuList'
 import LogoSection from '../LogoSection'
 // import MenuCard from './MenuCard';
 import { drawerWidth } from '../../../store/constant'
+import { useAuth } from '@/hooks'
+import { deepOrange } from '@material-ui/core/colors'
+import { ROLES } from '@/constants'
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -48,11 +51,58 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-//-----------------------|| SIDEBAR DRAWER ||-----------------------//
+function stringToColor(string) {
+  let hash = 0
+  let i
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash)
+  }
+
+  let color = '#'
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff
+    color += `00${value.toString(16)}`.slice(-2)
+  }
+  /* eslint-enable no-bitwise */
+
+  return color
+}
+
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name)
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+  }
+}
+
+function nameRols(roles) {
+  const gerente = roles.find((rol) => rol.id === ROLES.GERENTE)
+  if (gerente) {
+    return gerente.nombre
+  }
+
+  let nameRols = ''
+  roles.forEach((rol) => {
+    if (rol.nombre !== 'Cliente') {
+      nameRols += rol.nombre + ' '
+    }
+  })
+
+  return nameRols
+}
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const classes = useStyles()
   const theme = useTheme()
+  const { authenticated } = useAuth()
+
+  const { nombre, apellido, roles } = authenticated ?? {}
+
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'))
 
   const drawer = (
@@ -64,8 +114,40 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
       </Box>
       <BrowserView>
         <PerfectScrollbar component="div" className={classes.ScrollHeight}>
+          <Box
+            sx={{
+              mt: 2,
+              p: 4,
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              border: '1px solid rgba(0,0,0,0.1)',
+              borderRadius: '0.5rem'
+            }}
+          >
+            <Avatar
+              {...stringAvatar(`${nombre} ${apellido}`)}
+              sx={{ bgcolor: deepOrange[500], color: 'white', mx: 'auto' }}
+            />
+
+            <span
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+              }}
+            >{`${nombre} ${apellido}`}</span>
+            <span
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold'
+              }}
+            >
+              {nameRols(roles)}
+            </span>
+          </Box>
           <MenuList />
-          {/* <MenuCard /> */}
         </PerfectScrollbar>
       </BrowserView>
       <MobileView>

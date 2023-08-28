@@ -103,3 +103,8 @@ export const initialFormVehicle = {
   placa: '',
   capacidad: ''
 }
+
+export const initialFormLogin = {
+  usuario: '',
+  password: ''
+}

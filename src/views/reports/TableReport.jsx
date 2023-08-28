@@ -11,7 +11,8 @@ import {
 const styleTableCell = {
   '@media print': {
     padding: '0.3rem',
-    fontSize: '13px'
+    fontSize: '13px',
+    color: 'black'
   }
 }
 
@@ -22,7 +23,7 @@ const TableReport = ({ columns = [], rows = [], showAllRows }) => {
         <TableHead>
           <TableRow>
             {columns.map(({ displayName }, index) => (
-              <TableCell key={index} align="center">
+              <TableCell key={index} align="center" sx={{ color: 'black' }}>
                 {displayName}
               </TableCell>
             ))}

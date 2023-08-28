@@ -41,7 +41,7 @@ const DetailContract = () => {
         />
         <Grid>
           <Typography variant="h1" align="center" paragraph sx={{ mb: 4 }}>
-            Nota de venta
+            Voucher
           </Typography>
         </Grid>
         <Grid container>

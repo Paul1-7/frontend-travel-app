@@ -51,7 +51,9 @@ export const ROUTES = {
     detail: DEFAULT_ADMIN_PATH + '/asignaciones-contratos/detalle',
     default: DEFAULT_ADMIN_PATH + '/asignaciones-contratos'
   },
-
+  auth: {
+    login: '/inicio-sesion'
+  },
   reports: {
     default: DEFAULT_ADMIN_PATH + '/reportes',
     contracts: DEFAULT_ADMIN_PATH + '/reportes/contratos'

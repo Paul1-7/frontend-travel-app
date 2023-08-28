@@ -62,3 +62,19 @@ export const getCustomersMoreContracts = (contracts) => {
     data
   }
 }
+
+export const getRoutesMoreContracts = (contracts) => {
+  const data = contracts.map((contract, index) => {
+    const { routeCount, ruta } = contract
+
+    return {
+      index: index + 1,
+      ruta,
+      contratos: routeCount
+    }
+  })
+
+  return {
+    data
+  }
+}

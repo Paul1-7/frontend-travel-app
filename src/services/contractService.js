@@ -4,7 +4,8 @@ import {
   getContractsToAssignment,
   getContractsToForm,
   getContractsToReport,
-  getCustomersMoreContracts
+  getCustomersMoreContracts,
+  getRoutesMoreContracts
 } from '@/adapters'
 import { Axios } from '@/apis'
 
@@ -43,6 +44,11 @@ export const listContractsByDatesDefault = (params) =>
 export const listCustomerByAmountContrats = (params) =>
   Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
     return getCustomersMoreContracts(res.data?.[0])
+  })
+
+export const listRouteByAmountContrats = (params) =>
+  Axios.get(`${URL_CONTRACTS.report}${params}`).then((res) => {
+    return getRoutesMoreContracts(res.data?.[0])
   })
 
 export const getContractById = (id) =>

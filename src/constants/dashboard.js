@@ -2,6 +2,9 @@ import { IconUser, IconBus } from '@tabler/icons'
 import { ROUTES } from './routes'
 import { IconMountain } from '@tabler/icons'
 import { Article } from '@mui/icons-material'
+import { ROLES } from './businessInfo'
+
+const { ENCARGADO_RUTAS, GERENTE, SECRETARIA } = ROLES
 
 export const DASHBOARD = {
   employees: {
@@ -16,7 +19,8 @@ export const DASHBOARD = {
     },
     add: {
       title: 'Agregar empleado',
-      description: 'Agrega un empleado para el acceso al sistema'
+      description: 'Agrega un empleado para el acceso al sistema',
+      allowedRols: [GERENTE]
     },
     modify: {
       title: 'Modificar empleado',
@@ -30,7 +34,8 @@ export const DASHBOARD = {
       button: {
         icon: IconUser,
         url: ROUTES.customers.add,
-        name: 'Nuevo cliente'
+        name: 'Nuevo cliente',
+        allowedRols: [GERENTE, SECRETARIA]
       }
     },
     add: {
@@ -49,12 +54,14 @@ export const DASHBOARD = {
       button: {
         icon: IconMountain,
         url: ROUTES.places.add,
-        name: 'Nuevo lugar'
+        name: 'Nuevo lugar',
+        allowedRols: [GERENTE, ENCARGADO_RUTAS]
       }
     },
     add: {
       title: 'Agregar nuevo lugar',
-      description: 'Agrega un lugar para crear una ruta'
+      description: 'Agrega un lugar para crear una ruta',
+      allowedRols: [GERENTE, ENCARGADO_RUTAS]
     },
     modify: {
       title: 'Modificar lugar',
@@ -68,7 +75,8 @@ export const DASHBOARD = {
       button: {
         icon: IconUser,
         url: ROUTES.drivers.add,
-        name: 'Nuevo chofer'
+        name: 'Nuevo chofer',
+        allowedRols: [GERENTE, SECRETARIA]
       }
     },
     add: {
@@ -87,7 +95,8 @@ export const DASHBOARD = {
       button: {
         icon: IconBus,
         url: ROUTES.vehicles.add,
-        name: 'Nuevo vehiculo'
+        name: 'Nuevo vehiculo',
+        allowedRols: [GERENTE, SECRETARIA]
       }
     },
     add: {
@@ -106,7 +115,8 @@ export const DASHBOARD = {
       button: {
         icon: Article,
         url: ROUTES.routes.add,
-        name: 'Nueva ruta'
+        name: 'Nueva ruta',
+        allowedRols: [GERENTE, ENCARGADO_RUTAS]
       }
     },
     add: {
@@ -142,7 +152,8 @@ export const DASHBOARD = {
       button: {
         icon: Article,
         url: ROUTES.contracts.add,
-        name: 'Nueva contratación'
+        name: 'Nueva contratación',
+        allowedRols: [GERENTE, SECRETARIA]
       }
     },
     add: {
@@ -165,7 +176,8 @@ export const DASHBOARD = {
       button: {
         icon: Article,
         url: ROUTES.assignments.add,
-        name: 'Nueva asignación'
+        name: 'Nueva asignación',
+        allowedRols: [GERENTE, SECRETARIA]
       }
     },
     add: {

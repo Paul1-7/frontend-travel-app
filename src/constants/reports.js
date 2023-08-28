@@ -38,9 +38,9 @@ export const REPORT_FREQUENCY_OPTIONS = [
 export const COLUMNS_CONTRACTS_REPORT = [
   { displayName: 'N°', id: 'index' },
   { displayName: 'Cliente', id: 'cliente' },
-  { displayName: 'Monto', id: 'monto' },
+  { displayName: 'Monto (Bs)', id: 'monto' },
   { displayName: 'Cantidad de personas', id: 'cantidadPersonas' },
-  { displayName: 'Fecha de salida', id: 'fecha' },
+  { displayName: 'Fecha del contrato', id: 'fecha' },
   { displayName: 'Idioma', id: 'idioma' },
   { displayName: 'Empleado', id: 'empleado' }
 ]
@@ -51,12 +51,22 @@ export const COLUMNS_CUSTOMER_MORE_CONTRACTS_REPORT = [
   { displayName: 'N° de contrataciones', id: 'contrataciones' }
 ]
 
+export const COLUMNS_ROUTES_MORE_CONTRACTS_REPORT = [
+  { displayName: 'N°', id: 'index' },
+  { displayName: 'Ruta', id: 'ruta' },
+  { displayName: 'N° de contrataciones', id: 'contrataciones' }
+]
+
 export const CONTRACTS_REPORT_SORT_OPTIONS = [
-  { id: '1', name: 'Fecha de salida', },
-  { id: '2', name: 'Monto', },
-  { id: '3', name: 'nombre de cliente', },
+  { id: '1', name: 'Fecha del contrato' },
+  { id: '2', name: 'Monto' },
+  { id: '3', name: 'nombre de cliente' },
   {
     id: '4',
-    name: 'clientes con mas contrataciones',
+    name: 'clientes con mas contrataciones'
+  },
+  {
+    id: '5',
+    name: 'rutas mas contratadas'
   }
 ]

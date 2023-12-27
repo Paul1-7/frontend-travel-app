@@ -5,7 +5,14 @@ import schema from '@/schemas'
 import { sendCredencials } from '@/services'
 import { Form, Input } from '@/ui-component'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Card, CardContent, Stack, Typography } from '@material-ui/core'
+import {
+  Box,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+  Alert
+} from '@material-ui/core'
 import { LoadingButton } from '@material-ui/lab'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect } from 'react'
@@ -65,6 +72,9 @@ const Login = () => {
         }}
       >
         <CardContent>
+          <Alert severity="info" sx={{ mb: 3 }}>
+            User: admin <br /> Password: admin
+          </Alert>
           <Form methods={methods} onSubmit={handleSubmit}>
             <Stack gap={2}>
               <Input name={'usuario'} label={'Usuario'} />

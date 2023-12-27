@@ -6,7 +6,7 @@ import { LoadingButton } from '@material-ui/lab'
 import { Clear, Save } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
-function FormContract({
+function FormAssigment({
   loading,
   assignmentAvailables = [],
   contracts = [],
@@ -92,7 +92,7 @@ function FormContract({
   )
 }
 
-FormContract.propTypes = {
+FormAssigment.propTypes = {
   loading: PropTypes.bool,
   contracts: PropTypes.array,
   guides: PropTypes.array,
@@ -101,4 +101,4 @@ FormContract.propTypes = {
   isDateByDefault: PropTypes.bool
 }
 
-export default FormContract
+export default FormAssigment

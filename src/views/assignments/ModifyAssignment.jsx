@@ -8,7 +8,7 @@ import { getDriverById, modifyDriver } from '@/services'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Redirect, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import FormContract from './FormContract'
+import FormAssigment from './FormAssignment'
 
 const ModifyDriver = () => {
   const { id } = useParams()
@@ -38,7 +38,7 @@ const ModifyDriver = () => {
   return (
     <DashboardContainer data={DASHBOARD.drivers.modify}>
       <Form methods={methods} onSubmit={mutate}>
-        <FormContract loading={isLoading} />
+        <FormAssigment loading={isLoading} />
       </Form>
       {!isLoading && !isError && isSuccess && (
         <Redirect to={{ pathname: ROUTES.drivers.default }} />

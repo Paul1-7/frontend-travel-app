@@ -25,7 +25,7 @@ Here're some of the project's best features:
 <h2>🛠️ Installation Steps:</h2>
 To see the data, it is necessary that the backend be initialized. 
 
-[Llanta sur - backend](https://github.com/Paul1-7/proyectoLLantaSurBackend) 
+[Vivatours - backend](https://github.com/Paul1-7/backend-travel-app) 
 <p>1. Install the project with npm</p>
 
 ```
